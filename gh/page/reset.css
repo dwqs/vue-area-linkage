@@ -132,8 +132,3 @@ input, select {
     /*font: 0.12rem/1 "Microsoft YaHei", Tahoma, Arial, Helvetica, \\5b8b\4f53, "Helvetica Neue", "PingFang SC", "Heiti SC", "Hiragino Sans GB", "\5FAE\8F6F\96C5\9ED1", sans-serif;*/
     color: inherit;
 }
-
-h1,h2,h3,h4,h5,h6{
-    font-size:100%;
-    font-weight: 400;
-}
