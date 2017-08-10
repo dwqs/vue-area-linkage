@@ -64,15 +64,15 @@ module.exports = {
 
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
-          filename: 'index.html',
-          template: 'index.html',
-          inject: true,
-          env: process.env.NODE_ENV,
-          minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeAttributeQuotes: false
-          }
+            filename: 'index.html',
+            template: 'tpl.html',
+            inject: true,
+            env: process.env.NODE_ENV,
+            minify: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    removeAttributeQuotes: false
+            }
         })
     ]
 };
