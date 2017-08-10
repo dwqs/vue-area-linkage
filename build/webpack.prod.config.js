@@ -116,7 +116,7 @@ prodConfig.plugins = (prodConfig.plugins || []).concat([
 
 module.exports = Object.assign({},prodConfig,{
     entry: {
-        index: path.resolve(__dirname, '../gh/page/index.js')
+        gh: path.resolve(__dirname, '../gh/page/index.js')
     },
     output: {
         filename: "[name].[chunkhash:8].js",
