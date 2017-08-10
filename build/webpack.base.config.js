@@ -3,22 +3,14 @@
 let path = require('path');
 let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
 let HappyPack = require('happypack');
 
 let getHappyPackConfig = require('./happypack');
 
 let config = require('../config');
 
-const env = process.env.NODE_ENV || 'development';
-const apiPrefix = env === 'development' ? config.dev.prefix : config.build.prefix;
-
-console.log('---------env------:', env, '------apiPrefix-------:', apiPrefix);
-
 module.exports = {
-    context: path.resolve(__dirname, "../src"),
     module: {
-        noParse: [/static|assets/],
         rules: [
             {
                 test: /\.vue$/,
@@ -30,26 +22,6 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: ['happypack/loader?id=js']
-            },
-            {
-                test: /\.(png|jpg|gif|jpeg)$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: '[name].[ext]?[hash:8]'
-                    }
-                }]
-            },
-            {
-                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        limit: 8192,
-                        name: '[name].[ext]?[hash:8]'
-                    }
-                }]
             }
         ]
     },
@@ -58,8 +30,8 @@ module.exports = {
         extensions:[".vue",".js"],
         modules: [path.join(__dirname, '../node_modules')],
         alias:{
-            '@src': path.resolve(__dirname, '../src'),
-            '@components': path.resolve(__dirname, '../src/components'),
+            '@gh': path.resolve(__dirname, '../gh'),
+            '@components': path.resolve(__dirname, '../gh/components'),
             'vue$': 'vue/dist/vue.js'
         }
     },
@@ -72,21 +44,7 @@ module.exports = {
         hints: false
     },
 
-    externals: {
-        'babel-polyfill': 'window'
-    },
-
     plugins:[
-
-        new webpack.DefinePlugin({
-            'window.PREFIX': JSON.stringify(apiPrefix)
-        }),
-
-        //copy assets
-        new CopyWebpackPlugin([
-            {context: '../src', from: 'assets/**/*', to: path.resolve(__dirname, '../dist'), force: true}
-        ]),
-
         new HappyPack(getHappyPackConfig({
             id: 'vue',
             loaders: [{

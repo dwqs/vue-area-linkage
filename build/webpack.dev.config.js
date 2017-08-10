@@ -75,10 +75,10 @@ devConfig.devServer = {
 
 module.exports = Object.assign({},devConfig,{
     entry: {
-        app:[
+        index:[
             'webpack/hot/dev-server',
             `webpack-dev-server/client?http://localhost:${config.dev.port}/`,
-            path.resolve(__dirname, '../src/page/index.js')
+            path.resolve(__dirname, '../gh/page/index.js')
         ]
     },
     output: {
@@ -88,5 +88,5 @@ module.exports = Object.assign({},devConfig,{
         sourceMapFilename: '[file].map',
         chunkFilename: "[name].js"
     },
-    devtool:'cheap-module-eval-source-map'
+    devtool:'source-map'
 });

@@ -116,14 +116,13 @@ prodConfig.plugins = (prodConfig.plugins || []).concat([
 
 module.exports = Object.assign({},prodConfig,{
     entry: {
-        app: path.resolve(__dirname, '../src/page/index.js')
+        index: path.resolve(__dirname, '../gh/page/index.js')
     },
     output: {
         filename: "[name].[chunkhash:8].js",
         path: config.build.assetsRoot,
         publicPath: config.build.assetsPublicPath,
         sourceMapFilename: "[file].map",
-        chunkFilename: "[name].[chunkhash:8].js",
-        devtool: "source-map"
+        chunkFilename: "[name].[chunkhash:8].js"
     }
 });
