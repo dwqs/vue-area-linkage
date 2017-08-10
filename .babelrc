@@ -1,4 +1,14 @@
 {
-  "presets": ["es2015", "stage-2"],
-  "plugins": ["transform-runtime", "transform-decorators-legacy", "transform-class-properties"]
+  "presets": [["latest", {
+    "es2015": {
+      "modules": false
+    }
+  }]],
+  "plugins": [["component", [
+    {
+      "libraryName": "element-ui",
+      "styleLibraryName": "theme-default"
+    }
+  ]]]
 }
+
