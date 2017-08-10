@@ -1,0 +1,13 @@
+{
+  "name": "vue-area-linkage",
+  "main": "dist/index.js",
+  "description": "Vue area linkage",
+  "authors": "pomysky@gmail.com",
+  "license": "MIT",
+  "ignore": [
+    "*",
+    "!dist",
+    "!LICENSE",
+    "!README.md"
+  ]
+}
