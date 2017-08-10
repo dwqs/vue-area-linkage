@@ -40,9 +40,9 @@
     export default {
         name: 'area-select',
         props: {
-            // value: {
-            //     required: true
-            // },
+            value: {
+                required: true
+            },
             placeholders: {
                 type: Array,
                 default: () => []
@@ -79,21 +79,24 @@
         },
 
         watch: {
-            value (val, oldVal) {
-                this.setNewValue(val);
-            },
-
             curProvince (val, oldVal) {
                 console.log('watch curProvince', AreaData[val]);
+                if(this.level === 0){
+                    this.selectChange();
+                    return;
+                }
                 if (this.level >= 1) {
                     this.citys = AreaData[val];
                     this.curCity = Object.keys(this.citys)[0];
                 }
-                this.selectChange();
             },
 
             curCity (val, oldVal) {
                 console.log('watch curCity', val, AreaData[val]);
+                if(this.level === 1){
+                    this.selectChange();
+                    return;
+                }
                 if (this.level >= 2) {
                     this.areas = AreaData[val];
                     this.curArea = Object.keys(this.areas)[0];
@@ -102,6 +105,10 @@
     
             curArea (val, oldVal) {
                 console.log('watch curArea', val);
+                if(this.level === 2){
+                    this.selectChange();
+                    return;
+                }
                 if (this.level >= 3) {
                     this.streets = AreaData[val];
                     this.curStreet = Object.keys(this.streets)[0];
@@ -110,14 +117,11 @@
 
             curStreet (val, oldVal) {
                 console.log('watch curStreet', this.curStreet);
+                this.selectChange();
             }
         },
 
         methods: {
-            setNewValue (val) {
-    
-            },
-
             selectChange () {
                 let selected = [];
                 switch(this.level) {
@@ -134,7 +138,7 @@
                         selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
                         break;         
                 }
-                this.$emit('change', selected);
+                this.$emit('input', selected);
             }
         },
 
