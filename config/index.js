@@ -13,6 +13,6 @@ module.exports =  {
     build:{
         env: 'production',
         assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsPublicPath: '/'
+        assetsPublicPath: './dist/',
     }
 }
