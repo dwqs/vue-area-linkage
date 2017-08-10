@@ -11,6 +11,7 @@
     "dll": "npx webpack --config webpack.dll.config.js",
     "dev": "npx cross-env NODE_ENV=development node ./build/dev-server.js",
     "build": "npx cross-env NODE_ENV=production npx webpack --config ./build/webpack.prod.config.js --progress --hide-modules",
+    "postbuild": "mv ./dist/index.html ./",
     "ilint": "npx eslint src/**/*.js src/**/*.vue",
     "fix": "npx eslint --fix src/**/*.js src/**/*.vue"
   },
