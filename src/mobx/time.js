@@ -2,7 +2,7 @@
  * Created by pomy on 31/07/2017.
  */
 
-import {observable, action} from 'mobx';
+import { observable, action } from 'mobx';
 
 import awaitTo from 'async-await-error-handling';
 
@@ -12,14 +12,14 @@ class Time {
     @observable
     curTime = 0;
 
-    constructor(time){
+    constructor (time) {
         this.curTime = time;
     }
 
     @action
-    async changeTime(){
+    async changeTime () {
         const [err, data] = await awaitTo(api.getIndex());
-        if(!data){
+        if (!data) {
             return Promise.reject(err);
         }
         // another way to use async/await: https://github.com/mobxjs/mobx/issues/299
@@ -28,11 +28,11 @@ class Time {
     }
 
     @action
-    timeChange(){
+    timeChange () {
         this.curTime = Date.now();
     }
 }
 
-let time = new Time(Date.now());
+const time = new Time(Date.now());
 
 export default time;

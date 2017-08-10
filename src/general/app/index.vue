@@ -18,7 +18,7 @@
     import './index.less';
     import Hello from '@components/hello/';
 
-    import {connect} from 'vue-mobx';
+    import { connect } from 'vue-mobx';
     import timeModel from '@src/mobx/time';
 
     const indexComponent = {
@@ -30,8 +30,8 @@
         components: {
             Hello
         }
-    }
-    export default connect({timeModel})(indexComponent)
+    };
+    export default connect({ timeModel })(indexComponent);
 </script>
 
 <style></style>

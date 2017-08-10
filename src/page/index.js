@@ -3,18 +3,17 @@ import './reset.css';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import VueMobx from 'vue-mobx';
-import {toJS, useStrict} from 'mobx';
+import { toJS, useStrict } from 'mobx';
 
-Vue.use(VueMobx, {toJS});
+Vue.use(VueMobx, { toJS });
 useStrict(true);
 
 const env = process.env.NODE_ENV || 'development';
 
-if(env !== 'development'){
+if (env !== 'development') {
     Vue.config.devtools = false;
     Vue.config.productionTip = false;
 }
-
 
 Vue.use(VueRouter);
 
@@ -38,7 +37,6 @@ const router = new VueRouter({
         }
     ]
 });
-
 
 const app = new Vue({
     router,
