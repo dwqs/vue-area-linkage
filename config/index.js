@@ -8,13 +8,11 @@ module.exports =  {
         assetsRoot: path.resolve(__dirname, '../dist'),
         assetsPublicPath: '/',
         contentBase: path.resolve(__dirname, '../dist'),
-        port: 3000,
-        prefix: ''
+        port: 3000
     },
     build:{
         env: 'production',
         assetsRoot: path.resolve(__dirname, '../dist'),
-        assetsPublicPath: '/',
-        prefix: ''
+        assetsPublicPath: '/'
     }
 }
