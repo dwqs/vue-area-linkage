@@ -46,7 +46,7 @@
             level: {
                 type: Number,
                 default: 3, // 0-->一联 1->二联 2->三联 3->四联
-                validator: (val) => [0,1,2,3].indexOf(val) > -1
+                validator: (val) => [0, 1, 2, 3].indexOf(val) > -1
             },
             'default-value': {
                 type: Array,
@@ -54,7 +54,7 @@
             }
         },
 
-        data() {
+        data () {
             return {
                 provinces: AreaData['86'],
                 citys: {},
@@ -64,60 +64,60 @@
                 curCity: '',
                 curArea: '',
                 curStreet: ''
-            }
+            };
         },
 
         computed: {
-            province(){
+            province () {
                 console.log('default curProvince', this['default-value']);
                 return '';
             }
         },
 
         watch: {
-            value(val, oldVal) {
+            value (val, oldVal) {
                 this.setNewValue(val);
             },
 
-            curProvince(val, oldVal) {
+            curProvince (val, oldVal) {
                 console.log('watch curProvince', AreaData[val]);
-                if(this.level >= 1){
+                if (this.level >= 1) {
                     this.citys = AreaData[val];
                     this.curCity = Object.keys(this.citys)[0];
                 }
             },
 
-            curCity(val, oldVal) {
-                 console.log('watch curCity', val, AreaData[val]);
-                 if(this.level >= 2) {
+            curCity (val, oldVal) {
+                console.log('watch curCity', val, AreaData[val]);
+                if (this.level >= 2) {
                     this.areas = AreaData[val];
                     this.curArea = Object.keys(this.areas)[0];
-                 }
+                }
             },
-            
-            curArea(val, oldVal) {
+    
+            curArea (val, oldVal) {
                 console.log('watch curArea', val);
-                if(this.level >= 3){
+                if (this.level >= 3) {
                     this.streets = AreaData[val];
                     this.curStreet = Object.keys(this.streets)[0];
                 }
             },
 
-            curStreet(val, oldVal) {
+            curStreet (val, oldVal) {
                 console.log('watch curStreet', this.curStreet);
             }
         },
 
         methods: {
-            setNewValue(val) {
-                
+            setNewValue (val) {
+    
             }
         },
 
-        created(){
+        created () {
             console.log('66666666 created', this.defaultValue, this.provinces);
         }
-    }
+    };
 
 </script>
 

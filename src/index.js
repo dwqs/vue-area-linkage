@@ -5,7 +5,7 @@ import {
 import AreaSelect from './area-select.vue';
 import AreaCascader from './area-cascader.vue';
 
-export default function install(Vue) {
+export default function install (Vue) {
     Vue.use(Select);
     Vue.use(Option);
     Vue.use(Cascader);

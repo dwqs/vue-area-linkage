@@ -16,41 +16,41 @@
         props: {
             level: {
                 type: Number,
-                default: 2, // 0-->一联 1->二联 2->三联 
+                default: 2 // 0-->一联 1->二联 2->三联 
                 // validator: (val) => [0, 1, 2].indexOf(val) > -1
             }
         },
 
-        data() {
+        data () {
             return {
                 // only array
                 selectedOptions: [],
                 options: []
-            }
+            };
         },
 
-         methods: {
-            handleChange(val){
+        methods: {
+            handleChange (val) {
                 console.log('handlechange', val);
             },
 
-            iterate(obj) {
-                let temp = [];
-                for(let key in obj) {
+            iterate (obj) {
+                const temp = [];
+                for (const key in obj) {
                     temp.push({
                         label: obj[key],
                         value: key
-                    })
+                    });
                 }
                 return temp;
             },
 
-            iterateCities() {
-                let temp = [];
-                let provinces = this.iterate(AreaData['86']);
+            iterateCities () {
+                const temp = [];
+                const provinces = this.iterate(AreaData['86']);
 
-                for(let i = 0, l = provinces.length; i < l; i++){
-                    let item = {};
+                for (let i = 0, l = provinces.length; i < l; i++) {
+                    const item = {};
                     item['label'] = provinces[i].label;
                     item['value'] = provinces[i].value;
 
@@ -61,14 +61,14 @@
                 return temp;
             },
 
-            iterateAreas(){
-                let temp = [];
+            iterateAreas () {
+                const temp = [];
                 const cities = this.iterateCities();
 
-                for(let i = 0, c = cities.length; i < c; i++) {
-                    let city = cities[i];  
-                    for(let j = 0, l = cities[i].children.length; j < l; j++){
-                        let item = cities[i].children[j];
+                for (let i = 0, c = cities.length; i < c; i++) {
+                    const city = cities[i];
+                    for (let j = 0, l = cities[i].children.length; j < l; j++) {
+                        const item = cities[i].children[j];
                         item['children'] = this.iterate(AreaData[cities[i].children[j].value]);
                     }
                     temp.push(city);
@@ -76,10 +76,10 @@
 
                 return temp;
             }
-            
+    
         },
 
-        created() {
+        created () {
             if (this.level === 0) {
                 this.options = this.iterate(AreaData['86']);
                 return;
@@ -95,6 +95,6 @@
                 return;
             }
         }
-    }
+    };
 
 </script>
