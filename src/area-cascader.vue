@@ -16,8 +16,8 @@
         props: {
             level: {
                 type: Number,
-                default: 2 // 0-->一联 1->二联 2->三联 
-                // validator: (val) => [0, 1, 2].indexOf(val) > -1
+                default: 2, // 0-->一联 1->二联 2->三联 
+                validator: (val) => [0, 1, 2].indexOf(val) > -1
             }
         },
 
