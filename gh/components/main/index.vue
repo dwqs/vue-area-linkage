@@ -1,6 +1,7 @@
 <template>
     <div class="app-main">
          <area-select></area-select>
+         <area-cascader></area-cascader>
     </div>
 </template>
 
