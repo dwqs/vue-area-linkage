@@ -3,13 +3,9 @@
 const path = require('path');
 const webpack = require('webpack');
 
-let vendors = [
-    'mobx', 'vue-mobx'
-];
-
 module.exports = {
     entry: {
-        vendor: vendors.concat('vue', 'vue-router', 'async-await-error-handling', 'axios')
+        vendor: ['vue', 'element-ui', 'china-area-data']
     },
     output: {
         path: path.join(__dirname, './dist'),
