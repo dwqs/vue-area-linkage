@@ -81,7 +81,7 @@
         watch: {
             curProvince (val, oldVal) {
                 console.log('watch curProvince', AreaData[val]);
-                if(this.level === 0){
+                if (this.level === 0) {
                     this.selectChange();
                     return;
                 }
@@ -93,7 +93,7 @@
 
             curCity (val, oldVal) {
                 console.log('watch curCity', val, AreaData[val]);
-                if(this.level === 1){
+                if (this.level === 1) {
                     this.selectChange();
                     return;
                 }
@@ -105,7 +105,7 @@
     
             curArea (val, oldVal) {
                 console.log('watch curArea', val);
-                if(this.level === 2){
+                if (this.level === 2) {
                     this.selectChange();
                     return;
                 }
@@ -124,19 +124,19 @@
         methods: {
             selectChange () {
                 let selected = [];
-                switch(this.level) {
-                    case 0: 
-                        selected = [this.curProvince];
-                        break;
-                    case 1:
-                        selected = [this.curProvince, this.curCity];
-                        break;
-                    case 2:
-                        selected = [this.curProvince, this.curCity, this.curArea];
-                        break;
-                    case 3:
-                        selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
-                        break;         
+                switch (this.level) {
+                case 0:
+                    selected = [this.curProvince];
+                    break;
+                case 1:
+                    selected = [this.curProvince, this.curCity];
+                    break;
+                case 2:
+                    selected = [this.curProvince, this.curCity, this.curArea];
+                    break;
+                case 3:
+                    selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
+                    break;
                 }
                 this.$emit('input', selected);
             }
