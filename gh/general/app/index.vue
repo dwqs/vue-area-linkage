@@ -1,26 +1,37 @@
 <template>
-    <div id="app">
-        <h3>{{title}}</h3>
-        <hello />
-        <p class="doc">
-            Documentation can be found at:
-            <a href="https://github.com/dwqs/vue-startup" target="_blank">vue-startup</a>
-        </p>
+    <div id="app" class="app-wrap">
+        <v-header />
+        <v-main></v-main>
+        <v-footer></v-footer>
     </div>
 </template>
 
 <script>
-    import './index.less';
-    import Hello from '@components/hello/';
+    
+    import Header from '@components/header/';
+    import Main from '@components/main/';
+    import Footer from '@components/footer/';
 
     export default {
-        data () {
+        data() {
             return {
-                title: 'vuejs 2 + webpack 3'
-            };
+
+            }
         },
         components: {
-            Hello
+            'v-header': Header,
+            'v-footer': Footer,
+            'v-main': Main
         }
     };
+
 </script>
+
+<style>
+    .app-wrap{
+        width: 960px;
+        height: 200px;
+        margin: 0 auto;
+        border: 1px solid red;
+    }
+</style>
