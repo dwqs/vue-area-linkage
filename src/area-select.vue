@@ -43,6 +43,11 @@
             value: {
                 required: true
             },
+            type: {
+                type: String,
+                default: 'code',  //  code-返回行政区域代码 text-返回文本
+                validator: (val) => ['code', 'text'].indexOf(val) > -1
+            },
             placeholders: {
                 type: Array,
                 default: () => []
@@ -125,18 +130,38 @@
             selectChange () {
                 let selected = [];
                 switch (this.level) {
-                case 0:
-                    selected = [this.curProvince];
-                    break;
-                case 1:
-                    selected = [this.curProvince, this.curCity];
-                    break;
-                case 2:
-                    selected = [this.curProvince, this.curCity, this.curArea];
-                    break;
-                case 3:
-                    selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
-                    break;
+                    case 0:
+                        selected = [this.curProvince];
+                        break;
+                    case 1:
+                        selected = [this.curProvince, this.curCity];
+                        break;
+                    case 2:
+                        selected = [this.curProvince, this.curCity, this.curArea];
+                        break;
+                    case 3:
+                        selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
+                        break;
+                }
+                if(this.type === 'text'){
+                    let texts = [];
+                    for(let i = 0, l = selected.length; i < l; i++) {
+                        switch(i){
+                            case 0:
+                                texts[i] = this.provinces[selected[i]];
+                                break;
+                            case 1:
+                                texts[i] = AreaData[selected[0]][selected[i]];
+                                break;
+                            case 2:
+                                texts[i] = AreaData[selected[0]][selected[1]][selected[i]];
+                            case 3:
+                                texts[i] = AreaData[selected[0]][selected[1]][selected[2]][selected[i]];    
+                                break;          
+                        }
+                    }
+                    this.$emit('input', texts);
+                    return;
                 }
                 this.$emit('input', selected);
             }
