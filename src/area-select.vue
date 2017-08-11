@@ -36,6 +36,9 @@
 
 <script>
     import AreaData from 'area-data';
+    import find from 'lodash.find';
+
+    import { assert } from './utils';
 
     export default {
         name: 'area-select',
@@ -72,15 +75,10 @@
                 curProvince: '',
                 curCity: '',
                 curArea: '',
-                curStreet: ''
+                curStreet: '',
+                defaults: [],
+                isCode: false
             };
-        },
-
-        computed: {
-            province () {
-                console.log('default curProvince', this['default-value']);
-                return '';
-            }
         },
 
         watch: {
@@ -92,7 +90,19 @@
                 }
                 if (this.level >= 1) {
                     this.citys = AreaData[val];
-                    this.curCity = Object.keys(this.citys)[0];
+                    if(this.defaults[1]) {
+                        if(this.isCode){
+                            let curCity = find(Object.keys(this.citys), (item) => item === this.defaults[1]);
+                            assert(curCity, `城市 ${this.defaults[1]} 不存在于省份 ${this.defaults[0]} 中`);
+                            this.curCity = curCity;
+                        } else {
+                            let city = find(this.citys, (item) => item === this.defaults[1]);
+                            assert(city, `城市 ${this.defaults[1]} 不存在于省份 ${this.defaults[0]} 中`);
+                            this.curCity = find(Object.keys(this.citys), (item) => this.citys[item] === this.defaults[1]);
+                        }
+                    } else {
+                        this.curCity = Object.keys(this.citys)[0];
+                    }
                 }
             },
 
@@ -102,9 +112,21 @@
                     this.selectChange();
                     return;
                 }
+                this.areas = AreaData[val];
                 if (this.level >= 2) {
-                    this.areas = AreaData[val];
-                    this.curArea = Object.keys(this.areas)[0];
+                    if(this.defaults[2]) {
+                        if(this.isCode) {
+                            let curArea = find(Object.keys(this.areas), (item) => item === this.defaults[2]);
+                            assert(curArea, `县区 ${this.defaults[2]} 不存在于城市 ${this.defaults[1]} 中`);
+                            this.curArea = curArea;
+                        } else {
+                            let area = find(this.areas, (item) => item === this.defaults[2]);
+                            assert(area, `县区 ${this.defaults[2]} 不存在于城市 ${this.defaults[1]} 中`);
+                            this.curArea = find(Object.keys(this.areas), (item) => this.areas[item] === this.defaults[2]);
+                        }
+                    } else {
+                        this.curArea = Object.keys(this.areas)[0];
+                    }
                 }
             },
     
@@ -114,9 +136,21 @@
                     this.selectChange();
                     return;
                 }
+                this.streets = AreaData[val];
                 if (this.level >= 3) {
-                    this.streets = AreaData[val];
-                    this.curStreet = Object.keys(this.streets)[0];
+                    if(this.defaults[3]) {
+                        if(this.isCode) {
+                            let curStreet = find(Object.keys(this.streets), (item) => item === this.defaults[3]);
+                            assert(curStreet, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
+                            this.curStreet = curStreet;
+                        } else {
+                            let street = find(this.streets, (item) => item === this.defaults[3]);
+                            assert(street, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
+                            this.curStreet = find(Object.keys(this.streets), (item) => this.streets[item] === this.defaults[3]);
+                        }
+                    } else {
+                        this.curStreet = Object.keys(this.streets)[0];
+                    }
                 }
             },
 
@@ -157,9 +191,7 @@
                 let all = [];
                 let texts = this.getAreaText(selected);
 
-                if(texts.length !== selected.length) {
-                    throw new Error('[vue-area-linkage]获取数据出错了');
-                }
+                assert(texts.length === selected.length, '获取数据出错了');
 
                 for(let i = 0, l = texts.length; i < l; i++) {
                     let item = {
@@ -169,6 +201,24 @@
                 }
 
                 return all;
+            },
+
+            setDefaultValue() {
+                let provinceCode = '';
+
+                if(this.isCode) {
+                    provinceCode = this.defaults[0];
+                } else {
+                    let province = find(this.provinces, (item) => item === this.defaults[0]);
+                    assert(province, `省份 ${this.defaults[0]} 不存在`);
+                    provinceCode = find(Object.keys(this.provinces), (item) => this.provinces[item] === this.defaults[0]);                        
+                }
+                this.curProvince = provinceCode;
+                // 还原默认值，避免用户选择出错
+                this.$nextTick(() => {
+                    this.defaults = [];
+                    this.isCode = false;
+                });
             },
 
             selectChange () {
@@ -200,7 +250,24 @@
         },
 
         created () {
-            console.log('66666666 created', this.defaultValue, this.provinces);
+            if(this.defaultValue.length) {
+                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]+$/;
+                const num = /^\d{6,}$/;
+                let isCode = num.test(this.defaultValue[0]);
+                let isValid;
+
+                if(!isCode) {
+                    isValid = this.defaultValue.every((item) => chinese.test(item));
+                } else {
+                    isValid = this.defaultValue.every((item) => num.test(item));
+                }
+                assert(isValid, '传入的默认值参数有误');
+                // 映射默认值，避免直接更改props
+                this.defaults = this.defaultValue;
+                this.isCode = isCode;
+                this.setDefaultValue(isCode);
+                console.log('11111 created', isValid, isCode, this.defaults);
+            }
         }
     };
 
