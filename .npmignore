@@ -1,0 +1,12 @@
+src
+.gitignore
+.vscode
+.npmrc
+.babelrc
+node_modules
+demo
+gh
+build
+config
+*.html
+*.js
