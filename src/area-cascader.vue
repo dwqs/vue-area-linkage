@@ -1,6 +1,7 @@
 <template>
     <div class="area-cascader">
-        <el-cascader 
+        <el-cascader
+            :placeholder="placeholder" 
             :options="options" 
             @change="handleChange">
         </el-cascader>
@@ -17,6 +18,10 @@
         props: {
             value: {
                 required: true
+            },
+            placeholder: {
+                type: String,
+                default: '请选择'
             },
             type: {
                 type: String,
