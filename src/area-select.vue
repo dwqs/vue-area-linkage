@@ -83,7 +83,6 @@
 
         watch: {
             curProvince (val, oldVal) {
-                console.log('watch curProvince', AreaData[val]);
                 if (this.level === 0) {
                     this.selectChange();
                     return;
@@ -107,7 +106,6 @@
             },
 
             curCity (val, oldVal) {
-                console.log('watch curCity', val, AreaData[val]);
                 if (this.level === 1) {
                     this.selectChange();
                     return;
@@ -131,7 +129,6 @@
             },
     
             curArea (val, oldVal) {
-                console.log('watch curArea', val);
                 if (this.level === 2) {
                     this.selectChange();
                     return;
@@ -155,7 +152,6 @@
             },
 
             curStreet (val, oldVal) {
-                console.log('watch curStreet', this.curStreet);
                 this.selectChange();
             }
         },
@@ -251,7 +247,7 @@
 
         created () {
             if(this.defaultValue.length) {
-                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]+$/;
+                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
                 const num = /^\d{6,}$/;
                 let isCode = num.test(this.defaultValue[0]);
                 let isValid;
@@ -266,7 +262,6 @@
                 this.defaults = this.defaultValue;
                 this.isCode = isCode;
                 this.setDefaultValue(isCode);
-                console.log('11111 created', isValid, isCode, this.defaults);
             }
         }
     };
