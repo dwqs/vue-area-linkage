@@ -8,13 +8,24 @@
         <returns></returns>
         <h5>返回区域代码和文本</h5>
         <area-code></area-code>
+        <h5>设置 placeholders</h5>
+        <placeholders></placeholders>
+        <p class='desc'>
+            <code>placeholders</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区/街道.
+        </p>
+        <h5>设置默认值</h5>
+        <default-value></default-value>
+        <p class='desc'>
+            <code>default-value</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区/街道, 且类型(区域代码/区域文本)必须统一. 以第一个元素类型为基准. 类型不统一将报错.
+        </p>
         <h5>只选省份</h5>
         <province></province>
         <h5>省市区联动</h5>
         <v-area></v-area>
         <h5>省市区街联动</h5>
         <street></street>
-        <area-cascader></area-cascader>
+        <h4>2. 作为级联器</h4>
+        <h5>默认形式</h5>
     </div>
 </template>
 
@@ -27,6 +38,8 @@
     import Area from './area.vue';
     import Street from './street.vue';
     import AreaCode from './area-code.vue';
+    import Placeholders from './placeholders.vue';
+    import DefaultValue from './default-value.vue';
 
     export default {
         data() {
@@ -47,7 +60,9 @@
             Province,
             'v-area': Area,
             Street,
-            AreaCode
+            AreaCode,
+            Placeholders,
+            DefaultValue
         }
     };
 
