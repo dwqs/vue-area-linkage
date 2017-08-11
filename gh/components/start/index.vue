@@ -6,8 +6,6 @@
             <pre>npm i --save vue-area-linkage</pre>
             <p>或者</p>
             <pre>yarn add vue-area-linkage</pre>
-            <p>或者</p>
-            <pre>bower install vue-area-linkage</pre>
         </div>
         <div class="register">
             <h4>全局注册</h4>
