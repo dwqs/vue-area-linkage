@@ -37,10 +37,11 @@
   "dependencies": {
     "area-data": "^1.0.0",
     "china-area-data": "^3.0.0",
-    "element-ui": "^1.4.2"
+    "element-ui": "^1.4.2",
+    "lodash.find": "^4.6.0"
   },
   "peerDependencies": {
-    "vue": "^2.3.0"
+    "vue": ">= 2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
@@ -72,7 +73,7 @@
     "postcss-loader": "^2.0.6",
     "precss": "^2.0.0",
     "url-loader": "^0.5.9",
-    "vue": "^2.3.0",
+    "vue": ">=2.3.0",
     "vue-loader": "^13.0.0",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.3.0",
