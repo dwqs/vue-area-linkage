@@ -4,7 +4,7 @@
         <h4>1. 作为选择器</h4>
         <h5>默认形式</h5>
         <basic></basic>
-        <h5>返回文本</h5>
+        <h5>返回区域文本</h5>
         <returns></returns>
         <h5>返回区域代码和文本</h5>
         <area-code></area-code>
@@ -24,8 +24,17 @@
         <v-area></v-area>
         <h5>省市区街联动</h5>
         <street></street>
-        <h4>2. 作为级联器</h4>
+        <h4>2. 作为级联器(只支持2/3级联动)</h4>
         <h5>默认形式</h5>
+        <cas-basic></cas-basic>
+        <h5>返回区域文本</h5>
+        <cas-returns></cas-returns>
+        <h5>返回区域文本和代码</h5>
+        <cas-area-code></cas-area-code>
+        <h5>设置 placeholder</h5>
+        <cas-placeholder></cas-placeholder>
+        <h5>省市区联动</h5>
+        <cas-area></cas-area>
     </div>
 </template>
 
@@ -40,6 +49,11 @@
     import AreaCode from './area-code.vue';
     import Placeholders from './placeholders.vue';
     import DefaultValue from './default-value.vue';
+    import CasBasic from './cas-basic.vue';
+    import CasReturns from './cas-returns.vue';
+    import CasAreaCode from './cas-area-code.vue';
+    import CasPlaceholder from './cas-placeholder.vue';
+    import CasArea from './cas-area.vue';
 
     export default {
         data() {
@@ -62,7 +76,12 @@
             Street,
             AreaCode,
             Placeholders,
-            DefaultValue
+            DefaultValue,
+            CasBasic,
+            CasReturns,
+            CasAreaCode,
+            CasPlaceholder,
+            CasArea
         }
     };
 
