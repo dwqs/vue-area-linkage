@@ -45,8 +45,8 @@
             },
             type: {
                 type: String,
-                default: 'code',  //  code-返回行政区域代码 text-返回文本
-                validator: (val) => ['code', 'text'].indexOf(val) > -1
+                default: 'code',  //  code-返回行政区域代码 text-返回文本 all-返回 code 和 text
+                validator: (val) => ['all', 'code', 'text'].indexOf(val) > -1
             },
             placeholders: {
                 type: Array,
@@ -127,8 +127,53 @@
         },
 
         methods: {
+            getAreaText(selected) {
+                let texts = [];
+
+                for(let i = 0, l = selected.length; i < l; i++) {
+                    switch(i) {
+                        case 0:
+                            texts.push(this.provinces[this.curProvince]);
+                            break;
+                        case 1: 
+                            let city = AreaData[this.curProvince][this.curCity];
+                            texts.push(city);
+                            break;
+                        case 2: 
+                            let area = AreaData[this.curCity][this.curArea]; 
+                            texts.push(area);
+                            break;  
+                        case 3: 
+                            let street =  AreaData[this.curArea][this.curStreet]; 
+                            texts.push(street);
+                            break;            
+                    }
+                }
+
+                return texts;
+            },
+
+            getAll(selected) {
+                let all = [];
+                let texts = this.getAreaText(selected);
+
+                if(texts.length !== selected.length) {
+                    throw new Error('[vue-area-linkage]获取数据出错了');
+                }
+
+                for(let i = 0, l = texts.length; i < l; i++) {
+                    let item = {
+                        [selected[i]]: texts[i]
+                    };
+                    all.push(item);
+                }
+
+                return all;
+            },
+
             selectChange () {
                 let selected = [];
+
                 switch (this.level) {
                     case 0:
                         selected = [this.curProvince];
@@ -143,27 +188,14 @@
                         selected = [this.curProvince, this.curCity, this.curArea, this.curStreet];
                         break;
                 }
-                if(this.type === 'text'){
-                    let texts = [];
-                    for(let i = 0, l = selected.length; i < l; i++) {
-                        switch(i){
-                            case 0:
-                                texts[i] = this.provinces[selected[i]];
-                                break;
-                            case 1:
-                                texts[i] = AreaData[selected[0]][selected[i]];
-                                break;
-                            case 2:
-                                texts[i] = AreaData[selected[0]][selected[1]][selected[i]];
-                            case 3:
-                                texts[i] = AreaData[selected[0]][selected[1]][selected[2]][selected[i]];    
-                                break;          
-                        }
-                    }
-                    this.$emit('input', texts);
-                    return;
+
+                if(this.type === 'code') {
+                    this.$emit('input', selected);
+                } else if(this.type === 'text') {
+                    this.$emit('input', this.getAreaText(selected));
+                } else {
+                    this.$emit('input', this.getAll(selected));
                 }
-                this.$emit('input', selected);
             }
         },
 
