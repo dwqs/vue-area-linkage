@@ -36,13 +36,13 @@ module.exports = {
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 use: [{
-                    loader: 'file-loader',
+                    loader: 'url-loader',
                     options: {
                         limit: 8192,
-                        name: '[name].[ext]?[hash:8]'
+                        name: 'fonts/[name].[hash:7].[ext]'
                     }
                 }]
-            }            
+            }          
         ]
     },
 
