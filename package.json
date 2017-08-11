@@ -1,6 +1,6 @@
 {
   "name": "vue-area-linkage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Vue area linkage",
   "author": "pomysky@gmail.com",
   "license": "MIT",
@@ -27,21 +27,14 @@
     "dev": "npx cross-env NODE_ENV=development node ./build/dev-server.js",
     "build": "npx cross-env NODE_ENV=production npx webpack --config ./build/webpack.prod.config.js --progress --hide-modules",
     "postbuild": "mv ./demo/index.html ./",
-    "prepublish": "npx webpack webpack --config ./webpack.build.config.js --progress --hide-modules",
+    "prepublishOnly": "npx webpack --config ./webpack.build.config.js --progress --hide-modules",
     "ilint": "npx eslint src/**/*.js src/**/*.vue",
     "fix": "npx eslint --fix src/**/*.js src/**/*.vue"
   },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
     "area-data": "^1.0.0",
-    "china-area-data": "^3.0.0",
     "element-ui": "^1.4.2",
     "lodash.find": "^4.6.0"
-  },
-  "peerDependencies": {
-    "vue": ">= 2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
