@@ -6,7 +6,10 @@
             </svg>
         </a>
         <h2>Vue Area Linkage: 中国行政区联动选择器</h2>
-        <p>省、市、区、街道联动选择，UI 基于 <a target="_blank" href="https://github.com/ElemeFE/element">Element UI</a></p>
+        <p>
+            省、市、区、街道联动选择，UI 基于 
+            <a target="_blank" href="https://github.com/ElemeFE/element">Element UI</a>
+        </p>
     </header>
 </template>
 
@@ -23,6 +26,12 @@
         margin-top: 20px;
         margin-bottom: 20px;
         font-size: 16px
+    }
+
+    header>a{
+        position: fixed;
+        right: 0;
+        top: 0
     }
     
     header p a{
