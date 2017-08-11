@@ -48,7 +48,7 @@
             },
             type: {
                 type: String,
-                default: 'code',  //  code-返回行政区域代码 text-返回文本 all-返回 code 和 text
+                default: 'code', //  code-返回行政区域代码 text-返回文本 all-返回 code 和 text
                 validator: (val) => ['all', 'code', 'text'].indexOf(val) > -1
             },
             placeholders: {
@@ -89,13 +89,13 @@
                 }
                 if (this.level >= 1) {
                     this.citys = AreaData[val];
-                    if(this.defaults[1]) {
-                        if(this.isCode){
-                            let curCity = find(Object.keys(this.citys), (item) => item === this.defaults[1]);
+                    if (this.defaults[1]) {
+                        if (this.isCode) {
+                            const curCity = find(Object.keys(this.citys), (item) => item === this.defaults[1]);
                             assert(curCity, `城市 ${this.defaults[1]} 不存在于省份 ${this.defaults[0]} 中`);
                             this.curCity = curCity;
                         } else {
-                            let city = find(this.citys, (item) => item === this.defaults[1]);
+                            const city = find(this.citys, (item) => item === this.defaults[1]);
                             assert(city, `城市 ${this.defaults[1]} 不存在于省份 ${this.defaults[0]} 中`);
                             this.curCity = find(Object.keys(this.citys), (item) => this.citys[item] === this.defaults[1]);
                         }
@@ -112,13 +112,13 @@
                 }
                 this.areas = AreaData[val];
                 if (this.level >= 2) {
-                    if(this.defaults[2]) {
-                        if(this.isCode) {
-                            let curArea = find(Object.keys(this.areas), (item) => item === this.defaults[2]);
+                    if (this.defaults[2]) {
+                        if (this.isCode) {
+                            const curArea = find(Object.keys(this.areas), (item) => item === this.defaults[2]);
                             assert(curArea, `县区 ${this.defaults[2]} 不存在于城市 ${this.defaults[1]} 中`);
                             this.curArea = curArea;
                         } else {
-                            let area = find(this.areas, (item) => item === this.defaults[2]);
+                            const area = find(this.areas, (item) => item === this.defaults[2]);
                             assert(area, `县区 ${this.defaults[2]} 不存在于城市 ${this.defaults[1]} 中`);
                             this.curArea = find(Object.keys(this.areas), (item) => this.areas[item] === this.defaults[2]);
                         }
@@ -135,13 +135,13 @@
                 }
                 this.streets = AreaData[val];
                 if (this.level >= 3) {
-                    if(this.defaults[3]) {
-                        if(this.isCode) {
-                            let curStreet = find(Object.keys(this.streets), (item) => item === this.defaults[3]);
+                    if (this.defaults[3]) {
+                        if (this.isCode) {
+                            const curStreet = find(Object.keys(this.streets), (item) => item === this.defaults[3]);
                             assert(curStreet, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
                             this.curStreet = curStreet;
                         } else {
-                            let street = find(this.streets, (item) => item === this.defaults[3]);
+                            const street = find(this.streets, (item) => item === this.defaults[3]);
                             assert(street, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
                             this.curStreet = find(Object.keys(this.streets), (item) => this.streets[item] === this.defaults[3]);
                         }
@@ -157,40 +157,40 @@
         },
 
         methods: {
-            getAreaText(selected) {
-                let texts = [];
+            getAreaText (selected) {
+                const texts = [];
 
-                for(let i = 0, l = selected.length; i < l; i++) {
-                    switch(i) {
+                for (let i = 0, l = selected.length; i < l; i++) {
+                    switch (i) {
                         case 0:
                             texts.push(this.provinces[this.curProvince]);
                             break;
-                        case 1: 
-                            let city = AreaData[this.curProvince][this.curCity];
+                        case 1:
+                            const city = AreaData[this.curProvince][this.curCity];
                             texts.push(city);
                             break;
-                        case 2: 
-                            let area = AreaData[this.curCity][this.curArea]; 
+                        case 2:
+                            const area = AreaData[this.curCity][this.curArea];
                             texts.push(area);
-                            break;  
-                        case 3: 
-                            let street =  AreaData[this.curArea][this.curStreet]; 
+                            break;
+                        case 3:
+                            const street = AreaData[this.curArea][this.curStreet];
                             texts.push(street);
-                            break;            
+                            break;
                     }
                 }
 
                 return texts;
             },
 
-            getAll(selected) {
-                let all = [];
-                let texts = this.getAreaText(selected);
+            getAll (selected) {
+                const all = [];
+                const texts = this.getAreaText(selected);
 
                 assert(texts.length === selected.length, '获取数据出错了');
 
-                for(let i = 0, l = texts.length; i < l; i++) {
-                    let item = {
+                for (let i = 0, l = texts.length; i < l; i++) {
+                    const item = {
                         [selected[i]]: texts[i]
                     };
                     all.push(item);
@@ -199,15 +199,15 @@
                 return all;
             },
 
-            setDefaultValue() {
+            setDefaultValue () {
                 let provinceCode = '';
 
-                if(this.isCode) {
+                if (this.isCode) {
                     provinceCode = this.defaults[0];
                 } else {
-                    let province = find(this.provinces, (item) => item === this.defaults[0]);
+                    const province = find(this.provinces, (item) => item === this.defaults[0]);
                     assert(province, `省份 ${this.defaults[0]} 不存在`);
-                    provinceCode = find(Object.keys(this.provinces), (item) => this.provinces[item] === this.defaults[0]);                        
+                    provinceCode = find(Object.keys(this.provinces), (item) => this.provinces[item] === this.defaults[0]);
                 }
                 this.curProvince = provinceCode;
                 // 还原默认值，避免用户选择出错
@@ -235,9 +235,9 @@
                         break;
                 }
 
-                if(this.type === 'code') {
+                if (this.type === 'code') {
                     this.$emit('input', selected);
-                } else if(this.type === 'text') {
+                } else if (this.type === 'text') {
                     this.$emit('input', this.getAreaText(selected));
                 } else {
                     this.$emit('input', this.getAll(selected));
@@ -246,13 +246,13 @@
         },
 
         created () {
-            if(this.defaultValue.length) {
+            if (this.defaultValue.length) {
                 const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
                 const num = /^\d{6,}$/;
-                let isCode = num.test(this.defaultValue[0]);
+                const isCode = num.test(this.defaultValue[0]);
                 let isValid;
 
-                if(!isCode) {
+                if (!isCode) {
                     isValid = this.defaultValue.every((item) => chinese.test(item));
                 } else {
                     isValid = this.defaultValue.every((item) => num.test(item));

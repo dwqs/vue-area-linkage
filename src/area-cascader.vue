@@ -25,7 +25,7 @@
             },
             type: {
                 type: String,
-                default: 'code',  //  code-返回行政区域代码 text-返回文本 all-返回 code 和 text
+                default: 'code', //  code-返回行政区域代码 text-返回文本 all-返回 code 和 text
                 validator: (val) => ['all', 'code', 'text'].indexOf(val) > -1
             },
             level: {
@@ -43,37 +43,37 @@
         },
 
         methods: {
-            getAreaText(selected) {
-                let texts = [];
-                let provinces = AreaData['86'];
+            getAreaText (selected) {
+                const texts = [];
+                const provinces = AreaData['86'];
 
-                for(let i = 0, l = selected.length; i < l; i++) {
-                    switch(i) {
+                for (let i = 0, l = selected.length; i < l; i++) {
+                    switch (i) {
                         case 0:
                             texts.push(provinces[selected[i]]);
                             break;
-                        case 1: 
-                            let city = AreaData[selected[0]][selected[i]];
+                        case 1:
+                            const city = AreaData[selected[0]][selected[i]];
                             texts.push(city);
                             break;
-                        case 2: 
-                            let area = AreaData[selected[1]][selected[i]]; 
+                        case 2:
+                            const area = AreaData[selected[1]][selected[i]];
                             texts.push(area);
-                            break;          
+                            break;
                     }
                 }
 
                 return texts;
             },
 
-            getAll(selected) {
-                let all = [];
-                let texts = this.getAreaText(selected);
+            getAll (selected) {
+                const all = [];
+                const texts = this.getAreaText(selected);
 
                 assert(texts.length === selected.length, '获取数据出错了');
 
-                for(let i = 0, l = texts.length; i < l; i++) {
-                    let item = {
+                for (let i = 0, l = texts.length; i < l; i++) {
+                    const item = {
                         [selected[i]]: texts[i]
                     };
                     all.push(item);
@@ -84,9 +84,9 @@
 
             handleChange (selected) {
                 console.log('handlechange', selected);
-                if(this.type === 'code') {
+                if (this.type === 'code') {
                     this.$emit('input', selected);
-                } else if(this.type === 'text') {
+                } else if (this.type === 'text') {
                     this.$emit('input', this.getAreaText(selected));
                 } else {
                     this.$emit('input', this.getAll(selected));
