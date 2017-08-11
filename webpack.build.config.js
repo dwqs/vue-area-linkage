@@ -2,6 +2,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
+let ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+let os = require('os');
 
 module.exports = {
     entry: {
@@ -25,25 +27,40 @@ module.exports = {
                loader: 'babel-loader'
             },
             {
-                test: /\.(png|jpg|gif|jpeg)$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: '[name].[ext]?[hash:8]'
-                    }
-                }]
+                test:/\.less$/,
+                use: [ 'vue-style-loader', 'css-loader', 'less-loader']
+            }, 
+            {
+                test:/\.css$/,
+                use: [ 'vue-style-loader', 'css-loader' ]
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
                 use: [{
-                    loader: 'file-loader',
+                    loader: 'url-loader',
                     options: {
                         limit: 8192,
-                        name: '[name].[ext]?[hash:8]'
+                        name: 'fonts/[name].[hash:7].[ext]'
                     }
                 }]
             }
         ]
-    }
+    },
+    plugins: [
+        new ParallelUglifyPlugin({
+            workerCount: os.cpus().length,
+            cacheDir: '.cache/',
+            uglifyJS: {
+                compress: {
+                    warnings: false,
+                    drop_debugger: true,
+                    drop_console: true
+                },
+                comments: false,
+                sourceMap: true,
+                mangle: true
+            }
+        }),
+        new webpack.optimize.ModuleConcatenationPlugin()
+    ]
 }
