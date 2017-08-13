@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        vendor: ['vue', 'element-ui', 'china-area-data']
+        vendor: ['vue', 'element-ui', 'area-data']
     },
     output: {
         path: path.join(__dirname, './demo'),
