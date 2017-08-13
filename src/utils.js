@@ -3,3 +3,7 @@ export const assert = function assert (condition, msg = '') {
         throw new Error(`[vue-area-linkage]: ${msg}`);
     }
 };
+
+export const isArray = function isArray (param) {
+    return Object.prototype.toString.call(param) === '[object Array]';
+}
