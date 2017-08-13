@@ -38,12 +38,13 @@
     import AreaData from 'area-data';
     import find from 'lodash.find';
 
-    import { assert } from './utils';
+    import { assert, isArray } from './utils';
 
     export default {
         name: 'area-select',
         props: {
             value: {
+                type: Array,
                 required: true
             },
             type: {
@@ -59,10 +60,6 @@
                 type: Number,
                 default: 1, // 0-->一联 1->二联 2->三联 3->四联
                 validator: (val) => [0, 1, 2, 3].indexOf(val) > -1
-            },
-            'default-value': {
-                type: Array,
-                default: () => []
             }
         },
 
@@ -77,7 +74,8 @@
                 curArea: '',
                 curStreet: '',
                 defaults: [],
-                isCode: false
+                isCode: false,
+                isSetDefault: false
             };
         },
 
@@ -153,6 +151,13 @@
 
             curStreet (val, oldVal) {
                 this.selectChange();
+            },
+
+            value () {
+                if (isArray(this.value) && this.value.length && !this.isSetDefault) {
+                    this.beforeSetDefault();
+                    this.setDefaultValue();
+                }
             }
         },
 
@@ -197,6 +202,24 @@
                 }
 
                 return all;
+            },
+
+            beforeSetDefault () {
+                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
+                const num = /^\d{6,}$/;
+                const isCode = num.test(this.value[0]);
+                let isValid;
+
+                if (!isCode) {
+                    isValid = this.value.every((item) => chinese.test(item));
+                } else {
+                    isValid = this.value.every((item) => num.test(item));
+                }
+                assert(isValid, '传入的默认值参数有误');
+                // 映射默认值，避免直接更改props
+                this.defaults = this.value;
+                this.isCode = isCode;
+                this.isSetDefault = true;
             },
 
             setDefaultValue () {
@@ -246,22 +269,9 @@
         },
 
         created () {
-            if (this.defaultValue.length) {
-                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
-                const num = /^\d{6,}$/;
-                const isCode = num.test(this.defaultValue[0]);
-                let isValid;
-
-                if (!isCode) {
-                    isValid = this.defaultValue.every((item) => chinese.test(item));
-                } else {
-                    isValid = this.defaultValue.every((item) => num.test(item));
-                }
-                assert(isValid, '传入的默认值参数有误');
-                // 映射默认值，避免直接更改props
-                this.defaults = this.defaultValue;
-                this.isCode = isCode;
-                this.setDefaultValue(isCode);
+            if (isArray(this.value) && this.value.length) {
+                this.beforeSetDefault();
+                this.setDefaultValue();
             }
         }
     };
