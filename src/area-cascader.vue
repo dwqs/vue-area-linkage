@@ -1,5 +1,5 @@
 <template>
-    <div class="area-cascader">
+    <div class="area-cascader" :class="classes">
         <el-cascader
             :placeholder="placeholder" 
             :options="options" 
@@ -32,6 +32,11 @@
                 type: Number,
                 default: 0, // 0->二联 1->三联 
                 validator: (val) => [0, 1].indexOf(val) > -1
+            },
+            size: {
+                type: String,
+                default: 'medium',
+                validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             }
         },
 
@@ -40,6 +45,12 @@
                 // only array
                 options: []
             };
+        },
+
+        computed: {
+            classes () {
+                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large'
+            }
         },
 
         methods: {

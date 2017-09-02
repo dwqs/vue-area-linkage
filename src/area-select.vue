@@ -1,5 +1,5 @@
 <template>
-    <div class="area-select">
+    <div class="area-select" :class="classes">
         <el-select v-model="curProvince" :placeholder="placeholders[0] ? placeholders[0] : '请选择'">
             <el-option v-for="(key, val) in provinces" 
                 :key="key" 
@@ -60,6 +60,11 @@
                 type: Number,
                 default: 1, // 0-->一联 1->二联 2->三联 3->四联
                 validator: (val) => [0, 1, 2, 3].indexOf(val) > -1
+            },
+            size: {
+                type: String,
+                default: 'medium',
+                validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             }
         },
 
@@ -77,6 +82,12 @@
                 isCode: false,
                 isSetDefault: false
             };
+        },
+
+        computed: {
+            classes () {
+                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large'
+            }
         },
 
         watch: {

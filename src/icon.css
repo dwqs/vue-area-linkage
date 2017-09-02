@@ -38,3 +38,15 @@
 .el-icon-caret-left:before { content: "\e605"; }
 .el-icon-caret-right:before { content: "\e606"; }
 .el-icon-caret-top:before { content: "\e607"; }
+
+.area-cascader.small .el-input, .area-select.small .el-input {
+    width: 126px
+}
+
+.area-cascader.medium .el-input, .area-select.medium .el-input {
+    width: 160px
+}
+
+.area-cascader.large .el-input, .area-select.large .el-input {
+    width: 194px
+}
