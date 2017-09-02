@@ -86,7 +86,7 @@
 
         computed: {
             classes () {
-                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large'
+                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large';
             }
         },
 
