@@ -39,14 +39,14 @@
 .el-icon-caret-right:before { content: "\e606"; }
 .el-icon-caret-top:before { content: "\e607"; }
 
-.area-cascader.small .el-input, .area-select.small .el-input {
+.area-cascader.small .el-select, .area-select.small .el-select {
     width: 126px
 }
 
-.area-cascader.medium .el-input, .area-select.medium .el-input {
+.area-cascader.medium .el-select, .area-select.medium .el-select {
     width: 160px
 }
 
-.area-cascader.large .el-input, .area-select.large .el-input {
+.area-cascader.large .el-select, .area-select.large .el-select {
     width: 194px
 }
