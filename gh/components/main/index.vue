@@ -4,6 +4,8 @@
         <h4>1. 作为选择器</h4>
         <h5>默认形式</h5>
         <basic></basic>
+        <h5>改变大小</h5>
+        <size></size>
         <h5>返回区域文本</h5>
         <returns></returns>
         <h5>返回区域代码和文本</h5>
@@ -42,6 +44,7 @@
     import './index.less';
 
     import Basic from './basic.vue';
+    import Size from './size.vue';
     import Returns from './returns.vue';
     import Province from './province.vue';
     import Area from './area.vue';
@@ -81,7 +84,8 @@
             CasReturns,
             CasAreaCode,
             CasPlaceholder,
-            CasArea
+            CasArea,
+            Size
         }
     };
 

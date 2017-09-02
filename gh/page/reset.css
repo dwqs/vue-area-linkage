@@ -173,3 +173,7 @@ input, select {
 .el-icon-caret-left:before { content: "\e605"; }
 .el-icon-caret-right:before { content: "\e606"; }
 .el-icon-caret-top:before { content: "\e607"; }
+/* el-scrollbar */
+.size-example .area-select.large .el-select:last-child{
+    margin-left: 30px
+}
