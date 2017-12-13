@@ -2,7 +2,8 @@
     <div class="area-cascader" :class="classes">
         <el-cascader
             :placeholder="placeholder" 
-            :options="options" 
+            :options="options"
+            v-model="defaultValCode" 
             @change="handleChange">
         </el-cascader>
     </div>
@@ -10,8 +11,9 @@
 
 <script>
     import AreaData from 'area-data';
+    import find from 'lodash.find';
 
-    import { assert } from './utils';
+    import { assert, isArray } from './utils';
 
     export default {
         name: 'area-cascader',
@@ -42,8 +44,18 @@
 
         data () {
             return {
+                provinces: AreaData['86'],
+                citys: {},
+                areas: {},
                 // only array
-                options: []
+                options: [],
+                curDefaultVal: [],
+                defaultValCode: [],
+                curProvince: '',
+                curCity: '',
+                curArea: '',
+                isSetDefault: false,
+                isCode: false
             };
         },
 
@@ -53,10 +65,95 @@
             }
         },
 
+        watch: {
+            value () {
+                if (isArray(this.value) && this.value.length >= 2 && !this.isSetDefault) {
+                    this.beforeSetDefault();
+                    this.setDefaultValue();
+                }
+            },
+
+            curProvince (val, oldVal) {
+                this.citys = AreaData[val];
+                if (this.curDefaultVal[1]) {
+                    if (this.isCode) {
+                        const curCity = find(Object.keys(this.citys), (item) => item === this.curDefaultVal[1]);
+                        assert(curCity, `城市 ${this.curDefaultVal[1]} 不存在于省份 ${this.curDefaultVal[0]} 中`);
+                        this.curCity = curCity;
+                    } else {
+                        const city = find(this.citys, (item) => item === this.curDefaultVal[1]);
+                        assert(city, `城市 ${this.curDefaultVal[1]} 不存在于省份 ${this.curDefaultVal[0]} 中`);
+                        this.curCity = find(Object.keys(this.citys), (item) => this.citys[item] === this.curDefaultVal[1]);
+                    }
+                } else {
+                    this.curCity = Object.keys(this.citys)[0];
+                }
+            },
+
+            curCity (val, oldVal) {
+                if (this.level === 0) {
+                    this.selectChange();
+                    return;
+                }
+                this.areas = AreaData[val];
+                if (this.curDefaultVal[2]) {
+                    if (this.isCode) {
+                        const curArea = find(Object.keys(this.areas), (item) => item === this.curDefaultVal[2]);
+                        assert(curArea, `县区 ${this.curDefaultVal[2]} 不存在于城市 ${this.curDefaultVal[1]} 中`);
+                        this.curArea = curArea;
+                    } else {
+                        const area = find(this.areas, (item) => item === this.curDefaultVal[2]);
+                        assert(area, `县区 ${this.curDefaultVal[2]} 不存在于城市 ${this.curDefaultVal[1]} 中`);
+                        this.curArea = find(Object.keys(this.areas), (item) => this.areas[item] === this.curDefaultVal[2]);
+                    }
+                } else {
+                    this.curArea = Object.keys(this.areas)[0];
+                }
+                this.selectChange();
+            }
+        },
+
         methods: {
+            beforeSetDefault () {
+                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
+                const num = /^\d{6,}$/;
+                const isCode = num.test(this.value[0]);
+                let isValid;
+
+                if (!isCode) {
+                    isValid = this.value.every((item) => chinese.test(item));
+                } else {
+                    isValid = this.value.every((item) => num.test(item));
+                }
+                assert(isValid, '传入的默认值参数有误');
+                // 映射默认值，避免直接更改props
+                this.curDefaultVal = this.level ? this.value.slice(0, 3) : this.value.slice(0, 2);
+                this.isCode = isCode;
+                this.isSetDefault = true;
+            },
+
+            setDefaultValue () {
+                let provinceCode = '';
+
+                if (this.isCode) {
+                    provinceCode = this.curDefaultVal[0];
+                } else {
+                    const province = find(this.provinces, (item) => item === this.curDefaultVal[0]);
+                    assert(province, `省份 ${this.curDefaultVal[0]} 不存在`);
+                    provinceCode = find(Object.keys(this.provinces), (item) => this.provinces[item] === this.curDefaultVal[0]);
+                }
+                this.curProvince = provinceCode;
+
+                // 还原默认值，避免用户选择出错
+                this.$nextTick(() => {
+                    this.curDefaultVal = [];
+                    this.isCode = false;
+                });
+            },
+
             getAreaText (selected) {
                 const texts = [];
-                const provinces = AreaData['86'];
+                const provinces = this.provinces;
 
                 for (let i = 0, l = selected.length; i < l; i++) {
                     switch (i) {
@@ -94,7 +191,6 @@
             },
 
             handleChange (selected) {
-                console.log('handlechange', selected);
                 if (this.type === 'code') {
                     this.$emit('input', selected);
                 } else if (this.type === 'text') {
@@ -145,8 +241,21 @@
                 }
 
                 return temp;
+            },
+
+            selectChange () {
+                let selected = [];
+
+                switch (this.level) {
+                    case 0:
+                        selected = [this.curProvince, this.curCity];
+                        break;
+                    case 1:
+                        selected = [this.curProvince, this.curCity, this.curArea];
+                        break;
+                }
+                this.defaultValCode = selected;
             }
-    
         },
 
         created () {
@@ -154,6 +263,10 @@
             //     this.options = this.iterate(AreaData['86']);
             //     return;
             // }
+            if (isArray(this.value) && this.value.length >= 2) {
+                this.beforeSetDefault();
+                this.setDefaultValue();
+            }
 
             if (this.level === 0) {
                 this.options = this.iterateCities();
