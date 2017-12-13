@@ -35,6 +35,8 @@
         <cas-area-code></cas-area-code>
         <h5>设置 placeholder</h5>
         <cas-placeholder></cas-placeholder>
+        <h5>设置默认值</h5>
+        <cas-default-val></cas-default-val>
         <h5>省市区联动</h5>
         <cas-area></cas-area>
     </div>
@@ -56,6 +58,7 @@
     import CasReturns from './cas-returns.vue';
     import CasAreaCode from './cas-area-code.vue';
     import CasPlaceholder from './cas-placeholder.vue';
+    import CasDefaultVal from './cas-default-value.vue';
     import CasArea from './cas-area.vue';
 
     export default {
@@ -85,7 +88,8 @@
             CasAreaCode,
             CasPlaceholder,
             CasArea,
-            Size
+            Size,
+            CasDefaultVal
         }
     };
 
