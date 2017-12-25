@@ -54,6 +54,7 @@
                 curProvince: '',
                 curCity: '',
                 curArea: '',
+                curAreaCode: '',
                 isSetDefault: false,
                 isCode: false
             };
@@ -74,6 +75,7 @@
             },
 
             curProvince (val, oldVal) {
+                this.isSetDefault = true;
                 this.citys = AreaData[val];
                 if (this.curDefaultVal[1]) {
                     if (this.isCode) {
@@ -96,7 +98,7 @@
                     return;
                 }
                 this.areas = AreaData[val];
-                if (this.curDefaultVal[2]) {
+                if (this.curDefaultVal[2] && this.areas) {
                     if (this.isCode) {
                         const curArea = find(Object.keys(this.areas), (item) => item === this.curDefaultVal[2]);
                         assert(curArea, `县区 ${this.curDefaultVal[2]} 不存在于城市 ${this.curDefaultVal[1]} 中`);
@@ -107,8 +109,10 @@
                         this.curArea = find(Object.keys(this.areas), (item) => this.areas[item] === this.curDefaultVal[2]);
                     }
                 } else {
-                    this.curArea = Object.keys(this.areas)[0];
+                    // fix 市级下不存在城区(#7)
+                    this.curArea = this.areas ? Object.keys(this.areas)[0] : val;
                 }
+                this.curAreaCode = this.curArea;
                 this.selectChange();
             }
         },
@@ -154,6 +158,8 @@
             getAreaText (selected) {
                 const texts = [];
                 const provinces = this.provinces;
+                let city = '';
+                let area = '';
 
                 for (let i = 0, l = selected.length; i < l; i++) {
                     switch (i) {
@@ -161,11 +167,11 @@
                             texts.push(provinces[selected[i]]);
                             break;
                         case 1:
-                            const city = AreaData[selected[0]][selected[i]];
+                            city = AreaData[selected[0]][selected[i]];
                             texts.push(city);
                             break;
                         case 2:
-                            const area = AreaData[selected[1]][selected[i]];
+                            area = AreaData[selected[1]] ? AreaData[selected[1]][selected[i]] : city;
                             texts.push(area);
                             break;
                     }
@@ -235,11 +241,19 @@
                     const city = cities[i];
                     for (let j = 0, l = cities[i].children.length; j < l; j++) {
                         const item = cities[i].children[j];
-                        item['children'] = this.iterate(AreaData[cities[i].children[j].value]);
+                        const areas = this.iterate(AreaData[cities[i].children[j].value]);
+                        if (areas.length) {
+                            item['children'] = areas;
+                        } else {
+                            item['children'] = [{
+                                label: item.label,
+                                value: item.value
+                            }]
+                        }
+                        // item['children'] = this.iterate(AreaData[cities[i].children[j].value]);
                     }
                     temp.push(city);
                 }
-
                 return temp;
             },
 
@@ -251,7 +265,7 @@
                         selected = [this.curProvince, this.curCity];
                         break;
                     case 1:
-                        selected = [this.curProvince, this.curCity, this.curArea];
+                        selected = [this.curProvince, this.curCity, this.curAreaCode];
                         break;
                 }
                 this.defaultValCode = selected;
