@@ -248,7 +248,7 @@
                             item['children'] = [{
                                 label: item.label,
                                 value: item.value
-                            }]
+                            }];
                         }
                         // item['children'] = this.iterate(AreaData[cities[i].children[j].value]);
                     }

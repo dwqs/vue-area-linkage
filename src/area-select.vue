@@ -145,7 +145,7 @@
                 if (!/^\d+$/.test(String(val))) {
                     return;
                 }
-                this.curAreaCode =  val;
+                this.curAreaCode = val;
                 if (this.level === 2) {
                     this.selectChange();
                     return;
@@ -172,7 +172,7 @@
                 if (!/^\d+$/.test(String(val))) {
                     return;
                 }
-                this.curStreetCode =  val;
+                this.curStreetCode = val;
                 this.selectChange();
             },
 
@@ -190,7 +190,7 @@
                 let city = '';
                 let area = '';
                 let street = '';
-                
+    
                 for (let i = 0, l = selected.length; i < l; i++) {
                     switch (i) {
                         case 0:
