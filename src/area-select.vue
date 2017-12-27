@@ -237,7 +237,7 @@
             },
 
             beforeSetDefault () {
-                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{3,}$/;
+                const chinese = /^[\u4E00-\u9FA5\uF900-\uFA2D]{2,}$/;
                 const num = /^\d{6,}$/;
                 const isCode = num.test(this.value[0]);
                 let isValid;
