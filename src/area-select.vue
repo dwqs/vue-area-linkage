@@ -94,7 +94,32 @@
 
         watch: {
             curProvince (val, oldVal) {
-                this.isSetDefault = true;
+                this.provinceChange(val);
+            },
+
+            curCity (val, oldVal) {
+                this.cityChange(val);
+            },
+    
+            curArea (val, oldVal) {
+                this.areaChange(val);
+            },
+
+            curStreet (val, oldVal) {
+                this.streetChange(val);
+            },
+
+            value () {
+                if (isArray(this.value) && this.value.length && !this.isSetDefault) {
+                    this.beforeSetDefault();
+                    this.setDefaultValue();
+                    this.provinceChange(this.curProvince);
+                }
+            }
+        },
+
+        methods: {
+            provinceChange (val) {
                 if (this.level === 0) {
                     this.selectChange();
                     return;
@@ -114,10 +139,11 @@
                     } else {
                         this.curCity = Object.keys(this.citys)[0];
                     }
+                    this.cityChange(this.curCity);
                 }
             },
 
-            curCity (val, oldVal) {
+            cityChange (val) {
                 if (this.level === 1) {
                     this.selectChange();
                     return;
@@ -138,10 +164,11 @@
                         // fix 市级下不存在城区(#7)
                         this.curArea = this.areas ? Object.keys(this.areas)[0] : val;
                     }
+                    this.areaChange(this.curArea);
                 }
             },
-    
-            curArea (val, oldVal) {
+
+            areaChange (val) {
                 if (!/^\d+$/.test(String(val))) {
                     return;
                 }
@@ -165,10 +192,11 @@
                     } else {
                         this.curStreet = this.streets ? Object.keys(this.streets)[0] : val;
                     }
+                    this.streetChange(this.curStreet);
                 }
             },
 
-            curStreet (val, oldVal) {
+            streetChange (val) {
                 if (!/^\d+$/.test(String(val))) {
                     return;
                 }
@@ -176,15 +204,6 @@
                 this.selectChange();
             },
 
-            value () {
-                if (isArray(this.value) && this.value.length && !this.isSetDefault) {
-                    this.beforeSetDefault();
-                    this.setDefaultValue();
-                }
-            }
-        },
-
-        methods: {
             getAreaText (selected) {
                 const texts = [];
                 let city = '';
@@ -269,6 +288,7 @@
                 this.$nextTick(() => {
                     this.defaults = [];
                     this.isCode = false;
+                    this.isSetDefault = false;
                 });
             },
 
