@@ -26,7 +26,7 @@ Vue.use(VueAreaLinkage)
 
 //setting
 <area-select type='all' :level='2' v-model="selected"></area-select>
-<area-cascader type='all' v-model="selected2" :level='2'></area-cascader>
+<area-cascader type='all' v-model="selected2" :level='1'></area-cascader>
 ```
 
 More demo to visit [here](https://dwqs.github.io/vue-area-linkage/).
