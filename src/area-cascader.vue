@@ -200,7 +200,6 @@
                 let res = [];
                 if (this.type === 'code') {
                     res = selected;
-                    this.$emit('input', selected);
                 } else if (this.type === 'text') {
                     res = this.getAreaText(selected);
                 } else {
