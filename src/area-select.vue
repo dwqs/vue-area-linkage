@@ -312,7 +312,6 @@
                 }
 
                 if (this.type === 'code') {
-                    this.getAreaText(selected);
                     res = selected;
                 } else if (this.type === 'text') {
                     res = this.getAreaText(selected);
@@ -320,6 +319,7 @@
                     res = this.getAll(selected);
                 }
                 this.$emit('input', res);
+                this.$emit('change', res);
             }
         },
 

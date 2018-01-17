@@ -197,13 +197,17 @@
             },
 
             handleChange (selected) {
+                let res = [];
                 if (this.type === 'code') {
+                    res = selected;
                     this.$emit('input', selected);
                 } else if (this.type === 'text') {
-                    this.$emit('input', this.getAreaText(selected));
+                    res = this.getAreaText(selected);
                 } else {
-                    this.$emit('input', this.getAll(selected));
+                    res = this.getAll(selected);
                 }
+                this.$emit('input', res);
+                this.$emit('change', res);
             },
 
             iterate (obj) {
