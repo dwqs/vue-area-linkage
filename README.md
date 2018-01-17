@@ -54,6 +54,6 @@ More demo to visit [here](https://dwqs.github.io/vue-area-linkage/).
 |  :--:  |  :--:  |  :--: |
 | change | 选中值发生变化时触发 | 目前选择的值 |
 
-> change 事件将在 1.2.5 之后的版本提供
+> change 事件在 1.2.5 之后提供
 ## License
 MIT.
