@@ -19,3 +19,8 @@ const VueAreaLinkage = {
 };
 
 export default VueAreaLinkage;
+
+// auto install
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueAreaLinkage);
+};
