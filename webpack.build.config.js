@@ -1,9 +1,7 @@
-'use strict';
-
 const path = require('path');
 const webpack = require('webpack');
-let ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-let os = require('os');
+const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const os = require('os');
 
 module.exports = {
     entry: {
@@ -24,15 +22,15 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-               loader: 'babel-loader'
+                loader: 'babel-loader'
             },
             {
-                test:/\.less$/,
-                use: [ 'vue-style-loader', 'css-loader', 'less-loader']
+                test: /\.less$/,
+                use: ['vue-style-loader', 'css-loader', 'less-loader']
             }, 
             {
-                test:/\.css$/,
-                use: [ 'vue-style-loader', 'css-loader' ]
+                test: /\.css$/,
+                use: ['vue-style-loader', 'css-loader']
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -53,6 +51,7 @@ module.exports = {
             uglifyJS: {
                 compress: {
                     warnings: false,
+                    /* eslint-disable camelcase */
                     drop_debugger: true,
                     drop_console: true
                 },
