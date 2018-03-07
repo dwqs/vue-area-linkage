@@ -27,7 +27,7 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: ['vue-style-loader', 'css-loader', 'less-loader']
-            }, 
+            },
             {
                 test: /\.css$/,
                 use: ['vue-style-loader', 'css-loader']
@@ -62,4 +62,4 @@ module.exports = {
         }),
         new webpack.optimize.ModuleConcatenationPlugin()
     ]
-}
+};
