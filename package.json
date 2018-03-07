@@ -13,6 +13,11 @@
   "bugs": {
     "url": "https://github.com/dwqs/vue-area-linkage/issues"
   },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "keywords": [
     "vuejs2",
     "vue",
@@ -33,8 +38,12 @@
   },
   "dependencies": {
     "area-data": "^1.0.0",
+    "beautify-scrollbar": "^1.0.3",
     "element-ui": "^1.4.2",
     "lodash.find": "^4.6.0"
+  },
+  "peerDependencies": {
+    "vue": ">=2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
