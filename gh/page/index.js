@@ -17,4 +17,4 @@ import App from '../general/app/index';
 new Vue({
     el: '#app',
     render: (h) => h(App)
-})
+});
