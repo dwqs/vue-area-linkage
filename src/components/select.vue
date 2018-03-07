@@ -91,7 +91,6 @@
             },
 
             scrollToSelectedOption () {
-               
                 const seletedOption = this.options.filter(option => option.curValue === this.val);
                 if (seletedOption.length) {
                     const target = seletedOption[0].$el;
