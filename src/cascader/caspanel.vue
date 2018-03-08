@@ -88,7 +88,7 @@
                 if (!dom) {
                     return;
                 }
-                
+    
                 // this.scrollbar.element：修复根据 vals 初始化数据 element 可能为 null 的情况
                 if (!this.scrollbar || !this.scrollbar.element) {
                     this.scrollbar = new BeautifyScrollbar(dom);
@@ -122,7 +122,7 @@
             scrollToSelectedOption (fromInit = false) {
                 const dom = this.$el.querySelector('.cascader-menu-list');
                 const seletedOption = this.data.filter(item => item.value === this.val);
-                
+    
                 if (seletedOption.length && dom) {
                     const target = dom.querySelector('.selected');
                     scrollIntoView(dom, target);
