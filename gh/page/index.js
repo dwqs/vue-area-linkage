@@ -1,7 +1,7 @@
 import './reset.css';
 
 import Vue from 'vue';
-import VueAreaLinkage from '../../src/index';
+import VueAreaLinkage from '../../src/index.js';
 
 Vue.use(VueAreaLinkage);
 
