@@ -11,7 +11,7 @@
   transform: scaleY(0);
 }
 
-// select start
+// commoon
 .area-select {
     position: relative;
     display: inline-block;
@@ -68,6 +68,7 @@
     }
 }
 
+//  select start
 .area-selectable-list-wrap {
     position: absolute;
     width: 100%;
@@ -88,6 +89,7 @@
     padding: 6px 0;
     width: 100%;
     font-size: 14px;
+    list-style: none;
     .area-select-option {
         position: relative;
         white-space: nowrap;
@@ -106,3 +108,72 @@
         }
     }
 }
+
+//  select end
+
+// cascader start
+.cascader-menu-list-wrap {
+    position: absolute;
+    // max-height: 275px;
+    white-space: nowrap;
+    z-index: 15000;
+    border: 1px solid #a1a4ad;
+    border-radius: 2px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
+    box-sizing: border-box;
+    margin: 5px 0;
+    overflow: hidden;
+}
+
+.cascader-menu-list {
+    position: relative;
+    height: 204px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #fff;
+    margin: 0;
+    padding: 6px 0;
+    min-width: 160px;
+    font-size: 14px;
+    list-style: none;
+    border-right: 1px solid #e4e7ed;
+    &:last-child {
+        border-right: none;
+    }
+    .cascader-menu-option {
+        position: relative;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        padding: 0px 15px 0px 10px;
+        height: 32px;
+        line-height: 32px;
+        &.hover {
+            background-color: #e4e8f1;
+        }
+        &:hover {
+            background-color: #e4e8f1;
+        }
+        &.selected {
+            background-color: #FF6200;
+            color: #FFFFFF 
+        }
+        &.cascader-menu-extensible {
+            &:after {
+                position: absolute;
+                top: 50%;
+                margin-top: -4px;
+                right: 5px;
+                content: "";
+                width: 0;
+                height: 0;
+                border: 4px solid transparent;
+                border-left-color: #a1a4ad;
+            }
+        }
+    }
+}
+
+// cascader end
