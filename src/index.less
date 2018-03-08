@@ -17,7 +17,6 @@
     display: inline-block;
     vertical-align: top;
     user-select: none;
-    min-width: 180px;
     height: 32px;
     cursor: pointer;
     background: #FFFFFF;
@@ -29,13 +28,22 @@
     &:hover {
         border-color: #a1a4ad;
     }
+    &.small {
+        width: 126px;
+    }
+    &.medium {
+        width: 160px;
+    }
+    &.large {
+        width: 194px;
+    }
     &.is-disabled {
         background: #eceff5;
         cursor: not-allowed;
         &:hover {
             border-color: #e1e2e6;
         }
-        .fm-selected-trigger {
+        .area-selected-trigger {
             cursor: not-allowed;
         }
     }
@@ -103,8 +111,9 @@
             background-color: #e4e8f1;
         }
         &.selected {
-            background-color: #FF6200;
-            color: #FFFFFF 
+            background-color: #e4e8f1;
+            color: #FF6200; 
+            font-weight: 700;
         }
     }
 }
@@ -124,19 +133,20 @@
     box-sizing: border-box;
     margin: 5px 0;
     overflow: hidden;
+    font-size: 0;
 }
 
 .cascader-menu-list {
     position: relative;
-    height: 204px;
+    margin: 0;
+    font-size: 14px;
+    padding: 6px 0;
+    list-style: none;
     display: inline-block;
+    height: 204px;
+    min-width: 160px;
     vertical-align: top;
     background-color: #fff;
-    margin: 0;
-    padding: 6px 0;
-    min-width: 160px;
-    font-size: 14px;
-    list-style: none;
     border-right: 1px solid #e4e7ed;
     &:last-child {
         border-right: none;
@@ -157,8 +167,9 @@
             background-color: #e4e8f1;
         }
         &.selected {
-            background-color: #FF6200;
-            color: #FFFFFF 
+            background-color: #e4e8f1;
+            color: #FF6200;
+            font-weight: 700; 
         }
         &.cascader-menu-extensible {
             &:after {

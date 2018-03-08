@@ -1,5 +1,10 @@
 <template>
-    <div class="area-select" :class="{'is-disabled': disabled}">
+    <div class="area-select" :class="{
+        'medium': size === 'medium',
+        'small': size === 'small',
+        'large': size === 'large',
+        'is-disabled': disabled
+    }">
         <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter" @after-enter="handleAfterEnter">
@@ -34,6 +39,11 @@
             placeholder: {
                 type: String,
                 default: '请选择'
+            },
+            size: {
+                type: String,
+                default: 'medium',
+                validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             }
         },
 
