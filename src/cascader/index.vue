@@ -1,27 +1,25 @@
 <template>
-    <div class="area-select" :class="{'is-disabled': disabled}">
-        <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{placeholder}}</span>
+    <div class="area-select" :class="{
+        'medium': size === 'medium',
+        'small': size === 'small',
+        'large': size === 'large',
+        'is-disabled': disabled
+    }">
+        <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter" @after-enter="handleAfterEnter">
             <div class="cascader-menu-list-wrap" v-show="shown" ref="wrap">
-                <ul class="cascader-menu-list">
-                    <li class="cascader-menu-option cascader-menu-extensible">aaa</li>
-                </ul>
-                <!-- <ul class="cascader-selectable-list">
-                    <li class="cascader-select-option">aaa</li>
-                </ul>
-                <ul class="cascader-selectable-list">
-                    <li class="cascader-select-option">aaa</li>
-                </ul> -->
+                <caspanel :data="options"></caspanel>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import BeautifyScrollbar from 'beautify-scrollbar';
-
+    import Bus from '../bus.js';
     import { contains } from '../utils.js';
+
+    import Caspanel from './caspanel.vue';
 
     export default {
         provide () {
@@ -30,6 +28,11 @@
             };
         },
         props: {
+            options: {
+                type: Array,
+                required: true
+            },
+
             value: {
                 type: Array,
                 default: () => []
@@ -48,25 +51,38 @@
                 validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             },
 
-            options: {
-                type: Array
-                // required: true
-            },
-
             separator: {
                 type: String,
                 default: '/'
             }
         },
 
+        components: {
+            'caspanel': Caspanel
+        },
+
         data () {
             return {
                 shown: false,
-                scrollbar: null
+                eventBus: null,
+                vals: [], // 选中的值
+                selectedItems: [], // 选中的 item对象
+                label: '',
+                initTransition: false
             };
         },
 
+        watch: {
+            value (val) {
+                val.length && this.initValue();
+            }
+        },
+
         methods: {
+            initValue () {
+                this.eventBus.$emit('init-value', this.value);
+            },
+
             handleTriggerClick () {
                 if (this.disabled) {
                     return;
@@ -78,23 +94,40 @@
                 const target = e.target;
                 if (!contains(this.$el, target) && this.shown) {
                     this.shown = false;
+                    this.initTransition = false;
                 }
             },
 
-            flattenOptions (options, ancestor = []) {
-                let flatOptions = [];
-                options.forEach((option) => {
-                    const optionsStack = ancestor.concat(option);
-                    if (!option['children']) {
-                        flatOptions.push(optionsStack);
+            handleMenuItemClick (item, oldItem) {
+                let oldVals = [].concat(this.vals);
+                let oldSelectedItems = [].concat(this.selectedItems);
+
+                if (!oldItem.value) {
+                    oldVals.push(item.value);
+                    oldSelectedItems.push(item);
+                } else {
+                    const index = oldVals.indexOf(oldItem.value);
+                    if (index < 0) {
+                        // 不存在直接添加
+                        oldVals.push(item.value);
+                        oldSelectedItems.push(item);
                     } else {
-                        if (this.changeOnSelect) {
-                            flatOptions.push(optionsStack);
-                        }
-                        flatOptions = flatOptions.concat(this.flattenOptions(option['children'], optionsStack));
+                        // 存在则截取前一段，后一段全去掉(后一段对应其子元素的选择项)
+                        oldVals = oldVals.slice(0, index);
+                        oldVals.push(item.value);
+                        oldSelectedItems = oldSelectedItems.slice(0, index);
+                        oldSelectedItems.push(item);
                     }
-                });
-                return flatOptions;
+                }
+                this.vals = [].concat(oldVals);
+                this.selectedItems = [].concat(oldSelectedItems);
+            },
+
+            hiddenMenuWrap () {
+                this.initTransition = false;
+                this.shown = false;
+                this.label = this.selectedItems.map(item => item.label).join(this.separator);
+                this.$emit('change', this.vals);
             },
 
             scrollToSelectedOption () {
@@ -118,44 +151,34 @@
             },
 
             handleListEnter () {
-                this.$nextTick(() => this.scrollToSelectedOption());
+                this.$nextTick(() => this.eventBus.$emit('set-scroll-top'));
             },
 
             handleAfterEnter () {
-                if (!this.scrollbar) {
-                    // this.scrollbar = new BeautifyScrollbar(this.$refs.wrap);
-                }
+                this.initTransition = true;
+                this.eventBus.$emit('transition-complete');
             }
+        },
+
+        created () {
+            if (!Bus._Vue) {
+                throw new Error('[area-cascader]: Must be call Vue.use(VueAreaLinkage) before used');
+            }
+            this.eventBus = Bus.createEventBus();
+            this.eventBus.$on('item-click', this.handleMenuItemClick);
+            this.eventBus.$on('hide-menu-wrap', this.hiddenMenuWrap);
         },
 
         mounted () {
             window.document.addEventListener('click', this.handleDocClick, false);
-            // this.$nextTick(() => {
-            //     this.setDef();
-            // });
-            console.log('sssss', this.flattenOptions([{
-                value: '1',
-                label: '2',
-                children: [{
-                    value: '3',
-                    label: '4'
-                }, {
-                    value: '5',
-                    label: '6'
-                }]
-            }, {
-                value: '21',
-                label: '22',
-                children: [{
-                    value: '23',
-                    label: '24'
-                }]
-            }]));
+
+            if (this.value && this.value.length) {
+                this.initValue();
+            }
         },
 
         beforeDestroy () {
             window.document.removeEventListener('click', this.handleDocClick, false);
-            // this.scrollbar && this.scrollbar.destroy();
         }
     };
 </script>
