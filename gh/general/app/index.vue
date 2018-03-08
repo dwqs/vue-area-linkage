@@ -4,17 +4,21 @@
             <test-select>
                 <test-option v-for="(item, index) in list" :key="index" :value="item.value" :label="item.label"></test-option>
             </test-select>
+            <br />
+            <cascader></cascader>
         </div>
         <v-header />
         <v-start></v-start>
-        <v-main></v-main>
+        <!-- <v-main></v-main> -->
         <v-footer></v-footer>
     </div>
 </template>
 
 <script>
-    import Select from '../../../src/components/select.vue';
-    import Option from '../../../src/components/option.vue';
+    import Select from '../../../src/select/index.vue';
+    import Option from '../../../src/select/option.vue';
+
+    import Cascader from '../../../src/cascader/index.vue';
 
     import Header from '@components/header/';
     import Main from '@components/main/';
@@ -39,7 +43,8 @@
             'v-main': Main,
             'v-start': Start,
             'test-select': Select,
-            'test-option': Option
+            'test-option': Option,
+            Cascader
         },
     };
 
