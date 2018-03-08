@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const os = require('os');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -26,25 +28,33 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                use: ['vue-style-loader', 'css-loader', 'less-loader']
+                use: ExtractTextPlugin.extract({
+                    fallback: 'vue-style-loader',
+                    use: ['css-loader', 'postcss-loader', 'less-loader']
+                })
             },
             {
                 test: /\.css$/,
-                use: ['vue-style-loader', 'css-loader']
-            },
-            {
-                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'fonts/[name].[hash:7].[ext]'
-                    }
-                }]
+                use: ExtractTextPlugin.extract({
+                    fallback: 'vue-style-loader',
+                    use: ['css-loader']
+                })
             }
         ]
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename: '[name].css'
+        }),
+
+        new OptimizeCSSPlugin({
+            cssProcessorOptions: {
+                safe: true
+            },
+            cssProcessor: require('cssnano'),
+            assetNameRegExp: /\.less|\.css$/g
+        }),
+
         new ParallelUglifyPlugin({
             workerCount: os.cpus().length,
             cacheDir: '.cache/',
