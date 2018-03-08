@@ -1,13 +1,11 @@
-'use strict';
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HappyPack = require('happypack');
 
-let path = require('path');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let HappyPack = require('happypack');
+const getHappyPackConfig = require('./happypack');
 
-let getHappyPackConfig = require('./happypack');
-
-let config = require('../config');
+const config = require('../config');
 
 module.exports = {
     module: {
@@ -26,30 +24,20 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif|jpeg)$/,
                 use: [{
-                    loader: 'url-loader',
+                    loader: 'file-loader',
                     options: {
                         limit: 8192,
                         name: '[name].[ext]?[hash:8]'
                     }
                 }]
-            },
-            {
-                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-                use: [{
-                    loader: 'url-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'fonts/[name].[hash:7].[ext]'
-                    }
-                }]
-            }          
+            }
         ]
     },
 
-    resolve:{
-        extensions:[".vue",".js"],
+    resolve: {
+        extensions: ['.vue', 'js'],
         modules: [path.join(__dirname, '../node_modules')],
-        alias:{
+        alias: {
             '@gh': path.resolve(__dirname, '../gh'),
             '@components': path.resolve(__dirname, '../gh/components'),
             'vue$': 'vue/dist/vue.js'
@@ -64,7 +52,7 @@ module.exports = {
         hints: false
     },
 
-    plugins:[
+    plugins: [
         new HappyPack(getHappyPackConfig({
             id: 'vue',
             loaders: [{
@@ -81,7 +69,6 @@ module.exports = {
             loaders: ['babel-loader']
         })),
 
-
         // https://github.com/ampedandwired/html-webpack-plugin
         new HtmlWebpackPlugin({
             filename: 'index.html',
@@ -89,9 +76,9 @@ module.exports = {
             inject: true,
             env: process.env.NODE_ENV,
             minify: {
-                    removeComments: true,
-                    collapseWhitespace: true,
-                    removeAttributeQuotes: false
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: false
             }
         })
     ]
