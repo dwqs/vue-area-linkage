@@ -35,7 +35,7 @@ module.exports = {
     },
 
     resolve: {
-        extensions: ['.vue', 'js'],
+        extensions: ['.vue', '.js'],
         modules: [path.join(__dirname, '../node_modules')],
         alias: {
             '@gh': path.resolve(__dirname, '../gh'),
