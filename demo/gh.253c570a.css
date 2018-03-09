@@ -360,6 +360,7 @@ input, select {
   padding: 6px 0;
   width: 100%;
   font-size: 14px;
+  color: #565656;
   list-style: none;
 }
 .area-selectable-list .area-select-option {
@@ -400,6 +401,7 @@ input, select {
   position: relative;
   margin: 0;
   font-size: 14px;
+  color: #565656;
   padding: 6px 0;
   list-style: none;
   display: inline-block;
