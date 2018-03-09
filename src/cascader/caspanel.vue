@@ -2,11 +2,11 @@
     <span>
         <ul class="cascader-menu-list" ref="list">
             <li v-for="(item, index) in data"
-                :key="index" 
+                :key="getUniqueKey(index)" 
                 :class="{
                     'cascader-menu-option': true,
                     'cascader-menu-extensible': item['children'],
-                    'selected': cascader.vals.includes(item.value)
+                    'selected': cascader.useTmp ? cascader.tmpVals.includes(item.value) : cascader.vals.includes(item.value)
                 }" 
                 @click.stop="handleClickItem(item)">
                 {{item.label}}
@@ -17,15 +17,15 @@
 </template>
 
 <script>
-    import BeautifyScrollbar from 'beautify-scrollbar';
-
-    import { isArray, scrollIntoView } from '../utils';
+    import { isArray, scrollIntoView, setCSS, getCSS } from '../utils';
+    import Emitter from '../mixins/emitter';
 
     let key = 0;
 
     export default {
         name: 'Caspanel',
         inject: ['cascader'],
+        mixins: [Emitter],
 
         props: {
             data: {
@@ -41,7 +41,7 @@
                 // 记录上一次点击的 item
                 oldItem: {},
                 val: '',
-                initialized: false // 是否是根据 vals 初始化过，避免初始化滚动条时的 getBoundingClientRect 获取的值不正确
+                list: null
             };
         },
 
@@ -65,53 +65,43 @@
             },
 
             handleClickItem (item) {
-                if (this.cascader.vals.includes(item.value)) {
+                if (this.cascader.tmpVals.includes(item.value)) {
                     return;
                 }
-                this.triggerItem(item);
+
+                this.cascader.eventBus.$emit('set-use-tmp', true);
+                this.triggerItem(item, 'click');
             },
 
-            triggerItem (item) {
+            triggerItem (item, from) {
                 const base = this.getBaseItem(item);
                 this.cascader.eventBus.$emit('item-click', base, this.oldItem);
                 this.oldItem = Object.assign({}, base);
+                this.tmp = Object.assign({}, base);
+
                 if (item.children && isArray(item.children) && item.children.length > 0) {
                     this.sublist = [].concat(item.children);
                 } else {
                     this.sublist = [];
-                    this.cascader.eventBus.$emit('hide-menu-wrap');
+                    this.cascader.eventBus.$emit('hide-menu-wrap', from);
                 }
             },
 
-            createScrollbar () {
-                const dom = this.$el.querySelector('.cascader-menu-list');
-                if (!dom) {
-                    return;
-                }
-    
-                // this.scrollbar.element：修复根据 vals 初始化数据 element 可能为 null 的情况
-                if (!this.scrollbar || !this.scrollbar.element) {
-                    this.scrollbar = new BeautifyScrollbar(dom);
-                    this.initialized && this.scrollToSelectedOption();
-                } else {
-                    if (this.scrollbar.contentHeight !== dom.scrollHeight) {
-                        this.scrollbar.update({
-                            contentHeight: dom.scrollHeight
-                        });
-                    }
-                }
-            },
+            initCaspanel (params) {
+                const val = params.value;
+                const value = [...val];
 
-            initCaspanel (vals) {
-                for (let i = 0; i < vals.length; i++) {
+                for (let i = 0; i < value.length; i++) {
                     for (let j = 0; j < this.data.length; j++) {
-                        if (vals[i] === this.data[j].value) {
-                            this.triggerItem(this.data[j]);
-                            this.val = vals[i];
-                            vals.splice(0, 1);
-                            this.initialized = true;
+                        if (value[i] === this.data[j].value) {
+                            this.triggerItem(this.data[j], params.from);
+                            this.val = value[i];
+                            value.splice(0, 1);
                             this.$nextTick(() => {
-                                this.cascader.eventBus.$emit('init-value', vals);
+                                this.broadcast('Caspanel', 'update-selected', {
+                                    value: value,
+                                    from: params.from
+                                });
                             });
                             break;
                         }
@@ -119,34 +109,24 @@
                 }
             },
 
-            scrollToSelectedOption (fromInit = false) {
-                const dom = this.$el.querySelector('.cascader-menu-list');
+            scrollToSelectedOption () {
+                if (!this.list) {
+                    this.list = this.$refs.list;
+                }
                 const seletedOption = this.data.filter(item => item.value === this.val);
-    
-                if (seletedOption.length && dom) {
-                    const target = dom.querySelector('.selected');
-                    scrollIntoView(dom, target);
+                if (seletedOption.length && this.list) {
+                    const target = this.list.querySelector('.selected');
+                    scrollIntoView(this.list, target);
                 }
             }
         },
 
         mounted () {
-            // 根据 value 初始化数据
-            this.cascader.eventBus.$on('init-value', this.initCaspanel);
+            // 保存 ul
+            this.list = this.$refs.list;
+            // 根据 value 初始化选择数据
+            this.$on('update-selected', this.initCaspanel);
             this.cascader.eventBus.$on('set-scroll-top', this.scrollToSelectedOption);
-
-            if (!this.cascader.initTransition) {
-                this.cascader.eventBus.$on('transition-complete', this.createScrollbar);
-            } else {
-                !this.initialized && this.$nextTick(() => {
-                    this.createScrollbar();
-                });
-            }
-        },
-
-        updated () {
-            // 更新 contentHeight
-            !this.initialized && this.createScrollbar();
         },
 
         beforeDestroy () {

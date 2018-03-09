@@ -144,10 +144,33 @@
     list-style: none;
     display: inline-block;
     height: 204px;
+    overflow-x: hidden;
+    overflow-y: auto;
     min-width: 160px;
     vertical-align: top;
     background-color: #fff;
     border-right: 1px solid #e4e7ed;
+    // cascader scrollbar
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-button:vertical:increment,
+    &::-webkit-scrollbar-button:vertical:decremen,
+    &::-webkit-scrollbar-button:vertical:start:increment,
+    &::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb:vertical {
+        background-color: #b8b8b8;
+        border-radius: 4px;
+        &:hover {
+            background-color:#777;
+        }
+    }
+    
     &:last-child {
         border-right: none;
     }
@@ -186,5 +209,4 @@
         }
     }
 }
-
 // cascader end

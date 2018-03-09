@@ -7,7 +7,7 @@
     }">
         <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]"></i>
-        <transition name="area-zoom-in-top" @before-enter="handleListEnter" @after-enter="handleAfterEnter">
+        <transition name="area-zoom-in-top" @before-enter="handleListEnter">
             <div class="cascader-menu-list-wrap" v-show="shown" ref="wrap">
                 <caspanel :data="options"></caspanel>
             </div>
@@ -18,6 +18,7 @@
 <script>
     import Bus from '../bus.js';
     import { contains } from '../utils.js';
+    import Emitter from '../mixins/emitter';
 
     import Caspanel from './caspanel.vue';
 
@@ -27,6 +28,7 @@
                 'cascader': this
             };
         },
+        mixins: [Emitter],
         props: {
             options: {
                 type: Array,
@@ -65,10 +67,12 @@
             return {
                 shown: false,
                 eventBus: null,
+                tmpVals: [], // 临时保存选择的值
                 vals: [], // 选中的值
+                tmpItems: [], // 临时选中的 item对象
                 selectedItems: [], // 选中的 item对象
                 label: '',
-                initTransition: false
+                useTmp: false // 选择时使用临时数据交互
             };
         },
 
@@ -80,13 +84,33 @@
 
         methods: {
             initValue () {
-                this.eventBus.$emit('init-value', this.value);
+                this.broadcast('Caspanel', 'update-selected', {
+                    value: this.value,
+                    from: 'init'
+                });
+                this.vals = [].concat(this.value);
+            },
+
+            setUseTmp (val) {
+                this.useTmp = val;
+            },
+
+            resetTmpVal () {
+                this.tmpVals = [];
+                this.tmpItems = [];
+                this.setUseTmp(false);
+                if (!this.shown && this.vals.length) {
+                    this.broadcast('Caspanel', 'update-selected', {
+                        value: this.vals
+                    });
+                }
             },
 
             handleTriggerClick () {
                 if (this.disabled) {
                     return;
                 }
+
                 this.shown = !this.shown;
             },
 
@@ -94,13 +118,13 @@
                 const target = e.target;
                 if (!contains(this.$el, target) && this.shown) {
                     this.shown = false;
-                    this.initTransition = false;
+                    this.resetTmpVal();
                 }
             },
 
             handleMenuItemClick (item, oldItem) {
-                let oldVals = [].concat(this.vals);
-                let oldSelectedItems = [].concat(this.selectedItems);
+                let oldVals = [].concat(this.tmpVals);
+                let oldSelectedItems = [].concat(this.tmpItems);
 
                 if (!oldItem.value) {
                     oldVals.push(item.value);
@@ -119,44 +143,22 @@
                         oldSelectedItems.push(item);
                     }
                 }
-                this.vals = [].concat(oldVals);
-                this.selectedItems = [].concat(oldSelectedItems);
+                this.tmpVals = [].concat(oldVals);
+                this.tmpItems = [].concat(oldSelectedItems);
             },
 
-            hiddenMenuWrap () {
-                this.initTransition = false;
+            hiddenMenuWrap (from) {
+                this.vals = [].concat(this.tmpVals);
+                this.selectedItems = [].concat(this.tmpItems);
                 this.shown = false;
                 this.label = this.selectedItems.map(item => item.label).join(this.separator);
-                this.$emit('change', this.vals);
-            },
-
-            scrollToSelectedOption () {
-                // const seletedOption = this.options.filter(option => option.curValue === this.val);
-                // if (seletedOption.length) {
-                //     const target = seletedOption[0].$el;
-                //     const container = this.$el.querySelector('.area-selectable-list');
-
-                //     // refrence: https://github.com/ElemeFE/element/blob/dev/src/utils/scroll-into-view.js
-                //     const top = target.offsetTop;
-                //     const bottom = target.offsetTop + target.offsetHeight;
-                //     const viewRectTop = container.scrollTop;
-                //     const viewRectBottom = viewRectTop + container.clientHeight;
-
-                //     if (top < viewRectTop) {
-                //         container.scrollTop = top;
-                //     } else if (bottom > viewRectBottom) {
-                //         container.scrollTop = bottom - container.clientHeight;
-                //     }
-                // }
+                if (from === 'init' || from === 'click') {
+                    this.$emit('change', this.vals);
+                }
             },
 
             handleListEnter () {
                 this.$nextTick(() => this.eventBus.$emit('set-scroll-top'));
-            },
-
-            handleAfterEnter () {
-                this.initTransition = true;
-                this.eventBus.$emit('transition-complete');
             }
         },
 
@@ -167,6 +169,7 @@
             this.eventBus = Bus.createEventBus();
             this.eventBus.$on('item-click', this.handleMenuItemClick);
             this.eventBus.$on('hide-menu-wrap', this.hiddenMenuWrap);
+            this.eventBus.$on('set-use-tmp', this.setUseTmp);
         },
 
         mounted () {
