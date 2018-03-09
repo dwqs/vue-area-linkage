@@ -1,36 +1,39 @@
 <template>
-    <div class="area-select" :class="classes">
-        <el-select v-model="curProvince" :placeholder="placeholders[0] ? placeholders[0] : '请选择'">
-            <el-option v-for="(key, val) in provinces" 
+    <div class="area-select-wrap">
+        <v-select v-model="curProvince" :placeholder="placeholders[0] ? placeholders[0] : '请选择'" :size="size" @change="isSetDefault = true">
+            <v-option v-for="(val, key) in provinces" 
                 :key="key" 
-                :label="key" 
-                :value="val">
-            </el-option>
-        </el-select>
+                :label="val" 
+                :value="key">
+            </v-option>
+        </v-select>
 
-         <el-select v-model="curCity" :placeholder="placeholders[1] ? placeholders[1] : '请选择'" v-if="level>=1">
-            <el-option v-for="(key, val) in citys" 
+         <v-select v-model="curCity" :placeholder="placeholders[1] ? placeholders[1] : '请选择'" v-if="level>=1" :size="size">
+            <p v-if="!Object.keys(citys).length" class="area-select-empty">暂无数据</p> 
+            <v-option v-else v-for="(val, key) in citys" 
                 :key="key" 
-                :label="key" 
-                :value="val">
-            </el-option>
-        </el-select>
+                :label="val" 
+                :value="key">
+            </v-option>
+        </v-select>
 
-        <el-select v-model="curArea" :placeholder="placeholders[2] ? placeholders[2] : '请选择'" v-if="level>=2">
-            <el-option v-for="(key, val) in areas" 
+        <v-select v-model="curArea" :placeholder="placeholders[2] ? placeholders[2] : '请选择'" v-if="level>=2" :size="size">
+            <p v-if="!Object.keys(areas).length" class="area-select-empty">暂无数据</p> 
+            <v-option v-else v-for="(val, key) in areas" 
                 :key="key" 
-                :label="key" 
-                :value="val">
-            </el-option>
-        </el-select>
+                :label="val" 
+                :value="key">
+            </v-option>
+        </v-select>
 
-        <el-select v-model="curStreet" :placeholder="placeholders[3] ? placeholders[3] : '请选择'" v-if="level>=3">
-            <el-option v-for="(key, val) in streets" 
+        <v-select v-model="curStreet" :placeholder="placeholders[3] ? placeholders[3] : '请选择'" v-if="level>=3" :size="size">
+            <p v-if="!Object.keys(streets).length" class="area-select-empty">暂无数据</p> 
+            <v-option v-else v-for="(val, key) in streets" 
                 :key="key" 
-                :label="key" 
-                :value="val">
-            </el-option>
-        </el-select>
+                :label="val" 
+                :value="key">
+            </v-option>
+        </v-select>
     </div>
 </template>
 
@@ -38,10 +41,17 @@
     import AreaData from 'area-data';
     import find from 'lodash.find';
 
+    import Select from './select/index.vue';
+    import Option from './select/option.vue';
+
     import { assert, isArray } from './utils';
 
     export default {
         name: 'area-select',
+        components: {
+            'v-select': Select,
+            'v-option': Option
+        },
         props: {
             value: {
                 type: Array,
@@ -86,14 +96,9 @@
             };
         },
 
-        computed: {
-            classes () {
-                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large';
-            }
-        },
-
         watch: {
             curProvince (val, oldVal) {
+                // debugger;
                 this.provinceChange(val);
             },
 
@@ -109,11 +114,11 @@
                 this.streetChange(val);
             },
 
-            value () {
-                if (isArray(this.value) && this.value.length && !this.isSetDefault) {
+            value (val) {
+                if (isArray(val) && val.length && !this.isSetDefault) {
                     this.beforeSetDefault();
                     this.setDefaultValue();
-                    this.provinceChange(this.curProvince);
+                    // this.provinceChange(this.curProvince);
                 }
             }
         },
@@ -139,7 +144,7 @@
                     } else {
                         this.curCity = Object.keys(this.citys)[0];
                     }
-                    this.cityChange(this.curCity);
+                    // this.cityChange(this.curCity);
                 }
             },
 
@@ -150,7 +155,7 @@
                 }
                 this.areas = AreaData[val];
                 if (this.level >= 2) {
-                    if (this.defaults[2] && this.areas) {
+                    if (this.defaults[2]) {
                         if (this.isCode) {
                             const curArea = find(Object.keys(this.areas), (item) => item === this.defaults[2]);
                             assert(curArea, `县区 ${this.defaults[2]} 不存在于城市 ${this.defaults[1]} 中`);
@@ -164,7 +169,7 @@
                         // fix 市级下不存在城区(#7)
                         this.curArea = this.areas ? Object.keys(this.areas)[0] : val;
                     }
-                    this.areaChange(this.curArea);
+                    // this.areaChange(this.curArea);
                 }
             },
 
@@ -177,7 +182,8 @@
                     this.selectChange();
                     return;
                 }
-                this.streets = AreaData[val];
+                assert(window.STREETS, '2.0版本需要单独引入 street.js: https://github.com/dwqs/area-data');
+                this.streets = window.STREETS[val];
                 if (this.level >= 3) {
                     if (this.defaults[3] && this.streets) {
                         if (this.isCode) {
@@ -192,7 +198,7 @@
                     } else {
                         this.curStreet = this.streets ? Object.keys(this.streets)[0] : val;
                     }
-                    this.streetChange(this.curStreet);
+                    // this.streetChange(this.curStreet);
                 }
             },
 
@@ -216,20 +222,20 @@
                             texts.push(this.provinces[this.curProvince]);
                             break;
                         case 1:
-                            city = AreaData[this.curProvince][this.curCity];
+                            city = this.citys[this.curCity];
                             texts.push(city);
                             break;
                         case 2:
-                            area = AreaData[this.curCity] ? AreaData[this.curCity][this.curArea] : city;
-                            if (!AreaData[this.curCity]) {
-                                this.curArea = city;
+                            area = this.areas[this.curArea];
+                            if (!area) {
+                                area = city;
                             }
                             texts.push(area);
                             break;
                         case 3:
-                            street = AreaData[this.curArea] ? AreaData[this.curArea][this.curStreet] : area;
-                            if (!AreaData[this.curArea]) {
-                                this.curStreet = area;
+                            street = this.streets[this.curStreet];
+                            if (!street) {
+                                street = area;
                             }
                             texts.push(street);
                             break;
@@ -266,9 +272,10 @@
                 } else {
                     isValid = this.value.every((item) => num.test(item));
                 }
+
                 assert(isValid, '传入的默认值参数有误');
                 // 映射默认值，避免直接更改props
-                this.defaults = this.value;
+                this.defaults = [].concat(this.value);
                 this.isCode = isCode;
                 this.isSetDefault = true;
             },
@@ -288,7 +295,7 @@
                 this.$nextTick(() => {
                     this.defaults = [];
                     this.isCode = false;
-                    this.isSetDefault = false;
+                    // this.isSetDefault = false;
                 });
             },
 
@@ -334,8 +341,15 @@
 </script>
 
 <style>
-    .area-select .el-select{
-        width: 160px;
+    .area-select-wrap .area-select{
         margin-left: 10px;
+    }
+
+    .area-select-wrap .area-select-empty{
+        padding: 4px 0;
+        margin: 0;
+        text-align: center;
+        color: #999;
+        font-size: 14px;
     }
 </style>

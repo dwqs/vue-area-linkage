@@ -6,11 +6,8 @@ import AreaCascader from './area-cascader.vue';
 import Bus from './bus.js';
 
 function install (Vue) {
-    // Vue.use(Select);
-    // Vue.use(Option);
-    // Vue.use(Cascader);
-    // Vue.component(AreaSelect.name, AreaSelect);
-    // Vue.component(AreaCascader.name, AreaCascader);
+    Vue.component(AreaSelect.name, AreaSelect);
+    Vue.component(AreaCascader.name, AreaCascader);
     Bus.saveVueRef(Vue);
 }
 const VueAreaLinkage = {

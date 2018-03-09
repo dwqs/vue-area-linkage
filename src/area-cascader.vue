@@ -1,11 +1,12 @@
 <template>
-    <div class="area-cascader" :class="classes">
-        <el-cascader
+    <div class="area-cascader-wrap">
+        <v-cascader
             :placeholder="placeholder" 
             :options="options"
             v-model="defaultValCode" 
+            :size="size"
             @change="handleChange">
-        </el-cascader>
+        </v-cascader>
     </div>
 </template>
 
@@ -13,10 +14,15 @@
     import AreaData from 'area-data';
     import find from 'lodash.find';
 
+    import Cascader from './cascader/index.vue';
+
     import { assert, isArray } from './utils';
 
     export default {
         name: 'area-cascader',
+        components: {
+            'v-cascader': Cascader
+        },
         props: {
             value: {
                 required: true
@@ -37,7 +43,7 @@
             },
             size: {
                 type: String,
-                default: 'medium',
+                default: 'large',
                 validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             }
         },
@@ -58,12 +64,6 @@
                 isSetDefault: false,
                 isCode: false
             };
-        },
-
-        computed: {
-            classes () {
-                return this.size === 'medium' ? 'medium' : this.size === 'small' ? 'small' : 'large';
-            }
         },
 
         watch: {
