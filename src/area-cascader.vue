@@ -197,6 +197,7 @@
             },
 
             handleChange (selected) {
+                this.isSetDefault = true;
                 let res = [];
                 if (this.type === 'code') {
                     res = selected;
