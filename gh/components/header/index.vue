@@ -7,8 +7,7 @@
         </a>
         <h2>Vue Area Linkage: 中国行政区联动选择器</h2>
         <p>
-            省、市、区、街道联动选择，UI 基于 
-            <a target="_blank" href="https://github.com/ElemeFE/element">Element UI</a>
+            省、市、区、街道联动选择
         </p>
     </header>
 </template>

@@ -1,5 +1,5 @@
 # vue-area-linkage
-省市区联动选择，基于 Element UI. 组合数据来源：[area-data](https://github.com/dwqs/area-data)
+省市区联动选择. 组合数据来源：[area-data](https://github.com/dwqs/area-data)
 
 ## Installation
 Install the pkg with npm:
@@ -14,6 +14,7 @@ yarn add  vue-area-linkage
 ## Usage
 ```
 import Vue from 'vue';
+import 'vue-area-linkage/dist/index.css';  // v2 需要引入 css
 import VueAreaLinkage from 'vue-area-linkage';
 
 Vue.use(VueAreaLinkage)
