@@ -31,7 +31,7 @@
     export default {
         data () {
             return {
-                t: ['1', '31'],
+                t: ['1', '3', '7'], // 
                 list: [{
                     value: 1,
                     label: 'text1'
@@ -40,6 +40,9 @@
                     label: 'text2'
                 }],
                 options: [{
+                    value: '21111',
+                    label: '222'
+                }, {
                     value: '1',
                     label: '1',
                     children: [{
@@ -71,26 +74,30 @@
                             label: '12'
                         }]
                     }, {
-                        value: '21',
+                        value: '22',
                         label: '22'
                     }, {
                         value: '23',
+                        label: '23'
+                    }, {
+                        value: '24',
                         label: '24'
                     }, {
                         value: '25',
+                        label: '25'
+                    }, {
+                        value: '26',
                         label: '26'
                     }, {
                         value: '27',
-                        label: '28'
+                        label: '27'
                     }, {
-                        value: '30',
-                        label: '30'
-                    }, {
-                        value: '31',
-                        label: '31'
-                    }, {
-                        value: '32',
-                        label: '32'
+                        value: '21',
+                        label: '21',
+                        children: [{
+                            value: '28',
+                            label: '28'
+                        }]
                     }]
                 }, {
                     value: '4',
@@ -110,9 +117,9 @@
         },
 
         mounted () {
-            setTimeout(() => {
-                // this.t = 1
-            }, 2000);
+            // setTimeout(() => {
+            //     this.t = ['1', '21', '28'];
+            // }, 2000);
         },
  
         components: {
