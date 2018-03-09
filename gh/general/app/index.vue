@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="app-wrap">
-        <div class="test">
+        <!-- <div class="test">
             <test-select>
                 <test-option v-for="(item, index) in list" :key="index" :value="item.value" :label="item.label"></test-option>
             </test-select>
@@ -9,10 +9,10 @@
             <br />
             <br />
             <cascader :options="options" v-model="t" @change="selectChange"></cascader>
-        </div>
+        </div> -->
         <v-header />
         <v-start></v-start>
-        <!-- <v-main></v-main> -->
+        <v-main></v-main>
         <v-footer></v-footer>
     </div>
 </template>

@@ -134,6 +134,6 @@ input, select {
 }
 
 /* el-scrollbar */
-.size-example .area-select.large .el-select:last-child{
+/* .size-example .area-select.large .el-select:last-child{
     margin-left: 30px
-}
+} */
