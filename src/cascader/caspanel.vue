@@ -65,10 +65,6 @@
             },
 
             handleClickItem (item) {
-                if (this.cascader.tmpVals.includes(item.value)) {
-                    return;
-                }
-
                 this.cascader.eventBus.$emit('set-use-tmp', true);
                 this.triggerItem(item, 'click');
             },
