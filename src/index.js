@@ -1,22 +1,37 @@
 import 'beautify-scrollbar/dist/index.css';
 import './index.less';
 
-import AreaSelect from './area-select.vue';
-import AreaCascader from './area-cascader.vue';
+import AreaSelect from '../components/area-select/index';
+import AreaCascader from '../components/area-cascader/index';
+
 import Bus from './bus.js';
 
+const components = [
+    AreaSelect,
+    AreaCascader
+];
+
 function install (Vue) {
-    Vue.component(AreaSelect.name, AreaSelect);
-    Vue.component(AreaCascader.name, AreaCascader);
     Bus.saveVueRef(Vue);
+    components.map(component => {
+        Vue.component(component.name, component);
+    });
 }
+
+export {
+    AreaSelect,
+    AreaCascader
+};
+
 const VueAreaLinkage = {
-    install
+    install,
+    AreaSelect,
+    AreaCascader
 };
 
 export default VueAreaLinkage;
 
 // auto install
 if (typeof window !== 'undefined' && window.Vue) {
-    window.Vue.use(VueAreaLinkage);
-};
+    install(window.Vue);
+}
