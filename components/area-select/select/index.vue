@@ -20,7 +20,7 @@
 <script>
     import BeautifyScrollbar from 'beautify-scrollbar';
 
-    import { contains, scrollIntoView } from '../utils.js';
+    import { contains, scrollIntoView } from '@src/utils.js';
 
     export default {
         provide () {

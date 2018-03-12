@@ -16,8 +16,8 @@
 </template>
 
 <script>
-    import Bus from '../bus.js';
-    import { contains } from '../utils.js';
+    import Bus from '@src/bus.js';
+    import { contains } from '@src/utils.js';
     import Emitter from '../mixins/emitter';
 
     import Caspanel from './caspanel.vue';

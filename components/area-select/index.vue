@@ -44,7 +44,7 @@
     import Select from './select/index.vue';
     import Option from './select/option.vue';
 
-    import { assert, isArray } from './utils';
+    import { assert, isArray } from '@src/utils';
 
     export default {
         name: 'area-select',

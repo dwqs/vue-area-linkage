@@ -1,0 +1,4 @@
+{
+    "area-select": "./components/area-select/index.js",
+    "area-cascader": "./components/area-cascader/index.js"
+}

@@ -16,7 +16,7 @@
 
     import Cascader from './cascader/index.vue';
 
-    import { assert, isArray } from './utils';
+    import { assert, isArray } from '@src/utils';
 
     export default {
         name: 'area-cascader',
