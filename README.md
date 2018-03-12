@@ -1,3 +1,4 @@
+![npm-version](https://img.shields.io/npm/v/vue-area-linkage.svg) ![license](https://img.shields.io/npm/l/vue-area-linkage.svg)
 # vue-area-linkage
 省市区联动选择. 组合数据来源：[area-data](https://github.com/dwqs/area-data)
 
@@ -31,6 +32,43 @@ Vue.use(VueAreaLinkage)
 ```
 
 More demo to visit [here](https://dwqs.github.io/vue-area-linkage/).
+
+## On Demand Import
+> version >= 2.1.2
+
+安装 [babel-plugin-on-demand-import](https://github.com/dwqs/babel-plugin-on-demand-import): 
+
+```
+npm i babel-plugin-on-demand-import -D
+```
+
+修改 `.babelrc`: 
+
+```
+{
+    // ...
+    "plugins": [
+        ["on-demand-import" {
+            "libraryName": "vue-area-linkage",
+            "libraryPath": "dist/lib"
+        }]
+    ]
+}
+```
+
+```
+// Only import AreaCascader component
+import { AreaCascader } from 'vue-area-linkage';
+Vue.use(AreaCascader);
+
+<area-cascader v-model="val"></area-cascader>
+
+// Only import AreaSelect component
+import { AreaSelect } from 'vue-area-linkage'; 
+Vue.use(AreaSelect);
+
+<area-select v-model="val2"></area-select>
+```
 
 ## 属性
 ### area-select 组件
