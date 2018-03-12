@@ -18,10 +18,10 @@
 </template>
 
 <script>
-    import Select from '../../../src/select/index.vue';
-    import Option from '../../../src/select/option.vue';
+    import Select from '../../../components/area-select/select/index.vue';
+    import Option from '../../../components/area-select/select/option.vue';
 
-    import Cascader from '../../../src/cascader/index.vue';
+    import Cascader from '../../../components/area-cascader/cascader/index.vue';
 
     import Header from '@components/header/';
     import Main from '@components/main/';
@@ -31,7 +31,7 @@
     export default {
         data () {
             return {
-                t: ['1', '3', '7'], // 
+                t: ['1', '3', '7'],
                 list: [{
                     value: 1,
                     label: 'text1'
