@@ -1,6 +1,6 @@
 {
   "name": "vue-area-linkage",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "description": "Vue area linkage",
   "author": "pomysky@gmail.com",
   "license": "MIT",
@@ -29,9 +29,10 @@
   "scripts": {
     "prepush": "npm run ilint -q",
     "dev": "npx cross-env NODE_ENV=development node ./build/dev-server.js",
+    "build:components": "NODE_ENV=production npx webpack --config ./webpack.components.config.js --progress --hide-modules",
     "build": "npx cross-env NODE_ENV=production npx webpack --config ./build/webpack.prod.config.js --progress --hide-modules",
     "postbuild": "mv ./demo/index.html ./",
-    "prepublishOnly": "npx webpack --config ./webpack.build.config.js --progress --hide-modules",
+    "prepublishOnly": "rm -rf dist && npm run build:components && npx webpack --config ./webpack.build.config.js --progress --hide-modules",
     "ilint": "npx eslint src/**/*.js src/**/*.vue",
     "fix": "npx eslint --fix src/**/*.js src/**/*.vue"
   },
