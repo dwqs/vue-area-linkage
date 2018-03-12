@@ -13,7 +13,7 @@ module.exports = {
         path: path.join(__dirname, './dist'),
         filename: '[name].js',
         library: 'VueAreaLinkage',
-        libraryTarget: 'umd'
+        libraryTarget: 'commonjs2'
     },
     module: {
         rules: [
@@ -42,6 +42,15 @@ module.exports = {
             }
         ]
     },
+
+    resolve: {
+        extensions: ['.vue', '.js'],
+        modules: [path.join(__dirname, './node_modules')],
+        alias: {
+            '@src': path.resolve(__dirname, './src')
+        }
+    },
+    
     plugins: [
         new ExtractTextPlugin({
             filename: '[name].css'
@@ -55,21 +64,21 @@ module.exports = {
             assetNameRegExp: /\.less|\.css$/g
         }),
 
-        new ParallelUglifyPlugin({
-            workerCount: os.cpus().length,
-            cacheDir: '.cache/',
-            uglifyJS: {
-                compress: {
-                    warnings: false,
-                    /* eslint-disable camelcase */
-                    drop_debugger: true,
-                    drop_console: true
-                },
-                comments: false,
-                sourceMap: true,
-                mangle: true
-            }
-        }),
+        // new ParallelUglifyPlugin({
+        //     workerCount: os.cpus().length,
+        //     cacheDir: '.cache/',
+        //     uglifyJS: {
+        //         compress: {
+        //             warnings: false,
+        //             /* eslint-disable camelcase */
+        //             drop_debugger: true,
+        //             drop_console: true
+        //         },
+        //         comments: false,
+        //         sourceMap: true,
+        //         mangle: true
+        //     }
+        // }),
         new webpack.optimize.ModuleConcatenationPlugin()
     ]
 };
