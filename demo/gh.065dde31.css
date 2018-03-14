@@ -1,33 +1,4 @@
-.start {
-  margin-top: 40px;
-}
-.start h3 {
-  text-align: center;
-  font-size: 25px;
-  color: #6289ad;
-}
-.start h4 {
-  font-size: 18px;
-  color: #6289ad;
-}
-.start pre {
-  margin-top: 15px;
-  background: #f8f8f8;
-  padding: 15px 10px;
-  color: #000;
-  font-size: 16px;
-  font-weight: 400;
-}
-.start .install {
-  margin-top: 20px;
-}
-.start .install p {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-.start .register {
-  margin-top: 20px;
-}.beautify-scroll-container{position:relative!important;overflow:hidden!important;-webkit-box-sizing:border-box!important;box-sizing:border-box!important;overflow-anchor:none}.beautify-scroll__x-bar,.beautify-scroll__y-bar{position:absolute;z-index:100;background-color:transparent}.beautify-scroll__y-bar{width:10px}.beautify-scroll__x-bar{height:10px}.beautify-scroll__x-thumb,.beautify-scroll__y-thumb{position:absolute;border-radius:6px;background-color:#b8b8b8;opacity:0;-webkit-transition:all .2s linear;-o-transition:all .2s linear;transition:all .2s linear}.beautify-scroll__x-thumb:hover,.beautify-scroll__y-thumb:hover{background-color:#777}.beautify-scroll__x-thumb.shown,.beautify-scroll__y-thumb.shown{opacity:1}.beautify-scroll__x-thumb.focus,.beautify-scroll__y-thumb.focus{opacity:1;background-color:#777}.beautify-scroll__x-thumb{height:7px;bottom:0}.beautify-scroll__y-thumb{width:7px;right:0}html, body, div, span, applet, object, iframe,
+.beautify-scroll-container{position:relative!important;overflow:hidden!important;-webkit-box-sizing:border-box!important;box-sizing:border-box!important;overflow-anchor:none}.beautify-scroll__x-bar,.beautify-scroll__y-bar{position:absolute;z-index:100;background-color:transparent}.beautify-scroll__y-bar{width:10px}.beautify-scroll__x-bar{height:10px}.beautify-scroll__x-thumb,.beautify-scroll__y-thumb{position:absolute;border-radius:6px;background-color:#b8b8b8;opacity:0;-webkit-transition:all .2s linear;-o-transition:all .2s linear;transition:all .2s linear}.beautify-scroll__x-thumb:hover,.beautify-scroll__y-thumb:hover{background-color:#777}.beautify-scroll__x-thumb.shown,.beautify-scroll__y-thumb.shown{opacity:1}.beautify-scroll__x-thumb.focus,.beautify-scroll__y-thumb.focus{opacity:1;background-color:#777}.beautify-scroll__x-thumb{height:7px;bottom:0}.beautify-scroll__y-thumb{width:7px;right:0}html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -167,7 +138,36 @@ input, select {
 /* el-scrollbar */
 /* .size-example .area-select.large .el-select:last-child{
     margin-left: 30px
-} */.app-main {
+} */.start {
+  margin-top: 40px;
+}
+.start h3 {
+  text-align: center;
+  font-size: 25px;
+  color: #6289ad;
+}
+.start h4 {
+  font-size: 18px;
+  color: #6289ad;
+}
+.start pre {
+  margin-top: 15px;
+  background: #f8f8f8;
+  padding: 15px 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+}
+.start .install {
+  margin-top: 20px;
+}
+.start .install p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.start .register {
+  margin-top: 20px;
+}.app-main {
   margin-top: 20px;
 }
 .app-main h3 {
