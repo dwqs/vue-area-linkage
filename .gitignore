@@ -47,3 +47,5 @@ converage
 reports
 .cache
 .happypack
+streets.js
+!demo/streets.js
