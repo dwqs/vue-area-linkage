@@ -3500,13 +3500,13 @@ var utils = __webpack_require__(15);
         this.scrollbar && this.scrollbar.destroy();
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-15b34377","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9a6304fc","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"area-select",class:{
     'medium': _vm.size === 'medium',
     'small': _vm.size === 'small',
     'large': _vm.size === 'large',
     'is-disabled': _vm.disabled
-}},[_c('span',{ref:"trigger",staticClass:"area-selected-trigger",on:{"click":_vm.handleTriggerClick}},[_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]),_vm._v(" "),_c('i',{class:['area-select-icon', { 'active': _vm.shown }]}),_vm._v(" "),_c('transition',{attrs:{"name":"area-zoom-in-top"},on:{"before-enter":_vm.handleListEnter,"after-enter":_vm.handleAfterEnter}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shown),expression:"shown"}],ref:"wrap",staticClass:"area-selectable-list-wrap"},[_c('ul',{staticClass:"area-selectable-list"},[_vm._t("default")],2)])])],1)}
+}},[_c('span',{ref:"trigger",staticClass:"area-selected-trigger",on:{"click":_vm.handleTriggerClick}},[_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]),_vm._v(" "),_c('i',{class:['area-select-icon', { 'active': _vm.shown }],on:{"click":function($event){$event.stopPropagation();_vm.handleTriggerClick($event)}}}),_vm._v(" "),_c('transition',{attrs:{"name":"area-zoom-in-top"},on:{"before-enter":_vm.handleListEnter,"after-enter":_vm.handleAfterEnter}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shown),expression:"shown"}],ref:"wrap",staticClass:"area-selectable-list-wrap"},[_c('ul',{staticClass:"area-selectable-list"},[_vm._t("default")],2)])])],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ var selectortype_template_index_0_components_area_select_select = (esExports);

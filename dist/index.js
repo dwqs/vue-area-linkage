@@ -3335,7 +3335,15 @@ var render = function() {
         [_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]
       ),
       _vm._v(" "),
-      _c("i", { class: ["area-select-icon", { active: _vm.shown }] }),
+      _c("i", {
+        class: ["area-select-icon", { active: _vm.shown }],
+        on: {
+          click: function($event) {
+            $event.stopPropagation()
+            _vm.handleTriggerClick($event)
+          }
+        }
+      }),
       _vm._v(" "),
       _c(
         "transition",
@@ -4649,7 +4657,15 @@ var cascader_render = function() {
         [_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]
       ),
       _vm._v(" "),
-      _c("i", { class: ["area-select-icon", { active: _vm.shown }] }),
+      _c("i", {
+        class: ["area-select-icon", { active: _vm.shown }],
+        on: {
+          click: function($event) {
+            $event.stopPropagation()
+            _vm.handleTriggerClick($event)
+          }
+        }
+      }),
       _vm._v(" "),
       _c(
         "transition",
