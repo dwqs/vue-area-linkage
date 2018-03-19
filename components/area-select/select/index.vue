@@ -114,7 +114,7 @@
             },
 
             handleAfterEnter () {
-                if (!this.scrollbar) {
+                if (!this.scrollbar && this.value) {
                     this.scrollbar = new BeautifyScrollbar(this.$refs.wrap);
                 }
             }
