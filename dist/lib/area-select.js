@@ -3468,7 +3468,7 @@ var utils = __webpack_require__(15);
             });
             if (seletedOption.length) {
                 var target = seletedOption[0].$el;
-                var container = this.$el.querySelector('.area-selectable-list');
+                var container = this.$el.querySelector('.area-selectable-list-wrap');
 
                 Object(utils["d" /* scrollIntoView */])(container, target);
             }
@@ -3481,7 +3481,7 @@ var utils = __webpack_require__(15);
             });
         },
         handleAfterEnter: function handleAfterEnter() {
-            if (!this.scrollbar) {
+            if (!this.scrollbar && this.value) {
                 this.scrollbar = new dist_default.a(this.$refs.wrap);
             }
         }
@@ -3500,7 +3500,7 @@ var utils = __webpack_require__(15);
         this.scrollbar && this.scrollbar.destroy();
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-9a6304fc","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-ec77d014","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"area-select",class:{
     'medium': _vm.size === 'medium',
     'small': _vm.size === 'small',

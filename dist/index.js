@@ -3276,7 +3276,7 @@ function scrollIntoView(container, target) {
             });
             if (seletedOption.length) {
                 var target = seletedOption[0].$el;
-                var container = this.$el.querySelector('.area-selectable-list');
+                var container = this.$el.querySelector('.area-selectable-list-wrap');
 
                 scrollIntoView(container, target);
             }
@@ -3289,7 +3289,7 @@ function scrollIntoView(container, target) {
             });
         },
         handleAfterEnter: function handleAfterEnter() {
-            if (!this.scrollbar) {
+            if (!this.scrollbar && this.value) {
                 this.scrollbar = new beautify_scrollbar_dist_default.a(this.$refs.wrap);
             }
         }
