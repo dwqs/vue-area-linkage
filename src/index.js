@@ -1,4 +1,3 @@
-import 'beautify-scrollbar/dist/index.css';
 import './index.less';
 
 import AreaSelect from '../components/area-select/index';

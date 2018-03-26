@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "area-data": "^2.0.0",
-    "beautify-scrollbar": "^1.0.5",
     "lodash.find": "^4.6.0"
   },
   "peerDependencies": {
