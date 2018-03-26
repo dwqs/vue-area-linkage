@@ -114,8 +114,10 @@
             },
 
             handleAfterEnter () {
-                if (!this.scrollbar && this.value) {
+                if (!this.scrollbar) {
                     this.scrollbar = new BeautifyScrollbar(this.$refs.wrap);
+                } else {
+                    this.scrollbar.update();
                 }
             }
         },
