@@ -43,9 +43,33 @@ function scrollIntoView (container, target) {
     }
 }
 
+function setPanelPosition (panelHeight, wrapRect, isPlusWrapHeight = true) {
+    const wrapHeight = wrapRect.height;
+    const wrapTop = wrapRect.top;
+
+    const docHeight = document.documentElement.clientHeight;
+    const panelDefTop = wrapTop + wrapHeight;
+
+    const diff = docHeight - panelDefTop;
+    if (diff < panelHeight) {
+        if (wrapTop > panelHeight) {
+            if (isPlusWrapHeight) {
+                return -(panelHeight + wrapHeight + 10);
+            } else {
+                return -(panelHeight + 10);
+            }
+        } else {
+            return diff - panelHeight;
+        }
+    } else {
+        return isPlusWrapHeight ? 0 : wrapHeight;
+    }
+}
+
 export {
     contains,
     assert,
     isArray,
-    scrollIntoView
+    scrollIntoView,
+    setPanelPosition
 };

@@ -4,11 +4,11 @@
         'small': size === 'small',
         'large': size === 'large',
         'is-disabled': disabled
-    }">
+    }" ref="area">
         <span ref="trigger" class="area-selected-trigger" @click="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]" @click.stop="handleTriggerClick"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter" @after-enter="handleAfterEnter">
-            <div class="area-selectable-list-wrap" v-show="shown" ref="wrap">
+            <div class="area-selectable-list-wrap" v-show="shown" ref="wrap" :style="{top: top + 'px'}">
                 <ul class="area-selectable-list">
                     <slot></slot>
                 </ul>
@@ -20,7 +20,7 @@
 <script>
     import BeautifyScrollbar from 'beautify-scrollbar';
 
-    import { contains, scrollIntoView } from '@src/utils.js';
+    import { contains, scrollIntoView, setPanelPosition } from '@src/utils.js';
 
     export default {
         provide () {
@@ -54,7 +54,9 @@
                 label: '',
                 val: '',
 
-                scrollbar: null
+                scrollbar: null,
+                areaRect: null,
+                top: 0
             };
         },
 
@@ -84,11 +86,23 @@
                 this.shown = !this.shown;
             },
 
+            setPosition () {
+                const panelHeight = parseInt(window.getComputedStyle(this.$refs.wrap, null).getPropertyValue('height'));
+                this.top = setPanelPosition(panelHeight, this.areaRect);
+            },
+
             handleDocClick (e) {
                 const target = e.target;
                 if (!contains(this.$el, target) && this.shown) {
                     this.shown = false;
                 }
+            },
+
+            handleDocResize () {
+                this.areaRect = this.$refs.area.getBoundingClientRect();
+                this.$nextTick(() => {
+                    this.setPosition();
+                });
             },
 
             setSelectedValue (option) {
@@ -100,6 +114,7 @@
             },
 
             scrollToSelectedOption () {
+                this.setPosition();
                 const seletedOption = this.options.filter(option => option.curValue === this.val);
                 if (seletedOption.length) {
                     const target = seletedOption[0].$el;
@@ -123,6 +138,10 @@
         },
 
         mounted () {
+            this.areaRect = this.$refs.area.getBoundingClientRect();
+            window.document.addEventListener('scroll', this.handleDocResize, false);
+            window.addEventListener('resize', this.handleDocResize, false);
+
             window.document.addEventListener('click', this.handleDocClick, false);
             this.$nextTick(() => {
                 this.setDef();
@@ -130,6 +149,9 @@
         },
 
         beforeDestroy () {
+            window.document.removeEventListener('scroll', this.handleDocResize, false);
+            window.removeEventListener('resize', this.handleDocResize, false);
+
             window.document.removeEventListener('click', this.handleDocClick, false);
             this.scrollbar && this.scrollbar.destroy();
         }

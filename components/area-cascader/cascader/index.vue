@@ -4,11 +4,11 @@
         'small': size === 'small',
         'large': size === 'large',
         'is-disabled': disabled
-    }">
+    }" ref="area">
         <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]" @click.stop="handleTriggerClick"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter">
-            <div class="cascader-menu-list-wrap" v-show="shown" ref="wrap">
+            <div class="cascader-menu-list-wrap" v-show="shown" ref="wrap" :style="{top: top + 'px'}">
                 <caspanel :data="options"></caspanel>
             </div>
         </transition>
@@ -17,7 +17,7 @@
 
 <script>
     import Bus from '@src/bus.js';
-    import { contains } from '@src/utils.js';
+    import { contains, setPanelPosition } from '@src/utils.js';
     import Emitter from '../mixins/emitter';
 
     import Caspanel from './caspanel.vue';
@@ -65,6 +65,10 @@
 
         data () {
             return {
+                // 计算位置
+                areaRect: null,
+                top: 32,
+
                 shown: false,
                 eventBus: null,
                 tmpVals: [], // 临时保存选择的值
@@ -114,12 +118,24 @@
                 this.shown = !this.shown;
             },
 
+            setPosition () {
+                const panelHeight = parseInt(window.getComputedStyle(this.$refs.wrap, null).getPropertyValue('height'));
+                this.top = setPanelPosition(panelHeight, this.areaRect, false);
+            },
+
             handleDocClick (e) {
                 const target = e.target;
                 if (!contains(this.$el, target) && this.shown) {
                     this.shown = false;
                     this.resetTmpVal();
                 }
+            },
+
+            handleDocResize () {
+                this.areaRect = this.$refs.area.getBoundingClientRect();
+                this.$nextTick(() => {
+                    this.setPosition();
+                });
             },
 
             handleMenuItemClick (item, oldItem) {
@@ -158,7 +174,10 @@
             },
 
             handleListEnter () {
-                this.$nextTick(() => this.eventBus.$emit('set-scroll-top'));
+                this.$nextTick(() => {
+                    this.setPosition();
+                    this.eventBus.$emit('set-scroll-top');
+                });
             }
         },
 
@@ -173,6 +192,11 @@
         },
 
         mounted () {
+            this.areaRect = this.$refs.area.getBoundingClientRect();
+            this.top = this.areaRect.height;
+
+            window.document.addEventListener('scroll', this.handleDocResize, false);
+            window.addEventListener('resize', this.handleDocResize, false);
             window.document.addEventListener('click', this.handleDocClick, false);
 
             if (this.value && this.value.length) {
@@ -181,6 +205,8 @@
         },
 
         beforeDestroy () {
+            window.document.removeEventListener('scroll', this.handleDocResize, false);
+            window.removeEventListener('resize', this.handleDocResize, false);
             window.document.removeEventListener('click', this.handleDocClick, false);
         }
     };
