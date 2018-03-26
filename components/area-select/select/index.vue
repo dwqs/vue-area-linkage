@@ -7,7 +7,7 @@
     }" ref="area">
         <span ref="trigger" class="area-selected-trigger" @click="handleTriggerClick">{{label ? label : placeholder}}</span>
         <i :class="['area-select-icon', { 'active': shown }]" @click.stop="handleTriggerClick"></i>
-        <transition name="area-zoom-in-top" @before-enter="handleListEnter" @after-enter="handleAfterEnter">
+        <transition name="area-zoom-in-top" @before-enter="handleListEnter">
             <div class="area-selectable-list-wrap" v-show="shown" ref="wrap" :style="{top: top + 'px'}">
                 <ul class="area-selectable-list">
                     <slot></slot>
@@ -18,8 +18,6 @@
 </template>
 
 <script>
-    import BeautifyScrollbar from 'beautify-scrollbar';
-
     import { contains, scrollIntoView, setPanelPosition } from '@src/utils.js';
 
     export default {
@@ -56,13 +54,18 @@
 
                 scrollbar: null,
                 areaRect: null,
-                top: 0
+                top: 32
             };
         },
 
         watch: {
             value (val) {
                 this.setDef();
+                if (this.scrollbar) {
+                    // this.scrollbar.destroy();
+                    // this.scrollbar = null;
+                    this.scrollbar.update();
+                }
             },
 
             options (val) {
@@ -126,19 +129,12 @@
 
             handleListEnter () {
                 this.$nextTick(() => this.scrollToSelectedOption());
-            },
-
-            handleAfterEnter () {
-                if (!this.scrollbar) {
-                    this.scrollbar = new BeautifyScrollbar(this.$refs.wrap);
-                } else {
-                    this.scrollbar.update();
-                }
             }
         },
 
         mounted () {
             this.areaRect = this.$refs.area.getBoundingClientRect();
+            this.top = this.areaRect.height;
             window.document.addEventListener('scroll', this.handleDocResize, false);
             window.addEventListener('resize', this.handleDocResize, false);
 

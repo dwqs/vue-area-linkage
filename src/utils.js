@@ -43,7 +43,7 @@ function scrollIntoView (container, target) {
     }
 }
 
-function setPanelPosition (panelHeight, wrapRect, isPlusWrapHeight = true) {
+function setPanelPosition (panelHeight, wrapRect) {
     const wrapHeight = wrapRect.height;
     const wrapTop = wrapRect.top;
 
@@ -53,16 +53,12 @@ function setPanelPosition (panelHeight, wrapRect, isPlusWrapHeight = true) {
     const diff = docHeight - panelDefTop;
     if (diff < panelHeight) {
         if (wrapTop > panelHeight) {
-            if (isPlusWrapHeight) {
-                return -(panelHeight + wrapHeight + 10);
-            } else {
-                return -(panelHeight + 10);
-            }
+            return -(panelHeight + 10);
         } else {
             return diff - panelHeight;
         }
     } else {
-        return isPlusWrapHeight ? 0 : wrapHeight;
+        return wrapHeight;
     }
 }
 

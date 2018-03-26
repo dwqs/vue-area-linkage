@@ -120,7 +120,7 @@
 
             setPosition () {
                 const panelHeight = parseInt(window.getComputedStyle(this.$refs.wrap, null).getPropertyValue('height'));
-                this.top = setPanelPosition(panelHeight, this.areaRect, false);
+                this.top = setPanelPosition(panelHeight, this.areaRect);
             },
 
             handleDocClick (e) {

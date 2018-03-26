@@ -80,8 +80,7 @@
 
 //  select start
 .area-selectable-list-wrap {
-    // position: absolute;
-    position: relative;
+    position: absolute;
     width: 100%;
     max-height: 275px;
     z-index: 15000;
@@ -91,7 +90,8 @@
     box-shadow: 0 2px 4px rgba(0,0,0,.12), 0 0 6px rgba(0,0,0,.04);
     box-sizing: border-box;
     margin: 5px 0;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-x: auto;
 }
 
 .area-selectable-list {
@@ -155,26 +155,6 @@
     vertical-align: top;
     background-color: #fff;
     border-right: 1px solid #e4e7ed;
-    // cascader scrollbar
-    &::-webkit-scrollbar {
-        width: 8px;
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-button:vertical:increment,
-    &::-webkit-scrollbar-button:vertical:decremen,
-    &::-webkit-scrollbar-button:vertical:start:increment,
-    &::-webkit-scrollbar-button:vertical:end:decrement {
-        display: none;
-    }
-
-    &::-webkit-scrollbar-thumb:vertical {
-        background-color: #b8b8b8;
-        border-radius: 4px;
-        &:hover {
-            background-color:#777;
-        }
-    }
     
     &:last-child {
         border-right: none;
@@ -215,3 +195,26 @@
     }
 }
 // cascader end
+
+// custom scrollbar
+.cascader-menu-list, .area-selectable-list-wrap {
+    &::-webkit-scrollbar {
+        width: 8px;
+        background: transparent;
+    }
+    
+    &::-webkit-scrollbar-button:vertical:increment,
+    &::-webkit-scrollbar-button:vertical:decremen,
+    &::-webkit-scrollbar-button:vertical:start:increment,
+    &::-webkit-scrollbar-button:vertical:end:decrement {
+        display: none;
+    }
+    
+    &::-webkit-scrollbar-thumb:vertical {
+        background-color: #b8b8b8;
+        border-radius: 4px;
+        &:hover {
+            background-color:#777;
+        }
+    }
+}
