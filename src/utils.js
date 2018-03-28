@@ -16,7 +16,9 @@ function contains (root, target) {
 
 function assert (condition, msg = '') {
     if (!condition) {
-        throw new Error(`[vue-area-linkage]: ${msg}`);
+        // throw new Error(`[vue-area-linkage]: ${msg}`);
+        // fix #27
+        console.error(`[vue-area-linkage]: ${msg}`);
     }
 }
 

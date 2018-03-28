@@ -131,6 +131,10 @@
                 }
                 if (this.level >= 1) {
                     this.citys = AreaData[val];
+                    if (!this.citys) {
+                        this.citys = {};
+                        return;
+                    }
                     if (this.defaults[1]) {
                         if (this.isCode) {
                             const curCity = find(Object.keys(this.citys), (item) => item === this.defaults[1]);

@@ -19,7 +19,7 @@
     export default {
         data() {
             return {
-                selected: ['440000','440300','440305'],
+                selected: ['测试以', '测试以', '测试以'], //['440000','440300','440305'],
                 shown: false
             }
         },

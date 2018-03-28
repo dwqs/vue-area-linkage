@@ -77,6 +77,11 @@
             curProvince (val, oldVal) {
                 this.isSetDefault = true;
                 this.citys = AreaData[val];
+
+                if (!this.citys) {
+                    this.citys = {};
+                    return;
+                }
                 if (this.curDefaultVal[1]) {
                     if (this.isCode) {
                         const curCity = find(Object.keys(this.citys), (item) => item === this.curDefaultVal[1]);
