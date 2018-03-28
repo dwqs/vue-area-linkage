@@ -414,7 +414,9 @@ function assert(condition) {
     var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
     if (!condition) {
-        throw new Error('[vue-area-linkage]: ' + msg);
+        // throw new Error(`[vue-area-linkage]: ${msg}`);
+        // fix #27
+        console.error('[vue-area-linkage]: ' + msg);
     }
 }
 
@@ -3810,6 +3812,10 @@ var option_Component = option_normalizeComponent(
             }
             if (this.level >= 1) {
                 this.citys = data_default.a[val];
+                if (!this.citys) {
+                    this.citys = {};
+                    return;
+                }
                 if (this.defaults[1]) {
                     if (this.isCode) {
                         var curCity = lodash_find_default()(keys_default()(this.citys), function (item) {
@@ -4038,7 +4044,7 @@ var option_Component = option_normalizeComponent(
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-63f4eb3c","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-d3ec7be0","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/index.vue
 var area_select_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"area-select-wrap"},[_c('v-select',{attrs:{"placeholder":_vm.placeholders[0] ? _vm.placeholders[0] : '请选择',"size":_vm.size},on:{"change":function($event){_vm.isSetDefault = true}},model:{value:(_vm.curProvince),callback:function ($$v) {_vm.curProvince=$$v},expression:"curProvince"}},_vm._l((_vm.provinces),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})),_vm._v(" "),(_vm.level>=1)?_c('v-select',{attrs:{"placeholder":_vm.placeholders[1] ? _vm.placeholders[1] : '请选择',"size":_vm.size},model:{value:(_vm.curCity),callback:function ($$v) {_vm.curCity=$$v},expression:"curCity"}},[(!Object.keys(_vm.citys).length)?_c('p',{staticClass:"area-select-empty"},[_vm._v("暂无数据")]):_vm._l((_vm.citys),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})],2):_vm._e(),_vm._v(" "),(_vm.level>=2)?_c('v-select',{attrs:{"placeholder":_vm.placeholders[2] ? _vm.placeholders[2] : '请选择',"size":_vm.size},model:{value:(_vm.curArea),callback:function ($$v) {_vm.curArea=$$v},expression:"curArea"}},[(!Object.keys(_vm.areas).length)?_c('p',{staticClass:"area-select-empty"},[_vm._v("暂无数据")]):_vm._l((_vm.areas),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})],2):_vm._e(),_vm._v(" "),(_vm.level>=3)?_c('v-select',{attrs:{"placeholder":_vm.placeholders[3] ? _vm.placeholders[3] : '请选择',"size":_vm.size},model:{value:(_vm.curStreet),callback:function ($$v) {_vm.curStreet=$$v},expression:"curStreet"}},[(!Object.keys(_vm.streets).length)?_c('p',{staticClass:"area-select-empty"},[_vm._v("暂无数据")]):_vm._l((_vm.streets),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})],2):_vm._e()],1)}
 var area_select_staticRenderFns = []
 var area_select_esExports = { render: area_select_render, staticRenderFns: area_select_staticRenderFns }
@@ -4092,7 +4098,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(52)("1c1884cc", content, true, {});
+var update = __webpack_require__(52)("0059d441", content, true, {});
 
 /***/ }),
 /* 50 */

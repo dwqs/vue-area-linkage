@@ -3127,7 +3127,9 @@ function assert(condition) {
     var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
     if (!condition) {
-        throw new Error('[vue-area-linkage]: ' + msg);
+        // throw new Error(`[vue-area-linkage]: ${msg}`);
+        // fix #27
+        console.error('[vue-area-linkage]: ' + msg);
     }
 }
 
@@ -3754,6 +3756,10 @@ if (false) {(function () {
             }
             if (this.level >= 1) {
                 this.citys = data_default.a[val];
+                if (!this.citys) {
+                    this.citys = {};
+                    return;
+                }
                 if (this.defaults[1]) {
                     if (this.isCode) {
                         var curCity = lodash_find_default()(keys_default()(this.citys), function (item) {
@@ -4898,6 +4904,11 @@ if (false) {(function () {
 
             this.isSetDefault = true;
             this.citys = data_default.a[val];
+
+            if (!this.citys) {
+                this.citys = {};
+                return;
+            }
             if (this.curDefaultVal[1]) {
                 if (this.isCode) {
                     var curCity = lodash_find_default()(keys_default()(this.citys), function (item) {

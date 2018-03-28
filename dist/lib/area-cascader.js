@@ -430,7 +430,9 @@ function assert(condition) {
     var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
     if (!condition) {
-        throw new Error('[vue-area-linkage]: ' + msg);
+        // throw new Error(`[vue-area-linkage]: ${msg}`);
+        // fix #27
+        console.error('[vue-area-linkage]: ' + msg);
     }
 }
 
@@ -3977,6 +3979,11 @@ var cascader_Component = cascader_normalizeComponent(
 
             this.isSetDefault = true;
             this.citys = data_default.a[val];
+
+            if (!this.citys) {
+                this.citys = {};
+                return;
+            }
             if (this.curDefaultVal[1]) {
                 if (this.isCode) {
                     var curCity = lodash_find_default()(keys_default()(this.citys), function (item) {
@@ -4210,7 +4217,7 @@ var cascader_Component = cascader_normalizeComponent(
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-bd830fae","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-cascader/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-565471f3","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-cascader/index.vue
 var area_cascader_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"area-cascader-wrap"},[_c('v-cascader',{attrs:{"placeholder":_vm.placeholder,"options":_vm.options,"size":_vm.size},on:{"change":_vm.handleChange},model:{value:(_vm.defaultValCode),callback:function ($$v) {_vm.defaultValCode=$$v},expression:"defaultValCode"}})],1)}
 var area_cascader_staticRenderFns = []
 var area_cascader_esExports = { render: area_cascader_render, staticRenderFns: area_cascader_staticRenderFns }
