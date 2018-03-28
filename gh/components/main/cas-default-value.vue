@@ -17,14 +17,14 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
-                selected: ['测试以', '测试以', '测试以'], //['440000','440300','440305'],
+                selected: ['440000', '440300', '440305'],
                 shown: false
-            }
+            };
         },
         methods: {
-            toggle() {
+            toggle () {
                 this.shown = !this.shown;
             }
         }
