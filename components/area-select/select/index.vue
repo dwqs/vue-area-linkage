@@ -79,6 +79,9 @@
                     const option = this.options.filter(opt => opt.value === this.value);
                     this.label = option[0] ? option[0].label : '';
                     this.val = option[0] ? option[0].value : '';
+                } else {
+                    this.label = '';
+                    this.val = '';
                 }
             },
 

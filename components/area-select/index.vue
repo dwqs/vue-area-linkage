@@ -133,8 +133,10 @@
                     this.citys = AreaData[val];
                     if (!this.citys) {
                         this.citys = {};
+                        this.curCity = '';
                         return;
                     }
+                    
                     if (this.defaults[1]) {
                         if (this.isCode) {
                             const curCity = find(Object.keys(this.citys), (item) => item === this.defaults[1]);
@@ -158,6 +160,12 @@
                     return;
                 }
                 this.areas = AreaData[val];
+                if (!this.areas) {
+                    this.areas = {};
+                    this.curArea = '';
+                    return;
+                }
+
                 if (this.level >= 2) {
                     if (this.defaults[2]) {
                         if (this.isCode) {
@@ -188,6 +196,12 @@
                 }
                 assert(window.STREETS, '2.0版本需要单独引入 street.js: https://github.com/dwqs/area-data');
                 this.streets = window.STREETS[val];
+                if (!this.streets) {
+                    this.streets = {};
+                    this.curStreet = '';
+                    return;
+                }
+
                 if (this.level >= 3) {
                     if (this.defaults[3] && this.streets) {
                         if (this.isCode) {
