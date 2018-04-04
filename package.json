@@ -37,7 +37,7 @@
     "fix": "npx eslint --fix src/**/*.js src/**/*.vue"
   },
   "dependencies": {
-    "area-data": "^2.0.0",
+    "area-data": "^3.0.1",
     "lodash.find": "^4.6.0"
   },
   "peerDependencies": {
