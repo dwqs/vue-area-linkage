@@ -205,6 +205,10 @@
                 this.isSetDefault = true;
                 let res = [];
                 if (this.type === 'code') {
+                    // fix #32
+                    if (selected[0] === '710000') {
+                        selected[1] = selected[0];
+                    }
                     res = selected;
                 } else if (this.type === 'text') {
                     res = this.getAreaText(selected);

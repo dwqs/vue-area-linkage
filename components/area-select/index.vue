@@ -326,7 +326,8 @@
                         selected = [this.curProvince];
                         break;
                     case 1:
-                        selected = [this.curProvince, this.curCity];
+                        // fix #32
+                        selected = [this.curProvince, this.curProvince === '710000' ? this.curProvince : this.curCity];
                         break;
                     case 2:
                         selected = [this.curProvince, this.curCity, this.curAreaCode];
