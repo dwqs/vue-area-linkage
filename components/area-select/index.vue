@@ -129,7 +129,7 @@
                     this.setDefaultValue();
                 }
 
-                if (!isSetDefault && isArray(val) && val.length && val.length !== level + 1) {
+                if (!this.isSetDefault && isArray(val) && val.length && val.length !== this.level + 1) {
                     assert(false, `设置的默认值和 level 值不匹配`);
                 }
             }
@@ -371,7 +371,7 @@
                 this.setDefaultValue();
             }
 
-            if (isArray(this.value) && this.value.length && this.value.length !== level + 1) {
+            if (isArray(this.value) && this.value.length && this.value.length !== this.level + 1) {
                 assert(false, `设置的默认值和 level 值不匹配`);
             }
         }
