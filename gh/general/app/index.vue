@@ -1,6 +1,7 @@
 <template>
     <div id="app" class="app-wrap">
         <!-- <area-select :level='2' v-model="selected"></area-select> -->
+        <!-- <area-cascader :level='1' v-model="selected"></area-cascader > -->
         <v-header />
         <v-start></v-start>
         <v-main></v-main>
@@ -22,7 +23,8 @@
     export default {
         data () {
             return {
-                selected: [], // ['广东省', '深圳市', '南山区'], // ['440000', '440300', '440305'],
+                // ['广东省', '中山市', '中山市'] ['广东省', '深圳市', '南山区'], // ['440000', '440300', '440305']
+                selected: [],
                 t: ['1', '3', '7'],
                 list: [{
                     value: 1,
