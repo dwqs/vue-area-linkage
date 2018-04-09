@@ -78,6 +78,7 @@ Vue.use(AreaSelect);
 | placeholders | Array | - | [] | 设置 placeholder text |
 | level | Number | 0/1/2/3 | 1 | 设置联动层级(0-只选省份/1-省市联动/2-省市区联动/3-省市区街联动) |
 | size | String | small/medium/large | medium | 设置输入框的大小 |
+| disabled | Boolean | - | false | 是否禁用 |
 
 ### area-cascader 组件
 |  参数  |  类型  |  可选值  |  默认值  |  说明  |
@@ -86,6 +87,8 @@ Vue.use(AreaSelect);
 | placeholder | String | - | '' | 设置 placeholder text |
 | level | Number | 0/1 | 0 | 设置联动层级(0-省市联动/1-省市区联动) |
 | size | String | small/medium/large | medium | 设置输入框的大小 |
+| separator | String | - | '-' | 显示选中文本的分隔符 |
+| disabled | Boolean | - | false | 是否禁用 |
 
 ## 事件
 
@@ -94,5 +97,8 @@ Vue.use(AreaSelect);
 | change | 选中值发生变化时触发 | 目前选择的值 |
 
 > change 事件在 1.2.5 之后提供
+
+## Related Project
+* [react-area-linkage](https://github.com/dwqs/react-area-linkage)
 ## License
 MIT.
