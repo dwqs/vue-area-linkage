@@ -1,144 +1,33 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    outline:0;
-    vertical-align:baseline;
-    background:transparent;
+.start {
+  margin-top: 40px;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-    display: block;
+.start h3 {
+  text-align: center;
+  font-size: 25px;
+  color: #6289ad;
 }
-
-html,body {
-    height: 100%;
-    width: 100%;
-    /* # https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md */
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+.start h4 {
+  font-size: 18px;
+  color: #6289ad;
 }
-
-body {
-    margin:0;
-    padding:0;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    font-size: 14px;
-    line-height: 1;
-    background: none;
-    -moz-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
-    user-select:none;
-    overflow-x:hidden;
-    -webkit-overflow-scrolling:touch;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    tap-highlight-color: transparent;
-    -webkit-tap-highlight-color: transparent;
+.start pre {
+  margin-top: 15px;
+  background: #f8f8f8;
+  padding: 15px 10px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
 }
-
-ol, ul, nav ul {
-    list-style: none;
+.start .install {
+  margin-top: 20px;
 }
-
-blockquote, q {
-    quotes: none;
+.start .install p {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: '';
-}
-
-table {
-    border-collapse:collapse;
-    border-spacing:0;
-}
-
-a{
-    text-decoration:none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
-    -webkit-appearance: none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-:focus {
-    outline: none;
-}
-
-ins {
-    background-color:#ff9;
-    color:#000;
-    text-decoration:none;
-}
-
-mark {
-    background-color:#ff9;
-    color:#000;
-    font-style:italic;
-    font-weight:bold;
-}
-
-del {
-    text-decoration: line-through;
-}
-
-abbr[title], dfn[title] {
-    border-bottom:1px dotted #000;
-    cursor:help;
-}
-
-hr {
-    display:block;
-    height:1px;
-    border:0;
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
-}
-
-input[type="text"], input[type="password"], textarea, input, select {
-    outline: none;
-    -webkit-appearance: none;
-}
-
-input, select {
-    vertical-align:middle;
-}
-
-* {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    /* # https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md */
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
-    /*font: 0.12rem/1 "Microsoft YaHei", Tahoma, Arial, Helvetica, \\5b8b\4f53, "Helvetica Neue", "PingFang SC", "Heiti SC", "Hiragino Sans GB", "\5FAE\8F6F\96C5\9ED1", sans-serif;*/
-    color: inherit;
-}
-
-/* el-scrollbar */
-/* .size-example .area-select.large .el-select:last-child{
-    margin-left: 30px
-} */.area-zoom-in-top-enter-active,
+.start .register {
+  margin-top: 20px;
+}.area-zoom-in-top-enter-active,
 .area-zoom-in-top-leave-active {
   opacity: 1;
   -webkit-transform: scaleY(1);
@@ -368,36 +257,147 @@ input, select {
 .cascader-menu-list::-webkit-scrollbar-thumb:vertical:hover,
 .area-selectable-list-wrap::-webkit-scrollbar-thumb:vertical:hover {
   background-color: #777;
-}.start {
-  margin-top: 40px;
+}html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    outline:0;
+    vertical-align:baseline;
+    background:transparent;
 }
-.start h3 {
-  text-align: center;
-  font-size: 25px;
-  color: #6289ad;
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
-.start h4 {
-  font-size: 18px;
-  color: #6289ad;
+
+html,body {
+    height: 100%;
+    width: 100%;
+    /* # https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md */
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
 }
-.start pre {
-  margin-top: 15px;
-  background: #f8f8f8;
-  padding: 15px 10px;
-  color: #000;
-  font-size: 16px;
-  font-weight: 400;
+
+body {
+    margin:0;
+    padding:0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    font-size: 14px;
+    line-height: 1;
+    background: none;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
 }
-.start .install {
-  margin-top: 20px;
+
+ol, ul, nav ul {
+    list-style: none;
 }
-.start .install p {
-  margin-top: 20px;
-  margin-bottom: 20px;
+
+blockquote, q {
+    quotes: none;
 }
-.start .register {
-  margin-top: 20px;
-}.app-main {
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+a{
+    text-decoration:none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    -webkit-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:focus {
+    outline: none;
+}
+
+ins {
+    background-color:#ff9;
+    color:#000;
+    text-decoration:none;
+}
+
+mark {
+    background-color:#ff9;
+    color:#000;
+    font-style:italic;
+    font-weight:bold;
+}
+
+del {
+    text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+    border-bottom:1px dotted #000;
+    cursor:help;
+}
+
+hr {
+    display:block;
+    height:1px;
+    border:0;
+    border-top:1px solid #cccccc;
+    margin:1em 0;
+    padding:0;
+}
+
+input[type="text"], input[type="password"], textarea, input, select {
+    outline: none;
+    -webkit-appearance: none;
+}
+
+input, select {
+    vertical-align:middle;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    /* # https://github.com/AlloyTeam/Mars/blob/master/solutions/font-family.md */
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC","Helvetica Neue",STHeiti,"Microsoft Yahei",Tahoma,Simsun,sans-serif;
+    /*font: 0.12rem/1 "Microsoft YaHei", Tahoma, Arial, Helvetica, \\5b8b\4f53, "Helvetica Neue", "PingFang SC", "Heiti SC", "Hiragino Sans GB", "\5FAE\8F6F\96C5\9ED1", sans-serif;*/
+    color: inherit;
+}
+
+/* el-scrollbar */
+/* .size-example .area-select.large .el-select:last-child{
+    margin-left: 30px
+} */.app-main {
   margin-top: 20px;
 }
 .app-main h3 {
