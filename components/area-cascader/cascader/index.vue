@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import AreaData from 'area-data';
+
     import Bus from '@src/bus.js';
     import { contains, setPanelPosition } from '@src/utils.js';
     import Emitter from '../mixins/emitter';
@@ -35,7 +37,7 @@
                 required: true
             },
 
-            value: {
+            defaultsAreaCodes: {
                 type: Array,
                 default: () => []
             },
@@ -71,17 +73,16 @@
 
                 shown: false,
                 eventBus: null,
-                tmpVals: [], // 临时保存选择的值
-                vals: [], // 选中的值
-                tmpItems: [], // 临时选中的 item对象
-                selectedItems: [], // 选中的 item对象
+                activeValues: [], // 当前激活项
+                values: [], // 当前选择项
+                labels: [], // 地区的文本
                 label: '',
-                useTmp: false // 选择时使用临时数据交互
+                isClickOutSide: false
             };
         },
 
         watch: {
-            value (val) {
+            defaultsAreaCodes (val) {
                 val.length && this.initValue();
             }
         },
@@ -89,23 +90,39 @@
         methods: {
             initValue () {
                 this.broadcast('Caspanel', 'update-selected', {
-                    value: this.value,
-                    from: 'init'
+                    value: this.defaultsAreaCodes
                 });
-                this.vals = [].concat(this.value);
+                this.values = [].concat(this.defaultsAreaCodes);
             },
 
-            setUseTmp (val) {
-                this.useTmp = val;
+            getActiveLabels (codes) {
+                const provinces = AreaData['86'];
+                const citys = AreaData[codes[0]];
+                const l = codes.length;
+
+                if (l < 2) {
+                    return [];
+                }
+
+                let labels = [];
+
+                if (l === 2) {
+                    labels = [provinces[codes[0]], citys[codes[1]]];
+                } else if (l === 3) {
+                    // fix #7
+                    const areas = AreaData[codes[1]];
+                    labels = [provinces[codes[0]], citys[codes[1]], areas ? areas[codes[2]] : citys[codes[2]]];
+                }
+
+                return labels;
             },
 
-            resetTmpVal () {
-                this.tmpVals = [];
-                this.tmpItems = [];
-                this.setUseTmp(false);
-                if (!this.shown && this.vals.length) {
+            resetActiveVal () {
+                this.activeValues = [].concat(this.values);
+                this.labels = this.getActiveLabels(this.values);
+                if (!this.shown && this.values.length) {
                     this.broadcast('Caspanel', 'update-selected', {
-                        value: this.vals
+                        value: this.values
                     });
                 }
             },
@@ -114,8 +131,16 @@
                 if (this.disabled) {
                     return;
                 }
-
+                this.$emit('set-default');
+                const tmp = this.shown;
                 this.shown = !this.shown;
+
+                if (!tmp) {
+                    this.isClickOutSide = false;
+                } else {
+                    this.isClickOutSide = true;
+                    this.resetActiveVal();
+                }
             },
 
             setPosition () {
@@ -127,7 +152,8 @@
                 const target = e.target;
                 if (!contains(this.$el, target) && this.shown) {
                     this.shown = false;
-                    this.resetTmpVal();
+                    this.isClickOutSide = true;
+                    this.resetActiveVal();
                 }
             },
 
@@ -139,37 +165,26 @@
             },
 
             handleMenuItemClick (item, oldItem) {
-                let oldVals = [].concat(this.tmpVals);
-                let oldSelectedItems = [].concat(this.tmpItems);
+                const { label, value, children, panelIndex } = item;
 
-                if (!oldItem.value) {
-                    oldVals.push(item.value);
-                    oldSelectedItems.push(item);
-                } else {
-                    const index = oldVals.indexOf(oldItem.value);
-                    if (index < 0) {
-                        // 不存在直接添加
-                        oldVals.push(item.value);
-                        oldSelectedItems.push(item);
-                    } else {
-                        // 存在则截取前一段，后一段全去掉(后一段对应其子元素的选择项)
-                        oldVals = oldVals.slice(0, index);
-                        oldVals.push(item.value);
-                        oldSelectedItems = oldSelectedItems.slice(0, index);
-                        oldSelectedItems.push(item);
-                    }
-                }
-                this.tmpVals = [].concat(oldVals);
-                this.tmpItems = [].concat(oldSelectedItems);
+                let activeValues = this.activeValues;
+                let labels = this.labels;
+
+                activeValues = activeValues.slice(0, panelIndex + 1);
+                activeValues[panelIndex] = value;
+                labels = labels.slice(0, panelIndex + 1);
+                labels[panelIndex] = label;
+
+                this.activeValues = [].concat(activeValues);
+                this.labels = [].concat(labels);
             },
 
-            hiddenMenuWrap (from) {
-                this.vals = [].concat(this.tmpVals);
-                this.selectedItems = [].concat(this.tmpItems);
+            handleSelectedChange () {
                 this.shown = false;
-                this.label = this.selectedItems.map(item => item.label).join(this.separator);
-                if (from === 'init' || from === 'click') {
-                    this.$emit('change', this.vals);
+                this.values = [].concat(this.activeValues);
+                this.label = this.labels.join(this.separator);
+                if (!this.isClickOutSide) {
+                    this.$emit('change', this.values, this.labels);
                 }
             },
 
@@ -186,9 +201,7 @@
                 throw new Error('[area-cascader]: Must be call Vue.use(VueAreaLinkage) before used');
             }
             this.eventBus = Bus.createEventBus();
-            this.eventBus.$on('item-click', this.handleMenuItemClick);
-            this.eventBus.$on('hide-menu-wrap', this.hiddenMenuWrap);
-            this.eventBus.$on('set-use-tmp', this.setUseTmp);
+            this.eventBus.$on('selected', this.handleSelectedChange);
         },
 
         mounted () {
@@ -199,7 +212,7 @@
             window.addEventListener('resize', this.handleDocResize, false);
             window.document.addEventListener('click', this.handleDocClick, false);
 
-            if (this.value && this.value.length) {
+            if (this.defaultsAreaCodes && this.defaultsAreaCodes.length) {
                 this.initValue();
             }
         },

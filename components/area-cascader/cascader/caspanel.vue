@@ -6,7 +6,7 @@
                 :class="{
                     'cascader-menu-option': true,
                     'cascader-menu-extensible': item['children'],
-                    'selected': cascader.useTmp ? cascader.tmpVals.includes(item.value) : cascader.vals.includes(item.value)
+                    'selected': cascader.activeValues.includes(item.value)//cascader.useTmp ? cascader.tmpVals.includes(item.value) : cascader.vals.includes(item.value)
                 }" 
                 @click.stop="handleClickItem(item)">
                 {{item.label}}
@@ -37,10 +37,7 @@
         data () {
             return {
                 sublist: [],
-                
-                // 记录上一次点击的 item
-                oldItem: {},
-                val: '',
+                val: '', // 当前选中的值
                 list: null
             };
         },
@@ -65,21 +62,24 @@
             },
 
             handleClickItem (item) {
-                this.cascader.eventBus.$emit('set-use-tmp', true);
-                this.triggerItem(item, 'click');
+                this.cascader.handleMenuItemClick(item);
+                if (!item.children) {
+                    this.sublist = [];
+                    this.cascader.eventBus.$emit('selected');
+                } else {
+                    this.sublist = [].concat(item.children);
+                }
             },
 
             triggerItem (item, from) {
                 const base = this.getBaseItem(item);
-                this.cascader.eventBus.$emit('item-click', base, this.oldItem);
-                this.oldItem = Object.assign({}, base);
-                this.tmp = Object.assign({}, base);
+                this.cascader.handleMenuItemClick(item);
 
-                if (item.children && isArray(item.children) && item.children.length > 0) {
-                    this.sublist = [].concat(item.children);
-                } else {
+                if (!item.children) {
                     this.sublist = [];
-                    this.cascader.eventBus.$emit('hide-menu-wrap', from);
+                    this.cascader.eventBus.$emit('selected');
+                } else {
+                    this.sublist = [].concat(item.children);
                 }
             },
 
@@ -95,8 +95,7 @@
                             value.splice(0, 1);
                             this.$nextTick(() => {
                                 this.broadcast('Caspanel', 'update-selected', {
-                                    value: value,
-                                    from: params.from
+                                    value: value
                                 });
                             });
                             break;
@@ -110,7 +109,7 @@
                     this.list = this.$refs.list;
                 }
                 const seletedOption = this.data.filter(item => item.value === this.val);
-                if (seletedOption.length && this.list) {
+                if (seletedOption.length) {
                     const target = this.list.querySelector('.selected');
                     scrollIntoView(this.list, target);
                 }
