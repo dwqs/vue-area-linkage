@@ -37,7 +37,7 @@
         data () {
             return {
                 sublist: [],
-                scrollbar: null,
+                
                 // 记录上一次点击的 item
                 oldItem: {},
                 val: '',
@@ -123,10 +123,6 @@
             // 根据 value 初始化选择数据
             this.$on('update-selected', this.initCaspanel);
             this.cascader.eventBus.$on('set-scroll-top', this.scrollToSelectedOption);
-        },
-
-        beforeDestroy () {
-            this.scrollbar && this.scrollbar.destroy();
         }
     };
 </script>

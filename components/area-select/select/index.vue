@@ -52,7 +52,6 @@
                 label: '',
                 val: '',
 
-                scrollbar: null,
                 areaRect: null,
                 top: 32
             };
@@ -61,11 +60,6 @@
         watch: {
             value (val) {
                 this.setDef();
-                if (this.scrollbar) {
-                    // this.scrollbar.destroy();
-                    // this.scrollbar = null;
-                    this.scrollbar.update();
-                }
             },
 
             options (val) {
@@ -152,7 +146,6 @@
             window.removeEventListener('resize', this.handleDocResize, false);
 
             window.document.removeEventListener('click', this.handleDocClick, false);
-            this.scrollbar && this.scrollbar.destroy();
         }
     };
 </script>
