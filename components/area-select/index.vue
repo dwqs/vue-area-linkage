@@ -124,9 +124,13 @@
             // },
 
             value (val) {
-                if (isArray(val) && val.length && !this.isSetDefault) {
+                if (!this.isSetDefault && isArray(val) && val.length === this.level + 1) {
                     this.beforeSetDefault();
                     this.setDefaultValue();
+                }
+
+                if (!isSetDefault && isArray(val) && val.length && val.length !== level + 1) {
+                    assert(false, `设置的默认值和 level 值不匹配`);
                 }
             }
         },
@@ -362,9 +366,13 @@
         },
 
         created () {
-            if (isArray(this.value) && this.value.length) {
+            if (isArray(this.value) && this.value.length === this.level + 1) {
                 this.beforeSetDefault();
                 this.setDefaultValue();
+            }
+
+            if (isArray(this.value) && this.value.length && this.value.length !== level + 1) {
+                assert(false, `设置的默认值和 level 值不匹配`);
             }
         }
     };
