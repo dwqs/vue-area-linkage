@@ -1,6 +1,6 @@
 <template>
     <div class="area-select-wrap">
-        <v-select v-model="curProvinceCode" :placeholder="placeholders[0] ? placeholders[0] : '请选择'" :size="size">
+        <v-select v-model="curProvinceCode" :placeholder="placeholders[0] ? placeholders[0] : '请选择'" :size="size" :disabled="disabled">
             <v-option v-for="(val, key) in provinces" 
                 :key="key" 
                 :label="val" 
@@ -8,7 +8,7 @@
             </v-option>
         </v-select>
 
-         <v-select v-model="curCityCode" :placeholder="placeholders[1] ? placeholders[1] : '请选择'" v-if="level>=1" :size="size">
+         <v-select v-model="curCityCode" :placeholder="placeholders[1] ? placeholders[1] : '请选择'" v-if="level>=1" :size="size" :disabled="disabled">
             <p v-if="!Object.keys(citys).length" class="area-select-empty">暂无数据</p> 
             <v-option v-else v-for="(val, key) in citys" 
                 :key="key" 
@@ -17,7 +17,7 @@
             </v-option>
         </v-select>
 
-        <v-select v-model="curAreaCode" :placeholder="placeholders[2] ? placeholders[2] : '请选择'" v-if="level>=2" :size="size">
+        <v-select v-model="curAreaCode" :placeholder="placeholders[2] ? placeholders[2] : '请选择'" v-if="level>=2" :size="size" :disabled="disabled">
             <p v-if="!Object.keys(areas).length" class="area-select-empty">暂无数据</p> 
             <v-option v-else v-for="(val, key) in areas" 
                 :key="key" 
@@ -76,6 +76,10 @@
                 type: String,
                 default: 'medium',
                 validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
+            },
+            disabled: {
+                type: Boolean,
+                default: false
             }
         },
 
