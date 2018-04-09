@@ -76,9 +76,11 @@ Vue.use(AreaSelect);
 |  :--:  |  :--:  |  :--:  |  :--:  |  :--:  |
 | type | String |  all/code/text | code | 设置返回的数据格式 |
 | placeholders | Array | - | [] | 设置 placeholder text |
-| level | Number | 0/1/2/3 | 1 | 设置联动层级(0-只选省份/1-省市联动/2-省市区联动/3-省市区街联动) |
+| level | Number | 0/1/2 | 1 | 设置联动层级(0-只选省份/1-省市联动/2-省市区联动) |
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | disabled | Boolean | - | false | 是否禁用 |
+
+>v4 仅支持省市区联动，即 v4 不再支持 level 的值为 3(省市区街联动)
 
 ### area-cascader 组件
 |  参数  |  类型  |  可选值  |  默认值  |  说明  |
