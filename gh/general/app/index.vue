@@ -22,7 +22,7 @@
     export default {
         data () {
             return {
-                selected: [],
+                selected: [], // ['广东省', '深圳市', '南山区'], // ['440000', '440300', '440305'],
                 t: ['1', '3', '7'],
                 list: [{
                     value: 1,
@@ -115,9 +115,10 @@
         },
 
         mounted () {
-            // setTimeout(() => {
-            //     this.t = ['1', '21', '28'];
-            // }, 2000);
+            setTimeout(() => {
+                // this.t = ['1', '21', '28'];
+                // this.selected = ['440000', '440300', '440305'];
+            }, 2000);
         },
  
         components: {

@@ -18,14 +18,14 @@
         <h5>设置默认值</h5>
         <default-value></default-value>
         <p class='desc'>
-            <code>selected</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区/街道, 且类型(区域代码/区域文本)必须统一. 以第一个元素类型为基准. 类型不统一将报错.
+            <code>selected</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区, 且类型(区域代码/区域文本)必须统一. 以第一个元素类型为基准. 类型不统一将报错.
         </p>
         <h5>只选省份</h5>
         <province></province>
         <h5>省市区联动</h5>
         <v-area></v-area>
-        <h5>省市区街联动</h5>
-        <street></street>
+        <!-- <h5>省市区街联动</h5>
+        <street></street> -->
         <h4>2. 作为级联器(只支持2/3级联动)</h4>
         <h5>默认形式</h5>
         <cas-basic></cas-basic>
