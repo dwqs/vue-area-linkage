@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { isArray, scrollIntoView, setCSS, getCSS } from '@src/utils';
+    import { isArray, scrollIntoView } from '@src/utils';
     import Emitter from '../mixins/emitter';
 
     let key = 0;
