@@ -107,15 +107,15 @@
 
             setSelectedValue (option) {
                 this.label = option.label;
-                this.val = option.curValue;
-                this.$emit('input', option.curValue);
+                this.val = option.value;
+                this.$emit('input', option.value);
                 this.shown = false;
-                this.$emit('change', option.curValue);
+                this.$emit('change', option.value);
             },
 
             scrollToSelectedOption () {
                 this.setPosition();
-                const seletedOption = this.options.filter(option => option.curValue === this.val);
+                const seletedOption = this.options.filter(option => option.value === this.val);
                 if (seletedOption.length) {
                     const target = seletedOption[0].$el;
                     const container = this.$el.querySelector('.area-selectable-list-wrap');

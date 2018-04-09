@@ -2,11 +2,11 @@
     <li :class="['area-select-option', {
         'hover': hover,
         'selected': curSelected === value
-    }]" :value="curValue"
+    }]" :value="value"
         @click.stop="selectOptionClick"
         @mouseleave="leaveItem" 
         @mouseenter="hoverItem">
-        {{curLabel}}
+        {{label}}
     </li>
 </template>
 
@@ -29,14 +29,6 @@
         },
 
         computed: {
-            curLabel () {
-                return typeof this.label !== 'undefined' ? this.label : this.value;
-            },
-
-            curValue () {
-                return typeof this.value !== 'undefined' ? this.value : this.label;
-            },
-
             curSelected () {
                 return this.select.val;
             }
