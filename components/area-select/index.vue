@@ -139,12 +139,14 @@
             provinceChange (val) {
                 if (this.level === 0) {
                     this.selectChange();
-                    return;
-                }
-                if (this.level >= 1) {
+                } else if (this.level >= 1) {
                     this.citys = AreaData[val];
                     if (!this.citys) {
-                        this.citys = {};
+                        this.citys = {
+                            [this.curProvinceCode]: this.curProvince
+                        };
+                        this.curCity = this.curProvince;
+                        this.curCityCode = this.curCityCode;
                         return;
                     }
 
@@ -171,10 +173,7 @@
             cityChange (val) {
                 if (this.level === 1) {
                     this.selectChange();
-                    return;
-                }
-
-                if (this.level === 2) {
+                } else if (this.level === 2) {
                     this.areas = AreaData[val];
                     if (!this.areas) {
                         // fix 市级下不存在城区(#7)
