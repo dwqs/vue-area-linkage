@@ -40,7 +40,8 @@
     "lodash.find": "^4.6.0"
   },
   "peerDependencies": {
-    "vue": ">=2.2.0"
+    "vue": ">=2.2.0",
+    "area-data": ">=5.0.6"
   },
   "devDependencies": {
     "area-data": "^5.0.6",
