@@ -7,6 +7,7 @@
             :size="size"
             :disabled="disabled"
             :separator="separator"
+            :data="data"
             @setDefault="isSetDefault = true"
             @change="handleChange">
         </v-cascader>
@@ -14,7 +15,6 @@
 </template>
 
 <script>
-    import AreaData from 'area-data';
     import find from 'lodash.find';
 
     import Cascader from './cascader/index.vue';
@@ -56,12 +56,19 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+            data: {
+                type: Object,
+                required: true
             }
         },
 
         data () {
+            if (!this.data['86']) {
+                throw new Error('[vue-area-linkage]: 需要提供地区数据：https://github.com/dwqs/area-data');
+            }
             return {
-                provinces: AreaData['86'],
+                provinces: this.data['86'],
                 citys: {},
                 areas: {},
                 // only array
@@ -96,7 +103,7 @@
 
             curProvinceCode (val) {
                 this.curProvince = this.provinces[val];
-                this.citys = AreaData[val];
+                this.citys = this.data[val];
 
                 if (!this.citys) {
                     this.citys = {
@@ -131,7 +138,7 @@
                 if (this.level === 0) {
                     this.setDefaultsCodes();
                 } else if (this.level === 1) {
-                    this.areas = AreaData[val];
+                    this.areas = this.data[val];
                     if (!this.areas) {
                         this.areas = {
                             [this.curCityCode]: this.curCity
@@ -211,6 +218,7 @@
                 if (this.isSetDefault) {
                     // this.emitter.emit('set-def-values', codes, labels);
                 }
+                this.isSetDefault = true;
 
                 if (labels[0] === labels[1]) {
                     // 纠正台湾省的 code 返回
@@ -247,7 +255,7 @@
 
             iterateCities () {
                 const temp = [];
-                const provinces = this.iterate(AreaData['86'], 0);
+                const provinces = this.iterate(this.data['86'], 0);
 
                 for (let i = 0, l = provinces.length; i < l; i++) {
                     const item = {};
@@ -255,7 +263,7 @@
                     item['value'] = provinces[i].value;
                     item['panelIndex'] = provinces[i].panelIndex;
 
-                    item['children'] = this.iterate(AreaData[provinces[i].value], 1);
+                    item['children'] = this.iterate(this.data[provinces[i].value], 1);
                     temp.push(item);
                 }
 
@@ -270,7 +278,7 @@
                     const city = cities[i];
                     for (let j = 0, l = city.children.length; j < l; j++) {
                         const item = city.children[j];
-                        const areas = this.iterate(AreaData[city.children[j].value], 2);
+                        const areas = this.iterate(this.data[city.children[j].value], 2);
                         // fix #7
                         if (areas.length) {
                             item['children'] = areas;

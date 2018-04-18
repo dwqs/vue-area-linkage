@@ -39,7 +39,6 @@
 </template>
 
 <script>
-    import AreaData from 'area-data';
     import find from 'lodash.find';
 
     import Select from './select/index.vue';
@@ -80,13 +79,22 @@
             disabled: {
                 type: Boolean,
                 default: false
+            },
+
+            data: {
+                type: Object,
+                required: true
             }
         },
 
         data () {
+            if (!this.data['86']) {
+                throw new Error('[vue-area-linkage]: 需要提供地区数据，格式参考见：https://github.com/dwqs/area-data');
+            }
+
             return {
                 // 区域数据
-                provinces: AreaData['86'],
+                provinces: this.data['86'],
                 citys: {},
                 areas: {},
                 streets: {},
@@ -144,7 +152,7 @@
                 if (this.level === 0) {
                     this.selectChange();
                 } else if (this.level >= 1) {
-                    this.citys = AreaData[val];
+                    this.citys = this.data[val];
                     if (!this.citys) {
                         this.citys = {
                             [this.curProvinceCode]: this.curProvince
@@ -178,7 +186,7 @@
                 if (this.level === 1) {
                     this.selectChange();
                 } else if (this.level === 2) {
-                    this.areas = AreaData[val];
+                    this.areas = this.data[val];
                     if (!this.areas) {
                         // fix 市级下不存在城区(#7)
                         this.areas = {
@@ -257,10 +265,10 @@
                         codes = [this.curProvinceCode];
                         break;
                     case 1:
-                        // fix #32 710000是台湾省
-                        codes = [this.curProvinceCode, this.curProvinceCode === '710000' ? this.curProvinceCode : this.curCityCode];
+                        codes = [this.curProvinceCode, this.curCityCode];
                         break;
                     case 2:
+                        // fix #32 710000是台湾省
                         codes = [this.curProvinceCode, this.curProvinceCode === '710000' ? this.curProvinceCode : this.curCityCode, this.curAreaCode];
                         break;
                     // case 3:
@@ -294,9 +302,6 @@
             },
 
             getAreaCodeAndText (selected) {
-                const cityCode = this.curProvinceCode === '710000' ? this.curProvinceCode : this.curCityCode;
-                const cityText = this.curProvinceCode === '710000' ? this.curProvince : this.curCity;
-
                 let textCodes = [];
 
                 switch (this.level) {
@@ -305,9 +310,11 @@
                         break;
                     case 1:
                         
-                        textCodes = [{ [this.curProvinceCode]: this.curProvince }, { [cityCode]: cityText }];
+                        textCodes = [{ [this.curProvinceCode]: this.curProvince }, { [this.curCityCode]: this.curCity }];
                         break;
                     case 2:
+                        const cityCode = this.curProvinceCode === '710000' ? this.curProvinceCode : this.curCityCode;
+                        const cityText = this.curProvinceCode === '710000' ? this.curProvince : this.curCity;
                         textCodes = [{ [this.curProvinceCode]: this.curProvince }, { [cityCode]: cityText }, { [this.curAreaCode]: this.curArea }];
                         break;
                 }
@@ -354,6 +361,7 @@
             },
 
             selectChange () {
+                this.isSetDefault = true;
                 let res = [];
 
                 if (this.type === 'code') {

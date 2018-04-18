@@ -16,8 +16,6 @@
 </template>
 
 <script>
-    import AreaData from 'area-data';
-
     import Bus from '@src/bus.js';
     import { contains, setPanelPosition } from '@src/utils.js';
     import Emitter from '../mixins/emitter';
@@ -34,6 +32,11 @@
         props: {
             options: {
                 type: Array,
+                required: true
+            },
+
+            data: {
+                type: Object,
                 required: true
             },
 
@@ -96,8 +99,8 @@
             },
 
             getActiveLabels (codes) {
-                const provinces = AreaData['86'];
-                const citys = AreaData[codes[0]];
+                const provinces = this.data['86'];
+                const citys = this.data[codes[0]];
                 const l = codes.length;
 
                 if (l < 2) {
@@ -110,7 +113,7 @@
                     labels = [provinces[codes[0]], citys[codes[1]]];
                 } else if (l === 3) {
                     // fix #7
-                    const areas = AreaData[codes[1]];
+                    const areas = this.data[codes[1]];
                     labels = [provinces[codes[0]], citys[codes[1]], areas ? areas[codes[2]] : citys[codes[2]]];
                 }
 
