@@ -78,7 +78,7 @@
         },
 
         data () {
-            if (!this.data['86']) {
+            if (!this.data || !this.data['86']) {
                 throw new Error('[vue-area-linkage]: 需要提供地区数据，格式参考见：https://github.com/dwqs/area-data');
             }
 
