@@ -7,7 +7,7 @@
         </a>
         <h2>Vue Area Linkage: 中国行政区联动选择器</h2>
         <p>
-            省、市、区、街道联动选择
+            省、市、区联动选择
         </p>
     </header>
 </template>

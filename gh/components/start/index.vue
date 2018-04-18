@@ -9,7 +9,7 @@
         </div>
         <div class="register">
             <h4>全局注册</h4>
-            <pre>import Vue from 'vue';<br/><br/>import VueAreaLinkage from 'vue-area-linkage';<br/><br/>Vue.use(VueAreaLinkage);<br/></pre>
+            <pre>import Vue from 'vue';<br/><br/>import 'vue-area-linkage/dist/index.css'; // v2 or higher<br/><br/>import VueAreaLinkage from 'vue-area-linkage';<br/><br/>Vue.use(VueAreaLinkage);<br/></pre>
         </div>
         <br/>
     </div>
