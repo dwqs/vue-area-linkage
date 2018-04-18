@@ -5,16 +5,25 @@
 ## Installation
 Install the pkg with npm:
 ```
+// v5之前的版本
 npm i --save vue-area-linkage
+
+// v5及之后的版本
+npm i --save vue-area-linkage area-data
 ```
 or yarn
 ```
-yarn add  vue-area-linkage
+// v5之前的版本
+yarn add vue-area-linkage
+
+// v5及之后的版本
+yarn add vue-area-linkage area-data
 ```
 
 ## Usage
 ```
 import Vue from 'vue';
+import { pca, pcaa } from 'area-data'; // v5 or higher
 import 'vue-area-linkage/dist/index.css'; // v2 or higher
 import VueAreaLinkage from 'vue-area-linkage';
 
@@ -22,13 +31,19 @@ Vue.use(VueAreaLinkage)
 ```
 
 ```
-// basic
+// v5之前的版本
 <area-select v-model="selected"></area-select>
 <area-cascader v-model="selected2"></area-cascader>
 
+// v5及之后的版本
+<area-select v-model="selected" :data="pca"></area-select> // 省市
+// 省市区：<area-select v-model="selected" :data="pcaa"></area-select>
+<area-cascader v-model="selected2" :data="pca"></area-cascader> // 省市
+// 省市区：<area-cascader v-model="selected2" :data="pcaa"></area-cascader>
+
 //setting
-<area-select type='all' :level='2' v-model="selected"></area-select>
-<area-cascader type='all' v-model="selected2" :level='1'></area-cascader>
+<area-select type='all' :level='2' v-model="selected" :data="pcaa"></area-select>
+<area-cascader type='all' v-model="selected2" :level='1' :data="pcaa"></area-cascader>
 ```
 
 More demo to visit [here](https://dwqs.github.io/vue-area-linkage/).
@@ -79,6 +94,7 @@ Vue.use(AreaSelect);
 | level | Number | 0/1/2 | 1 | 设置联动层级(0-只选省份/1-省市联动/2-省市区联动) |
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | disabled | Boolean | - | false | 是否禁用 |
+| data | Object | - | - | 地区数据 |
 
 >v4 仅支持省市区联动，即 v4 不再支持 level 的值为 3(省市区街联动)
 
@@ -91,6 +107,7 @@ Vue.use(AreaSelect);
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | separator | String | - | '-' | 显示选中文本的分隔符 |
 | disabled | Boolean | - | false | 是否禁用 |
+| data | Object | - | - | 地区数据 |
 
 ## 事件
 
