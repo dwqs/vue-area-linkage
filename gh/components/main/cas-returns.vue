@@ -1,7 +1,7 @@
 <template>
     <div class="code-area">
         <div class="area-left">
-            <area-cascader type='text' v-model="selected"></area-cascader>
+            <area-cascader type='text' v-model="selected" :data="$pca"></area-cascader>
         </div>
         <div class="area-right">
             <pre><code>{{selected}}</code></pre>

@@ -1,7 +1,7 @@
 <template>
     <div class="code-area">
         <div class="area-left">
-            <area-select v-model="selected"></area-select>
+            <area-select v-model="selected" :data="$pca"></area-select>
         </div>
         <div class="area-right">
             <pre><code>{{selected}}</code></pre>
@@ -17,14 +17,14 @@
 
 <script>
     export default {
-        data() {
+        data () {
             return {
                 selected: [],
                 shown: false
-            }
+            };
         },
         methods: {
-            toggle() {
+            toggle () {
                 this.shown = !this.shown;
             }
         }

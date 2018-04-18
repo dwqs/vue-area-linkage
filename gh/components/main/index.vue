@@ -13,7 +13,7 @@
         <h5>设置 placeholders</h5>
         <placeholders></placeholders>
         <p class='desc'>
-            <code>placeholders</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区/街道.
+            <code>placeholders</code>&nbsp;是一个数组, 数组项顺序分别对应省/市/区.
         </p>
         <h5>设置默认值</h5>
         <default-value></default-value>

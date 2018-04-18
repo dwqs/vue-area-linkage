@@ -1,7 +1,7 @@
 <template>
     <div class="code-area">
         <div class="area-left">
-            <area-cascader :level="1"  type="text" placeholder="请选择地区" v-model="selected"></area-cascader>
+            <area-cascader :level="1"  type="text" placeholder="请选择地区" v-model="selected" :data="$pcaa"></area-cascader>
         </div>
         <div class="area-right">
             <pre><code>{{selected}}</code></pre>

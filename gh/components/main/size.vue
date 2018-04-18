@@ -1,7 +1,7 @@
 <template>
     <div class="code-area size-example">
         <div class="area-left">
-            <area-select v-model="selected" size="large"></area-select>
+            <area-select v-model="selected" size="large" :data="$pca"></area-select>
         </div>
         <div class="area-right">
             <pre><code>{{selected}}</code></pre>
