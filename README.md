@@ -72,17 +72,19 @@ npm i babel-plugin-on-demand-import -D
 ```
 
 ```
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
+import pcaa from 'area-data/pcaa';
 // Only import AreaCascader component
 import { AreaCascader } from 'vue-area-linkage';
 Vue.use(AreaCascader);
 
-<area-cascader v-model="val"></area-cascader>
+<area-cascader v-model="val" level={1} :data="pcaa"></area-cascader>
 
 // Only import AreaSelect component
 import { AreaSelect } from 'vue-area-linkage'; 
 Vue.use(AreaSelect);
 
-<area-select v-model="val2"></area-select>
+<area-select v-model="val2" level={2} :data="pcaa"></area-select>
 ```
 
 ## 属性
