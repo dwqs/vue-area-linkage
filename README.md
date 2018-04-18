@@ -96,7 +96,7 @@ Vue.use(AreaSelect);
 | level | Number | 0/1/2 | 1 | 设置联动层级(0-只选省份/1-省市联动/2-省市区联动) |
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | disabled | Boolean | - | false | 是否禁用 |
-| data | Object | - | - | 地区数据 |
+| data | Object | - | - | 地区数据(v5需要传入) |
 
 >v4 仅支持省市区联动，即 v4 不再支持 level 的值为 3(省市区街联动)
 
@@ -109,7 +109,7 @@ Vue.use(AreaSelect);
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | separator | String | - | '-' | 显示选中文本的分隔符 |
 | disabled | Boolean | - | false | 是否禁用 |
-| data | Object | - | - | 地区数据 |
+| data | Object | - | - | 地区数据(v5需要传入) |
 
 ## 事件
 
