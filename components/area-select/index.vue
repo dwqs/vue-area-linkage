@@ -25,16 +25,6 @@
                 :value="key">
             </v-option>
         </v-select>
-
-        <!-- v4 不再支持街道选择 -->
-        <!-- <v-select v-model="curStreet" :placeholder="placeholders[3] ? placeholders[3] : '请选择'" v-if="level>=3" :size="size">
-            <p v-if="!Object.keys(streets).length" class="area-select-empty">暂无数据</p> 
-            <v-option v-else v-for="(val, key) in streets" 
-                :key="key" 
-                :label="val" 
-                :value="key">
-            </v-option>
-        </v-select> -->
     </div>
 </template>
 
@@ -97,7 +87,6 @@
                 provinces: this.data['86'],
                 citys: {},
                 areas: {},
-                streets: {},
 
                 curProvince: '', // text
                 curProvinceCode: '', // code
@@ -105,8 +94,6 @@
                 curCityCode: '',
                 curArea: '',
                 curAreaCode: '',
-                // curStreet: '',
-                // curStreetCode: '',
 
                 // 设置默认值的判断
                 defaults: [],
@@ -130,10 +117,6 @@
                 this.curArea = this.areas[val];
                 this.areaChange(val);
             },
-
-            // curStreet (val, oldVal) {
-            //     this.streetChange(val);
-            // },
 
             value (val) {
                 if (!this.isSetDefault && isArray(val) && val.length === this.level + 1) {
@@ -220,42 +203,7 @@
             areaChange (val) {
                 this.curAreaCode = val;
                 this.selectChange();
-                // if (this.level === 2) {
-                //     this.selectChange();
-                //     return;
-                // }
-                // assert(window.STREETS, '2.0版本需要单独引入 street.js: https://github.com/dwqs/area-data');
-                // this.streets = window.STREETS[val];
-                // if (!this.streets) {
-                //     this.streets = {};
-                //     this.curStreet = '';
-                //     return;
-                // }
-
-                // if (this.level >= 3) {
-                //     if (this.defaults[3] && this.streets) {
-                //         if (this.isCode) {
-                //             const curStreet = find(Object.keys(this.streets), (item) => item === this.defaults[3]);
-                //             assert(curStreet, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
-                //             this.curStreet = curStreet;
-                //         } else {
-                //             const street = find(this.streets, (item) => item === this.defaults[3]);
-                //             assert(street, `街道 ${this.defaults[3]} 不存在于县区 ${this.defaults[2]} 中`);
-                //             this.curStreet = find(Object.keys(this.streets), (item) => this.streets[item] === this.defaults[3]);
-                //         }
-                //     } else {
-                //         this.curStreet = this.streets ? Object.keys(this.streets)[0] : val;
-                //     }
-                // }
             },
-
-            // streetChange (val) {
-            //     if (!/^\d+$/.test(String(val))) {
-            //         return;
-            //     }
-            //     this.curStreetCode = val;
-            //     this.selectChange();
-            // },
 
             getAreaCode () {
                 let codes = [];
@@ -271,9 +219,6 @@
                         // fix #32 710000是台湾省
                         codes = [this.curProvinceCode, this.curProvinceCode === '710000' ? this.curProvinceCode : this.curCityCode, this.curAreaCode];
                         break;
-                    // case 3:
-                    //     codes = [this.curProvince, this.curCity, this.curAreaCode, this.curStreetCode];
-                    //     break;
                 }
 
                 return codes;
@@ -293,9 +238,6 @@
                     case 2:
                         texts = [this.curProvince, this.curProvinceCode === '710000' ? this.curProvince : this.curCity, this.curArea];
                         break;
-                    // case 3:
-                    //     codes = [this.curProvince, this.curCity, this.curAreaCode, this.curStreetCode];
-                    //     break;
                 }
 
                 return texts;

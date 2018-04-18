@@ -24,8 +24,6 @@
         <province></province>
         <h5>省市区联动</h5>
         <v-area></v-area>
-        <!-- <h5>省市区街联动</h5>
-        <street></street> -->
         <h4>2. 作为级联器(只支持2/3级联动)</h4>
         <h5>默认形式</h5>
         <cas-basic></cas-basic>
@@ -50,7 +48,6 @@
     import Returns from './returns.vue';
     import Province from './province.vue';
     import Area from './area.vue';
-    import Street from './street.vue';
     import AreaCode from './area-code.vue';
     import Placeholders from './placeholders.vue';
     import DefaultValue from './default-value.vue';
@@ -79,7 +76,6 @@
             Returns,
             Province,
             'v-area': Area,
-            Street,
             AreaCode,
             Placeholders,
             DefaultValue,
