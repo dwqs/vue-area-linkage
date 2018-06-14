@@ -51,13 +51,13 @@ More demo to visit [here](https://dwqs.github.io/vue-area-linkage/).
 ## On Demand Import
 > version >= 2.1.2
 
-安装 [babel-plugin-on-demand-import](https://github.com/dwqs/babel-plugin-on-demand-import): 
+安装 [babel-plugin-on-demand-import](https://github.com/dwqs/babel-plugin-on-demand-import):
 
 ```
 npm i babel-plugin-on-demand-import -D
 ```
 
-修改 `.babelrc`: 
+修改 `.babelrc`:
 
 ```
 {
@@ -81,7 +81,7 @@ Vue.use(AreaCascader);
 <area-cascader v-model="val" level={1} :data="pcaa"></area-cascader>
 
 // Only import AreaSelect component
-import { AreaSelect } from 'vue-area-linkage'; 
+import { AreaSelect } from 'vue-area-linkage';
 Vue.use(AreaSelect);
 
 <area-select v-model="val2" level={2} :data="pcaa"></area-select>
@@ -97,6 +97,7 @@ Vue.use(AreaSelect);
 | size | String | small/medium/large | medium | 设置输入框的大小 |
 | disabled | Boolean | - | false | 是否禁用 |
 | data | Object | - | - | 地区数据(v5需要传入) |
+| icon | String | - | area-select-icon | 自定义下拉小图标 |
 
 >v4 仅支持省市区联动，即 v4 不再支持 level 的值为 3(省市区街联动)
 

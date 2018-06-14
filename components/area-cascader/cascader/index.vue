@@ -6,7 +6,7 @@
         'is-disabled': disabled
     }" ref="area">
         <span ref="trigger" class="area-selected-trigger" @click.stop="handleTriggerClick">{{label ? label : placeholder}}</span>
-        <i :class="['area-select-icon', { 'active': shown }]" @click.stop="handleTriggerClick"></i>
+        <i :class="[icon, { 'active': shown }]" @click.stop="handleTriggerClick"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter">
             <div class="cascader-menu-list-wrap" v-show="shown" ref="wrap" :style="{top: top + 'px'}">
                 <caspanel :data="options"></caspanel>
@@ -57,7 +57,10 @@
                 default: 'medium',
                 validator: (val) => ['small', 'medium', 'large'].indexOf(val) > -1
             },
-
+            icon: {
+                type: String,
+                default: 'area-select-icon'
+            },
             separator: {
                 type: String,
                 default: '/'

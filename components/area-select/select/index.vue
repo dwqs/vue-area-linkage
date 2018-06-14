@@ -6,7 +6,7 @@
         'is-disabled': disabled
     }" ref="area">
         <span ref="trigger" class="area-selected-trigger" @click="handleTriggerClick">{{label ? label : placeholder}}</span>
-        <i :class="['area-select-icon', { 'active': shown }]" @click.stop="handleTriggerClick"></i>
+        <i :class="[icon, { 'active': shown }]" @click.stop="handleTriggerClick"></i>
         <transition name="area-zoom-in-top" @before-enter="handleListEnter">
             <div class="area-selectable-list-wrap" v-show="shown" ref="wrap" :style="{top: top + 'px'}">
                 <ul class="area-selectable-list">
@@ -37,6 +37,10 @@
             placeholder: {
                 type: String,
                 default: '请选择'
+            },
+            icon: {
+                type: String,
+                default: 'area-select-icon'
             },
             size: {
                 type: String,
