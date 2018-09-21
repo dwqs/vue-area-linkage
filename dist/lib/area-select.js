@@ -3467,6 +3467,10 @@ var utils = __webpack_require__(17);
             type: String,
             default: '请选择'
         },
+        icon: {
+            type: String,
+            default: 'area-select-icon'
+        },
         size: {
             type: String,
             default: 'medium',
@@ -3587,13 +3591,13 @@ var utils = __webpack_require__(17);
         window.document.removeEventListener('click', this.handleDocClick, false);
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-ad573d84","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-a7d0502c","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/select/index.vue
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"area",staticClass:"area-select",class:{
     'medium': _vm.size === 'medium',
     'small': _vm.size === 'small',
     'large': _vm.size === 'large',
     'is-disabled': _vm.disabled
-}},[_c('span',{ref:"trigger",staticClass:"area-selected-trigger",on:{"click":_vm.handleTriggerClick}},[_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]),_vm._v(" "),_c('i',{class:['area-select-icon', { 'active': _vm.shown }],on:{"click":function($event){$event.stopPropagation();_vm.handleTriggerClick($event)}}}),_vm._v(" "),_c('transition',{attrs:{"name":"area-zoom-in-top"},on:{"before-enter":_vm.handleListEnter}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shown),expression:"shown"}],ref:"wrap",staticClass:"area-selectable-list-wrap",style:({top: _vm.top + 'px'})},[_c('ul',{staticClass:"area-selectable-list"},[_vm._t("default")],2)])])],1)}
+}},[_c('span',{ref:"trigger",staticClass:"area-selected-trigger",on:{"click":_vm.handleTriggerClick}},[_vm._v(_vm._s(_vm.label ? _vm.label : _vm.placeholder))]),_vm._v(" "),_c('i',{class:[_vm.icon, { 'active': _vm.shown }],on:{"click":function($event){$event.stopPropagation();_vm.handleTriggerClick($event)}}}),_vm._v(" "),_c('transition',{attrs:{"name":"area-zoom-in-top"},on:{"before-enter":_vm.handleListEnter}},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shown),expression:"shown"}],ref:"wrap",staticClass:"area-selectable-list-wrap",style:({top: _vm.top + 'px'})},[_c('ul',{staticClass:"area-selectable-list"},[_vm._t("default")],2)])])],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ var selectortype_template_index_0_components_area_select_select = (esExports);
@@ -4036,7 +4040,7 @@ var option_Component = option_normalizeComponent(
             this.$nextTick(function () {
                 _this3.defaults = [];
                 // this.isCode = false;
-                // this.isSetDefault = false;
+                _this3.isSetDefault = false;
             });
         },
         selectChange: function selectChange() {
@@ -4066,7 +4070,7 @@ var option_Component = option_normalizeComponent(
         }
     }
 });
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-135a1fa6","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/index.vue
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/template-compiler?{"id":"data-v-4a88f942","hasScoped":false,"buble":{"transforms":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./components/area-select/index.vue
 var area_select_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"area-select-wrap"},[_c('v-select',{attrs:{"placeholder":_vm.placeholders[0] ? _vm.placeholders[0] : '请选择',"size":_vm.size,"disabled":_vm.disabled},model:{value:(_vm.curProvinceCode),callback:function ($$v) {_vm.curProvinceCode=$$v},expression:"curProvinceCode"}},_vm._l((_vm.provinces),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})),_vm._v(" "),(_vm.level>=1)?_c('v-select',{attrs:{"placeholder":_vm.placeholders[1] ? _vm.placeholders[1] : '请选择',"size":_vm.size,"disabled":_vm.disabled},model:{value:(_vm.curCityCode),callback:function ($$v) {_vm.curCityCode=$$v},expression:"curCityCode"}},[(!Object.keys(_vm.citys).length)?_c('p',{staticClass:"area-select-empty"},[_vm._v("暂无数据")]):_vm._l((_vm.citys),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})],2):_vm._e(),_vm._v(" "),(_vm.level>=2)?_c('v-select',{attrs:{"placeholder":_vm.placeholders[2] ? _vm.placeholders[2] : '请选择',"size":_vm.size,"disabled":_vm.disabled},model:{value:(_vm.curAreaCode),callback:function ($$v) {_vm.curAreaCode=$$v},expression:"curAreaCode"}},[(!Object.keys(_vm.areas).length)?_c('p',{staticClass:"area-select-empty"},[_vm._v("暂无数据")]):_vm._l((_vm.areas),function(val,key){return _c('v-option',{key:key,attrs:{"label":val,"value":key}})})],2):_vm._e()],1)}
 var area_select_staticRenderFns = []
 var area_select_esExports = { render: area_select_render, staticRenderFns: area_select_staticRenderFns }
@@ -4120,7 +4124,7 @@ var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(56)("3bccc8cc", content, true, {});
+var update = __webpack_require__(56)("3b9643c6", content, true, {});
 
 /***/ }),
 /* 54 */

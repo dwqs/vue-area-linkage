@@ -3225,6 +3225,10 @@ function setPanelPosition(panelHeight, wrapRect) {
             type: String,
             default: '请选择'
         },
+        icon: {
+            type: String,
+            default: 'area-select-icon'
+        },
         size: {
             type: String,
             default: 'medium',
@@ -3374,7 +3378,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("i", {
-        class: ["area-select-icon", { active: _vm.shown }],
+        class: [_vm.icon, { active: _vm.shown }],
         on: {
           click: function($event) {
             $event.stopPropagation()
@@ -3935,7 +3939,7 @@ if (false) {(function () {
             this.$nextTick(function () {
                 _this3.defaults = [];
                 // this.isCode = false;
-                // this.isSetDefault = false;
+                _this3.isSetDefault = false;
             });
         },
         selectChange: function selectChange() {
@@ -4472,7 +4476,10 @@ if (false) {(function () {
                 return ['small', 'medium', 'large'].indexOf(val) > -1;
             }
         },
-
+        icon: {
+            type: String,
+            default: 'area-select-icon'
+        },
         separator: {
             type: String,
             default: '/'
@@ -4673,7 +4680,7 @@ var cascader_render = function() {
       ),
       _vm._v(" "),
       _c("i", {
-        class: ["area-select-icon", { active: _vm.shown }],
+        class: [_vm.icon, { active: _vm.shown }],
         on: {
           click: function($event) {
             $event.stopPropagation()
