@@ -49,3 +49,4 @@ reports
 .happypack
 streets.js
 !demo/streets.js
+package-lock.json
