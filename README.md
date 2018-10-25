@@ -98,6 +98,7 @@ Vue.use(AreaSelect);
 | disabled | Boolean | - | false | 是否禁用 |
 | data | Object | - | - | 地区数据(v5需要传入) |
 | icon | String | - | area-select-icon | 自定义下拉小图标 |
+| isLinkage | Boolean | - | true | 地区选择是否进行联动 |
 
 >v4 仅支持省市区联动，即 v4 不再支持 level 的值为 3(省市区街联动)
 
