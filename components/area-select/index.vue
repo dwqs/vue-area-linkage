@@ -74,6 +74,10 @@
             data: {
                 type: Object,
                 required: true
+            },
+            isLinkage: {
+                type: Boolean,
+                default: false
             }
         },
 
@@ -105,17 +109,17 @@
         watch: {
             curProvinceCode (val, oldVal) {
                 this.curProvince = this.provinces[val];
-                this.provinceChange(val);
+                this.provinceChange(val, oldVal === val);
             },
 
             curCityCode (val, oldVal) {
                 this.curCity = this.citys[val];
-                this.cityChange(val);
+                this.cityChange(val, oldVal === val);
             },
     
             curAreaCode (val, oldVal) {
                 this.curArea = this.areas[val];
-                this.areaChange(val);
+                this.areaChange(val, oldVal === val);
             },
 
             value (val) {
@@ -131,7 +135,7 @@
         },
 
         methods: {
-            provinceChange (val) {
+            provinceChange (val, isEqual) {
                 if (this.level === 0) {
                     this.selectChange();
                 } else if (this.level >= 1) {
@@ -140,8 +144,10 @@
                         this.citys = {
                             [this.curProvinceCode]: this.curProvince
                         };
-                        this.curCity = this.curProvince;
-                        this.curCityCode = this.curCityCode;
+                        if (this.isLinkage) {
+                            this.curCity = this.curProvince;
+                            this.curCityCode = this.curCityCode;
+                        }
                         return;
                     }
 
@@ -160,12 +166,19 @@
                         }
                     }
 
-                    this.curCity = curCity;
-                    this.curCityCode = curCityCode;
+                    if (this.isLinkage) {
+                        this.curCity = curCity;
+                        this.curCityCode = curCityCode;
+                    } else if (!isEqual) {
+                        this.curCity = '';
+                        this.curCityCode = '';
+                        this.curArea = '';
+                        this.curAreaCode = '';
+                    }
                 }
             },
 
-            cityChange (val) {
+            cityChange (val, isEqual) {
                 if (this.level === 1) {
                     this.selectChange();
                 } else if (this.level === 2) {
@@ -175,8 +188,10 @@
                         this.areas = {
                             [this.curCityCode]: this.curCity
                         };
-                        this.curArea = this.curCity;
-                        this.curAreaCode = this.curCityCode;
+                        if (this.isLinkage) {
+                            this.curArea = this.curCity;
+                            this.curAreaCode = this.curCityCode;
+                        }
                         return;
                     }
 
@@ -195,8 +210,13 @@
                         }
                     }
 
-                    this.curArea = curArea;
-                    this.curAreaCode = curAreaCode;
+                    if (this.isLinkage) {
+                        this.curArea = curArea;
+                        this.curAreaCode = curAreaCode;
+                    } else if (!isEqual) {
+                        this.curArea = '';
+                        this.curAreaCode = '';
+                    }
                 }
             },
 
