@@ -75,7 +75,7 @@
                 type: Object,
                 required: true
             },
-            isLinkage: {
+            disableLinkage: {
                 type: Boolean,
                 default: false
             }
@@ -144,7 +144,7 @@
                         this.citys = {
                             [this.curProvinceCode]: this.curProvince
                         };
-                        if (this.isLinkage) {
+                        if (!this.disableLinkage) {
                             this.curCity = this.curProvince;
                             this.curCityCode = this.curCityCode;
                         }
@@ -166,7 +166,7 @@
                         }
                     }
 
-                    if (this.isLinkage) {
+                    if (!this.disableLinkage) {
                         this.curCity = curCity;
                         this.curCityCode = curCityCode;
                     } else if (!isEqual) {
@@ -174,6 +174,7 @@
                         this.curCityCode = '';
                         this.curArea = '';
                         this.curAreaCode = '';
+                        this.selectChange();
                     }
                 }
             },
@@ -188,7 +189,7 @@
                         this.areas = {
                             [this.curCityCode]: this.curCity
                         };
-                        if (this.isLinkage) {
+                        if (!this.disableLinkage) {
                             this.curArea = this.curCity;
                             this.curAreaCode = this.curCityCode;
                         }
@@ -210,12 +211,13 @@
                         }
                     }
 
-                    if (this.isLinkage) {
+                    if (!this.disableLinkage) {
                         this.curArea = curArea;
                         this.curAreaCode = curAreaCode;
                     } else if (!isEqual) {
                         this.curArea = '';
                         this.curAreaCode = '';
+                        this.selectChange();
                     }
                 }
             },
