@@ -3717,7 +3717,7 @@ if (false) {(function () {
             type: Object,
             required: true
         },
-        isLinkage: {
+        disableLinkage: {
             type: Boolean,
             default: false
         }
@@ -3784,7 +3784,7 @@ if (false) {(function () {
                 this.citys = this.data[val];
                 if (!this.citys) {
                     this.citys = defineProperty_default()({}, this.curProvinceCode, this.curProvince);
-                    if (this.isLinkage) {
+                    if (!this.disableLinkage) {
                         this.curCity = this.curProvince;
                         this.curCityCode = this.curCityCode;
                     }
@@ -3812,7 +3812,7 @@ if (false) {(function () {
                     }
                 }
 
-                if (this.isLinkage) {
+                if (!this.disableLinkage) {
                     this.curCity = curCity;
                     this.curCityCode = curCityCode;
                 } else if (!isEqual) {
@@ -3820,6 +3820,7 @@ if (false) {(function () {
                     this.curCityCode = '';
                     this.curArea = '';
                     this.curAreaCode = '';
+                    this.selectChange();
                 }
             }
         },
@@ -3833,7 +3834,7 @@ if (false) {(function () {
                 if (!this.areas) {
                     // fix 市级下不存在城区(#7)
                     this.areas = defineProperty_default()({}, this.curCityCode, this.curCity);
-                    if (this.isLinkage) {
+                    if (!this.disableLinkage) {
                         this.curArea = this.curCity;
                         this.curAreaCode = this.curCityCode;
                     }
@@ -3861,12 +3862,13 @@ if (false) {(function () {
                     }
                 }
 
-                if (this.isLinkage) {
+                if (!this.disableLinkage) {
                     this.curArea = curArea;
                     this.curAreaCode = curAreaCode;
                 } else if (!isEqual) {
                     this.curArea = '';
                     this.curAreaCode = '';
+                    this.selectChange();
                 }
             }
         },
